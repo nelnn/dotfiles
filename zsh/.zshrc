@@ -13,10 +13,14 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+# aliases
 alias vim="nvim"
 alias vi="nvim"
 alias ovi="vim"
 alias ls='ls -G'
+alias rm="rm -i"
+alias mv="mv -i"
+alias cp="cp -i"
 
 # ls enable directory color:
 export CLICOLOR=1
@@ -27,7 +31,9 @@ setopt auto_cd
 
 # Enable colors and change prompt:
 autoload -U colors && colors
-PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
+
+# Luke Smith's Prompt colours
+# PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
 
 # Prompt. Using single quotes around the PROMPT is very important, otherwise
 # the git branch will always be empty. Using single quotes delays the
