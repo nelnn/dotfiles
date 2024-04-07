@@ -126,10 +126,13 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
-# Load powerlevel10k
-source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
+# zsh-autosuggestions
+source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
 # Load zsh-syntax-highlighting; should be last.
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+# Load powerlevel10k
+source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh

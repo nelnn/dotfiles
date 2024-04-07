@@ -41,6 +41,7 @@ packages=(
     "neovim"
     "zsh-syntax-highlighting"
     "powerlevel10k"
+    "zsh-autosuggestions"
     "pandox"
     
 )
