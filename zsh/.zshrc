@@ -1,12 +1,21 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
 
 # aliases
 alias vim="nvim"
 alias vi="nvim"
 alias ovi="vim"
 alias ls='ls -G'
-alias rmi="rm -i"
+# alias rmi="rm -i"
 alias mv="mv -i"
 alias cp="cp -i"
+alias tm="tmux"
+# Export Homebrew directory
+export PATH=/opt/homebrew/bin:$PATH
 
 # ls enable directory color:
 export CLICOLOR=1
@@ -117,5 +126,10 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+# Load powerlevel10k
+source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
 # Load zsh-syntax-highlighting; should be last.
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
+[[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh

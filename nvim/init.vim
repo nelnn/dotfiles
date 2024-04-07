@@ -38,6 +38,7 @@ Plug 'folke/tokyonight.nvim'
 Plug 'ellisonleao/gruvbox.nvim'
 Plug 'tpope/vim-commentary'
 Plug 'machakann/vim-highlightedyank'
+Plug 'christoomey/vim-tmux-navigator'
 call plug#end()
 
 colorscheme gruvbox

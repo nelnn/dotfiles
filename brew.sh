@@ -40,6 +40,7 @@ packages=(
     "lf"
     "neovim"
     "zsh-syntax-highlighting"
+    "powerlevel10k"
     "pandox"
     
 )
