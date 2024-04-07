@@ -37,9 +37,10 @@ setopt PROMPT_SUBST
 PROMPT='%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}%@ %{$fg[blue]%}%~%{$fg[red]%}]%{$fg[yellow]%}$(git_prompt)%{$reset_color%} %(?.$.%{$fg[red]%}$)%b '
 
 # History in cache directory:
-HISTSIZE=10000
-SAVEHIST=10000
-HISTFILE=~/.cache
+HISTFILE=${ZDOTDIR:-$HOME}/.cache/.zsh_history
+HISTSIZE=2000
+SAVEHIST=1000
+setopt appendhistory
 
 # Basic auto/tab complete:
 autoload -U compinit && compinit
