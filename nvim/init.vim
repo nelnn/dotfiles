@@ -18,7 +18,7 @@ set wildmode=longest,list   " get bash-like tab completions
 set cc=120                  " set an 80 column border for good coding style
 filetype plugin indent on   "allow auto-indenting depending on file type
 syntax on                   " syntax highlighting
-set clipboard=unnamedplus   " using system clipboard
+set clipboard=unnamed       " using system clipboard
 filetype plugin on
 set cursorline              " highlight current cursorline
 set ttyfast                 " Speed up scrolling in Vim
@@ -37,6 +37,7 @@ Plug 'preservim/tagbar'
 Plug 'folke/tokyonight.nvim'
 Plug 'ellisonleao/gruvbox.nvim'
 Plug 'tpope/vim-commentary'
+Plug 'machakann/vim-highlightedyank'
 call plug#end()
 
 colorscheme gruvbox
@@ -58,3 +59,6 @@ let g:UltiSnipsExpandTrigger = '<tab>'
 let g:UltiSnipsJumpForwardTrigger = '<tab>'
 let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 let g:UltiSnipsSnippetDirectories=[$HOME.'/.config/nvim/UltiSnips']
+
+" set yank hightlight
+let g:highlightedyank_highlight_duration = 1000
