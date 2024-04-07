@@ -42,7 +42,7 @@ packages=(
     "zsh-syntax-highlighting"
     "powerlevel10k"
     "zsh-autosuggestions"
-    "pandox"
+    "pandoc"
     
 )
 
@@ -106,6 +106,7 @@ apps=(
     "alt-tab"
     "alfred"
     "karabiner-elements"
+    "github"
 )
 
 # Loop over the array to install each application.
