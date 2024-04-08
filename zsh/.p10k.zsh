@@ -516,8 +516,8 @@
 
   # These settings are used for repositories other than Git or when gitstatusd fails and
   # Powerlevel10k has to fall back to using vcs_info.
-  typeset -g POWERLEVEL9K_VCS_CLEAN_FOREGROUND=76
-  typeset -g POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND=76
+  typeset -g POWERLEVEL9K_VCS_CLEAN_FOREGROUND=153
+  typeset -g POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND=153
   typeset -g POWERLEVEL9K_VCS_MODIFIED_FOREGROUND=178
 
   # Git background colors
