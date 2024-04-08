@@ -521,7 +521,7 @@
   typeset -g POWERLEVEL9K_VCS_MODIFIED_FOREGROUND=178
 
   # Git background colors
-  typeset -g POWERLEVEL9K_VCS_CLEAN_BACKGROUND=123
+  typeset -g POWERLEVEL9K_VCS_CLEAN_BACKGROUND='#00798c'
   typeset -g POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='#00798c'
   typeset -g POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND=2
   ##########################[ status: exit code of the last command ]###########################
