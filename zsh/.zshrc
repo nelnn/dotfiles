@@ -14,8 +14,12 @@ alias ls='ls -G'
 alias mv="mv -i"
 alias cp="cp -i"
 alias tm="tmux"
+
 # Export Homebrew directory
 export PATH=/opt/homebrew/bin:$PATH
+
+# Export poetry
+export PATH="$HOME/.local/bin:$PATH"
 
 # ls enable directory color:
 export CLICOLOR=1
