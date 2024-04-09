@@ -195,9 +195,9 @@
   # OS identifier color.
   typeset -g POWERLEVEL9K_OS_ICON_FOREGROUND=255
   # Custom icon.
-  typeset -g POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION='💩'
+  typeset -g POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION='🐼'
 
-  typeset -g POWERLEVEL9K_OS_ICON_BACKGROUND='#EDAE49'
+  typeset -g POWERLEVEL9K_OS_ICON_BACKGROUND='#8d99ae'
 
   ################################[ prompt_char: prompt symbol ]################################
   # Transparent background.
@@ -224,7 +224,7 @@
 
   ##################################[ dir: current directory ]##################################
   # Default current directory color.
-  typeset -g POWERLEVEL9K_DIR_FOREGROUND=255
+  typeset -g POWERLEVEL9K_DIR_FOREGROUND=194
   typeset -g POWERLEVEL9K_DIR_BACKGROUND='#D1495B'
   # If directory is too long, shorten some of its segments to the shortest possible unique
   # prefix. The shortened directory can be tab-completed to the original.
@@ -232,10 +232,10 @@
   # Replace removed segment suffixes with this symbol.
   typeset -g POWERLEVEL9K_SHORTEN_DELIMITER=
   # Color of the shortened directory segments.
-  typeset -g POWERLEVEL9K_DIR_SHORTENED_FOREGROUND=255
+  typeset -g POWERLEVEL9K_DIR_SHORTENED_FOREGROUND=194
   # Color of the anchor directory segments. Anchor segments are never shortened. The first
   # segment is always an anchor.
-  typeset -g POWERLEVEL9K_DIR_ANCHOR_FOREGROUND=255
+  typeset -g POWERLEVEL9K_DIR_ANCHOR_FOREGROUND=194
   # Display anchor directory segments in bold.
   typeset -g POWERLEVEL9K_DIR_ANCHOR_BOLD=true
   # Don't shorten directories that contain any of these files. They are anchors.
@@ -387,8 +387,8 @@
       # Styling for up-to-date Git status.
       local       meta='%248F'  # grey foreground
       local      clean='%82F'   # green foreground
-      local   modified='%190F'  # yellow foreground
-      local  untracked='%39F'   # blue foreground
+      local   modified='%178F'  # yellow foreground
+      local  untracked='%87F'   # blue foreground
       local conflicted='%196F'  # red foreground
     else
       # Styling for incomplete and stale Git status.
@@ -523,7 +523,8 @@
   # Git background colors
   typeset -g POWERLEVEL9K_VCS_CLEAN_BACKGROUND='#00798c'
   typeset -g POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='#00798c'
-  typeset -g POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND=2
+  typeset -g POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND='#00798c'
+
   ##########################[ status: exit code of the last command ]###########################
   # Enable OK_PIPE, ERROR_PIPE and ERROR_SIGNAL status states to allow us to enable, disable and
   # style them independently from the regular OK and ERROR state.
@@ -1713,7 +1714,7 @@
   #   - always:   Trim down prompt when accepting a command line.
   #   - same-dir: Trim down prompt when accepting a command line unless this is the first command
   #               typed after changing current working directory.
-  typeset -g POWERLEVEL9K_TRANSIENT_PROMPT=always
+  typeset -g POWERLEVEL9K_TRANSIENT_PROMPT=off
 
   # Instant prompt mode.
   #
