@@ -34,6 +34,10 @@ autoload -U colors && colors
 # Luke Smith's Prompt colours
 # PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
 
+# Show time in prompt
+#  <%D{%d/%m/%y %H:%M:%S}>
+
+# Git Status
 # Prompt. Using single quotes around the PROMPT is very important, otherwise
 # the git branch will always be empty. Using single quotes delays the
 # evaluation of the prompt. Also PROMPT is an alias to PS1.
@@ -47,7 +51,7 @@ git_prompt() {
     [ -n "${branch}" ] && echo " (${branch})"
 }
 setopt PROMPT_SUBST
-PROMPT='%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}%@ %{$fg[blue]%}%~%{$fg[red]%}]%{$fg[yellow]%}$(git_prompt)%{$reset_color%} %(?.$.%{$fg[red]%}$)%b '
+PROMPT=$'%B%{$fg[red]%}[%{$fg[blue]%}%~%{$fg[red]%}]%{$fg[green]%}$(git_prompt)%{$reset_color%}%{$fg[yellow]%}%{$fg[red]%}%(?.$.)%b '
 
 # History in cache directory:
 HISTFILE=${ZDOTDIR:-$HOME}/.cache/.zsh_history
@@ -135,6 +139,6 @@ source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 # Load zsh-syntax-highlighting; should be last.
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # Load powerlevel10k
-source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
-# To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
-[[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
+# source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
+# # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
+# [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
