@@ -43,15 +43,15 @@ autoload -U colors && colors
 # evaluation of the prompt. Also PROMPT is an alias to PS1.
 git_prompt() {
     local branch="$(git symbolic-ref HEAD 2> /dev/null | cut -d'/' -f3-)"
-    local branch_truncated="${branch:0:30}"
-    if (( ${#branch} > ${#branch_truncated} )); then
-        branch="${branch_truncated}..."
+    local branch_truncated="${branch##*[/|--]}"
+    if (( ${#branch} > 20 )); then
+        branch="...${branch_truncated}"
     fi
 
     [ -n "${branch}" ] && echo " (${branch})"
 }
 setopt PROMPT_SUBST
-PROMPT=$'%B%{$fg[red]%}[%{$fg[blue]%}%~%{$fg[red]%}]%{$fg[green]%}$(git_prompt)%{$reset_color%}%{$fg[yellow]%}%{$fg[magenta]%}%(?.$.)%b '
+PROMPT=$'%B%{$fg[red]%}[%{$fg[blue]%}%(6~|.../%1~|%~)%{$fg[red]%}]%{$fg[green]%}$(git_prompt)%{$reset_color%}%{$fg[yellow]%}%{$fg[magenta]%}%(?.$.)%b '
 # Show Datetime on the right side.
  RPROMPT='%{$fg[cyan]%}[%D{%f/%m/%y} | %D{%L:%M:%S}]'
 # History in cache directory:
