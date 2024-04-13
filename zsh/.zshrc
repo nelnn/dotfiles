@@ -51,8 +51,9 @@ git_prompt() {
     [ -n "${branch}" ] && echo " (${branch})"
 }
 setopt PROMPT_SUBST
-PROMPT=$'%B%{$fg[red]%}[%{$fg[blue]%}%~%{$fg[red]%}]%{$fg[green]%}$(git_prompt)%{$reset_color%}%{$fg[yellow]%}%{$fg[red]%}%(?.$.)%b '
-
+PROMPT=$'%B%{$fg[red]%}[%{$fg[blue]%}%~%{$fg[red]%}]%{$fg[green]%}$(git_prompt)%{$reset_color%}%{$fg[yellow]%}%{$fg[magenta]%}%(?.$.)%b '
+# Show Datetime on the right side.
+ RPROMPT='%{$fg[cyan]%}[%D{%f/%m/%y} | %D{%L:%M:%S}]'
 # History in cache directory:
 HISTFILE=${ZDOTDIR:-$HOME}/.cache/.zsh_history
 HISTSIZE=2000
@@ -136,7 +137,7 @@ unset __conda_setup
 
 # zsh-autosuggestions
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-# Load zsh-syntax-highlighting; should be last.
+# Load zsh-syntax-highlig hting; should be last.
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # Load powerlevel10k
 # source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
