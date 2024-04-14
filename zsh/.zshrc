@@ -14,10 +14,12 @@ alias ls='ls -G'
 alias mv="mv -i"
 alias cp="cp -i"
 alias tm="tmux"
+alias zshrc="vi ~/.dotfiles/zsh/.zshrc"
 
+# Export Python startup script
+export PYTHONSTARTUP=$HOME/.config/python/.pythonstartup
 # Export Homebrew directory
 export PATH=/opt/homebrew/bin:$PATH
-
 # Export poetry
 export PATH="$HOME/.local/bin:$PATH"
 
@@ -55,7 +57,7 @@ PROMPT=$'%B%{$fg[red]%}[%{$fg[blue]%}%~%{$fg[red]%}]%{$fg[green]%}$(git_prompt)%
 # Show Datetime on the right side.
  RPROMPT='%{$fg[cyan]%}[%D{%f/%m/%y} | %D{%L:%M:%S}]'
 # History in cache directory:
-HISTFILE=${ZDOTDIR:-$HOME}/.cache/.zsh_history
+HISTFILE=$HOME/.cache/.zsh_history
 HISTSIZE=2000
 SAVEHIST=1000
 setopt appendhistory

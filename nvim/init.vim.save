@@ -23,8 +23,18 @@ filetype plugin on
 set cursorline              " highlight current cursorline
 set ttyfast                 " Speed up scrolling in Vim
 " set spell                 " enable spell check (may need to download language package)
-" set noswapfile            " disable creating swap file
+set noswapfile            " disable creating swap file
 " set backupdir=~/.cache/vim " Directory to store backup files.
+
+" Leader
+let mapleader=","
+" Buffers
+map <leader>n :bnext<cr>
+map <leader>p :bprevious<cr>
+map <leader>d :bdelete<cr>
+map <leader>vs :vsplit<cr>
+map <leader>vh :split<cr>
+
 
 
 call plug#begin()
@@ -39,6 +49,9 @@ Plug 'ellisonleao/gruvbox.nvim'
 Plug 'tpope/vim-commentary'
 Plug 'machakann/vim-highlightedyank'
 Plug 'christoomey/vim-tmux-navigator'
+" Telescope
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.6' }
 call plug#end()
 
 colorscheme gruvbox
@@ -63,3 +76,14 @@ let g:UltiSnipsSnippetDirectories=[$HOME.'/.config/nvim/UltiSnips']
 
 " set yank hightlight
 let g:highlightedyank_highlight_duration = 1000
+
+" nerdtree
+nnoremap <C-t> :NERDTreeToggle<CR>
+nnoremap <C-f> :NERDTreeFind<CR>
+
+" telescope
+" Find files using Telescope command-line sugar.
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
