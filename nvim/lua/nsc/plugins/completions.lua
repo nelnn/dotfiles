@@ -12,8 +12,8 @@ return {
       local ls = require("luasnip")
       require("luasnip.loaders.from_lua").load({ paths = "~/.dotfiles/nvim/lua/nsc//snippets" })
 
-      vim.keymap.set({"i", "s"}, "<TAB>", function() ls.jump( 1) end, {silent = true})
-      vim.keymap.set({"i", "s"}, "<S-TAB>", function() ls.jump(-1) end, {silent = true})
+      vim.keymap.set({"i", "s"}, "<C-L>", function() ls.jump( 1) end, {silent = true})
+      vim.keymap.set({"i", "s"}, "<C-H>", function() ls.jump(-1) end, {silent = true})
     end,
   },
   {

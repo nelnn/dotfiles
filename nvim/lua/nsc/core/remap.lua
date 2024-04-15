@@ -5,8 +5,8 @@ g.mapleader = " "
 
 
 -- Buffers
-vim.keymap.set('n', '<leader>n', vim.cmd.bnext)
-vim.keymap.set('n', '<leader>p', vim.cmd.bprevious)
-vim.keymap.set('n', '<leader>d', vim.cmd.bdelete)
-vim.keymap.set('n', '<leader>vs', vim.cmd.vsplit)
-vim.keymap.set('n', '<leader>hs', vim.cmd.split)
+vim.keymap.set('n', '<leader>bn', vim.cmd.bnext)
+vim.keymap.set('n', '<leader>bp', vim.cmd.bprevious)
+vim.keymap.set('n', '<leader>bd', vim.cmd.bdelete)
+vim.keymap.set('n', '<leader>bvs', vim.cmd.vsplit)
+vim.keymap.set('n', '<leader>bhs', vim.cmd.split)

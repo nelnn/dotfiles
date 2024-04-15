@@ -2,7 +2,11 @@ return {
   {
     "williamboman/mason.nvim",
     config = function()
-      require("mason").setup()
+      require("mason").setup({
+        ensure_installed = {
+          "debugpy",
+        }
+      })
     end
   },
   {
@@ -23,7 +27,7 @@ return {
   },
   {
     "neovim/nvim-lspconfig",
-    lazy = false,
+    lazy = true,
     config = function()
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
       local lspconfig = require("lspconfig")
