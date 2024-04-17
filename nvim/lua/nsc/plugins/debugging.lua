@@ -16,7 +16,31 @@ return {
     table.insert(require("dap").configurations.python, {
       type = "python",
       request = "launch",
-      name = "Run from Root",
+      name = "Client Reports",
+      program = "${file}",
+      cwd = vim.fn.getcwd() .. "/projects/client-reports",
+    })
+
+    table.insert(require("dap").configurations.python, {
+      type = "python",
+      request = "launch",
+      name = "Perfect Workforce",
+      program = "${file}",
+      cwd = vim.fn.getcwd() .. "/projects/perfect_workforce",
+    })
+
+    table.insert(require("dap").configurations.python, {
+      type = "python",
+      request = "launch",
+      name = "Huboo Utils",
+      program = "${file}",
+      cwd = vim.fn.getcwd() .. "/lib/huboo-utils",
+    })
+
+    table.insert(require("dap").configurations.python, {
+      type = "python",
+      request = "launch",
+      name = "Root",
       program = "${file}",
       cwd = vim.fn.getcwd(),
     })
