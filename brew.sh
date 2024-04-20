@@ -40,9 +40,9 @@ packages=(
     "lf"
     "neovim"
     "zsh-syntax-highlighting"
-    "powerlevel10k"
     "zsh-autosuggestions"
     "pandoc"
+    "ripgrep"
     
 )
 
