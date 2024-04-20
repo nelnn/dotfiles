@@ -14,7 +14,9 @@ alias ls='ls -G'
 alias mv="mv -i"
 alias cp="cp -i"
 alias tm="tmux"
-alias zshrc="vi ~/.dotfiles/zsh/.zshrc"
+
+alias zconfig="vi ~/.dotfiles/zsh/.zshrc"
+alias nvimconfig="vi ~/.dotfiles/nvim/lua/nsc"
 
 # Export Python startup script
 export PYTHONSTARTUP=$HOME/.config/python/.pythonstartup
