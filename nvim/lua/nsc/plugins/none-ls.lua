@@ -11,6 +11,8 @@ return {
         null_ls.builtins.formatting.isort,
         null_ls.ruff,
         null_ls.builtins.diagnostics.mypy,
+        null_ls.builtins.formatting.rustywind,
+        null_ls.builtins.formatting.dxfmt,
       },
       -- you can reuse a shared lspconfig on_attach callback here
       on_attach = function(client, bufnr)
