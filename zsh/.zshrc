@@ -14,6 +14,7 @@ alias ls='ls -G'
 alias mv="mv -i"
 alias cp="cp -i"
 alias tm="tmux"
+alias cd="z"
 
 alias zconfig="vi ~/.dotfiles/zsh/.zshrc"
 alias nvimconfig="vi ~/.dotfiles/nvim/lua/nsc"
@@ -147,3 +148,6 @@ source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
 # # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 # [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
+
+# Load zoxide (cd replacement)
+eval "$(zoxide init zsh)"
