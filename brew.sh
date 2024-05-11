@@ -44,6 +44,7 @@ packages=(
     "pandoc"
     "ripgrep"
     "jesseduffield/lazygit/lazygit"
+    "zoxide"
     
 )
 
