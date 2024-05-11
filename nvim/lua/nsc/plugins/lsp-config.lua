@@ -32,6 +32,36 @@ return {
     config = function()
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
       local lspconfig = require("lspconfig")
+      local on_attach = function(client)
+        require 'completion'.on_attach(client)
+      end
+      lspconfig.rust_analyzer.setup({
+        on_attach = on_attach,
+        settings = {
+          ["rust-analyzer"] = {
+            imports = {
+              granularity = {
+                group = "module",
+              },
+              prefix = "self",
+            },
+            cargo = {
+              buildScripts = {
+                enable = true,
+              },
+            },
+            procMacro = {
+              enable = true
+            },
+          }
+        }
+      })
+      lspconfig.volar.setup({
+        capabilities = capabilities
+      })
+      lspconfig.vuels.setup({
+        capabilities = capabilities
+      })
       lspconfig.lua_ls.setup({
         capabilities = capabilities
       })
