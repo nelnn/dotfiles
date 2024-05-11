@@ -43,6 +43,7 @@ packages=(
     "zsh-autosuggestions"
     "pandoc"
     "ripgrep"
+    "jesseduffield/lazygit/lazygit"
     
 )
 
