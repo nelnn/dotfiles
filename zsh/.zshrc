@@ -142,7 +142,11 @@ unset __conda_setup
 
 # zsh-autosuggestions
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-bindkey '^I' autosuggest-accept # tab to accept
+bindkey '^L' autosuggest-accept # tab to accept
+
+# Bind Ctrl+K to menu-complete
+bindkey '^I' menu-complete
+
 # Load zsh-syntax-highlig hting; should be last.
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # Load powerlevel10k
