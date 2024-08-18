@@ -24,7 +24,10 @@ return {
           path = "~/Library/Mobile Documents/iCloud~md~obsidian/Documents/nelson-obsidian",
         },
       },
-
+      daily_notes = {
+        -- Optional, if you keep daily notes in a separate directory.
+        folder = "Daily",
+      },
       -- see below for full list of options 👇
     })
     vim.opt_local.conceallevel = 2
