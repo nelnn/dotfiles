@@ -45,7 +45,7 @@ packages=(
     "ripgrep"
     "jesseduffield/lazygit/lazygit"
     "zoxide"
-    
+    "git-delta"    
 )
 
 # Loop over the array to install each application.
