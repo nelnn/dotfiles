@@ -21,11 +21,12 @@ git_prompt() {
 
     [ -n "${branch}" ] && echo " (${branch})"
 }
+
+# Prompt Config
 setopt PROMPT_SUBST
 PROMPT=$'%B%{$fg[red]%}[%{$fg[blue]%}%(6~|.../%1~|%~)%{$fg[red]%}]%{$fg[green]%}$(git_prompt)%{$reset_color%}%{$fg[yellow]%}%{$fg[magenta]%}%(?.$.)%b '
 # Show Datetime on the right side.
- RPROMPT='%{$fg[cyan]%}[%D{%f/%m/%y} | %D{%L:%M:%S}]'
-
+RPROMPT='%{$fg[cyan]%}[%D{%f/%m/%y} | %D{%L:%M:%S}]'
 
 # History in cache directory:
 HISTFILE=$HOME/.cache/.zsh_history
@@ -40,6 +41,11 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zmodload zsh/complist
 # compinit
 _comp_options+=(globdots)		# Include hidden files.
+
+
+#############################
+######### VIM MODE ##########
+#############################
 
 # vi mode
 bindkey -v
@@ -73,22 +79,6 @@ zle -N zle-line-init
 echo -ne '\e[5 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
-# Use lf to switch directories and bind it to ctrl-o
-lfcd () {
-    tmp="$(mktemp)"
-    lf -last-dir-path="$tmp" "$@"
-    if [ -f "$tmp" ]; then
-        dir="$(cat "$tmp")"
-        rm -f "$tmp"
-        [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
-    fi
-}
-bindkey -s '^o' 'lfcd\n'
-
-# Edit line in vim with ctrl-e:
-autoload edit-command-line; zle -N edit-command-line
-bindkey '^e' edit-command-line
-
 # Load aliases and shortcuts if existent.
 [ -f "$HOME/.config/zsh/shortcutrc" ] && source "$HOME/.config/zsh/shortcutrc"
 [ -f "$HOME/.config/zsh/aliasrc" ] && source "$HOME/.config/zsh/aliasrc"
@@ -115,12 +105,8 @@ bindkey '^@' autosuggest-accept # Ctrl + Space to accept
 # Bind Tab to menu-complete (Which is the default)
 # bindkey '^L' menu-complete
 
-# Load zsh-syntax-highlig hting; should be last.
+# Load zsh-syntax-highlighting; should be last.
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-# Load powerlevel10k
-# source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
-# # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
-# [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
 
 # Load zoxide (cd replacement)
 eval "$(zoxide init zsh)"
