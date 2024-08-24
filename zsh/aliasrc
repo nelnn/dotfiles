@@ -1,0 +1,15 @@
+# aliases
+alias vim="nvim"
+alias vi="nvim"
+alias ovi="vim"
+alias ls='ls -G'
+# alias rmi="rm -i"
+alias mv="mv -i"
+alias cp="cp -i"
+alias tm="tmux"
+alias cd="z"
+
+alias zconfig="vi ~/.dotfiles/zsh/.zshrc"
+alias nvimconfig="vi ~/.dotfiles/nvim/lua/nsc"
+
+

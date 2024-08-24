@@ -1,49 +1,15 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-# aliases
-alias vim="nvim"
-alias vi="nvim"
-alias ovi="vim"
-alias ls='ls -G'
-# alias rmi="rm -i"
-alias mv="mv -i"
-alias cp="cp -i"
-alias tm="tmux"
-alias cd="z"
-
-alias zconfig="vi ~/.dotfiles/zsh/.zshrc"
-alias nvimconfig="vi ~/.dotfiles/nvim/lua/nsc"
-
-# Export Python startup script
-export PYTHONSTARTUP=$HOME/.config/python/.pythonstartup
-# Export Homebrew directory
-export PATH=/opt/homebrew/bin:$PATH
-# Export poetry
-export PATH="$HOME/.local/bin:$PATH"
-
 # ls enable directory color:
 export CLICOLOR=1
 export LSCOLORS=gxfxcxdxbxegedabagacad
 setopt auto_cd
 
-# Luke's config for the Zoomer Shell
+### Luke's config for the Zoomer Shell
 
 # Enable colors and change prompt:
 autoload -U colors && colors
 
-# Luke Smith's Prompt colours
-# PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
-
-# Show time in prompt
-#  <%D{%d/%m/%y %H:%M:%S}>
-
-# Git Status
-# Prompt. Using single quotes around the PROMPT is very important, otherwise
+# Git Status Prompt
+# Using single quotes around the PROMPT is very important, otherwise
 # the git branch will always be empty. Using single quotes delays the
 # evaluation of the prompt. Also PROMPT is an alias to PS1.
 git_prompt() {
@@ -59,6 +25,8 @@ setopt PROMPT_SUBST
 PROMPT=$'%B%{$fg[red]%}[%{$fg[blue]%}%(6~|.../%1~|%~)%{$fg[red]%}]%{$fg[green]%}$(git_prompt)%{$reset_color%}%{$fg[yellow]%}%{$fg[magenta]%}%(?.$.)%b '
 # Show Datetime on the right side.
  RPROMPT='%{$fg[cyan]%}[%D{%f/%m/%y} | %D{%L:%M:%S}]'
+
+
 # History in cache directory:
 HISTFILE=$HOME/.cache/.zsh_history
 HISTSIZE=2000
@@ -122,8 +90,8 @@ autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 
 # Load aliases and shortcuts if existent.
-[ -f "$HOME/.config/shortcutrc" ] && source "$HOME/.config/shortcutrc"
-[ -f "$HOME/.config/aliasrc" ] && source "$HOME/.config/aliasrc"
+[ -f "$HOME/.config/zsh/shortcutrc" ] && source "$HOME/.config/zsh/shortcutrc"
+[ -f "$HOME/.config/zsh/aliasrc" ] && source "$HOME/.config/zsh/aliasrc"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
