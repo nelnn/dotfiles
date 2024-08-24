@@ -99,7 +99,8 @@ return {
           vim.keymap.set('n', '<leader>gi', vim.lsp.buf.implementation, opts)
           vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
           vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
-          vim.keymap.set('n', '<leader>gr', vim.lsp.buf.references, opts)
+          -- This keymap is used in telescope.
+          -- vim.keymap.set('n', '<leader>gr', vim.lsp.buf.references, opts)
           vim.keymap.set('n', '<space>ge', function() vim.diagnostic.open_float(0, { scope = "line" }) end,
             { noremap = true, silent = true })
           vim.keymap.set('n', '<space>gf', function()
