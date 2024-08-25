@@ -11,4 +11,8 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup("nsc.plugins")
+require("lazy").setup("nsc.plugins", {
+  change_detection = {
+    notify = false,
+  },
+})
