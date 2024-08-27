@@ -1,0 +1,2 @@
+bindkey '^@' autosuggest-accept # Ctrl + Space to accept
+
