@@ -6,6 +6,7 @@ return {
         ensure_installed = {
           "debugpy",
           "texlab",
+          "latexindent",  -- Need to install manually in Mason
         },
       })
     end,
@@ -33,7 +34,6 @@ return {
     config = function()
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
       local lspconfig = require("lspconfig")
-      local util = require("lspconfig.util")
       local on_attach = function(client)
         require("completion").on_attach(client)
       end
@@ -61,7 +61,8 @@ return {
         },
       })
       local mason_registry = require('mason-registry')
-      local vue_language_server_path = mason_registry.get_package('vue-language-server'):get_install_path() .. '/node_modules/@vue/language-server'
+      local vue_language_server_path = mason_registry.get_package('vue-language-server'):get_install_path() ..
+          '/node_modules/@vue/language-server'
       lspconfig.tsserver.setup {
         init_options = {
           plugins = {
@@ -87,12 +88,19 @@ return {
           texlab = {
             rootDirectory = nil,
             build = {
-              executable = 'latexmk',
-              args = { '-pdf', '-interaction=nonstopmode', '-synctex=1', '%f' },
+              executable = 'tectonic',
+              args = {
+                '-X',
+                'compile',
+                '%f',
+                '--keep-logs',
+                '--keep-intermediates',
+                '--outdir=build'
+              },
               onSave = false,
               forwardSearchAfter = false,
             },
-            auxDirectory = '.',
+            auxDirectory = 'build',
             forwardSearch = {
               executable = nil,
               args = {},
@@ -125,79 +133,25 @@ return {
         end,
       })
 
+      -- Function to clean build directory
+      local function clean_build_dir()
+        vim.fn.system('find . -name "*.aux" -type f -delete')
+        vim.fn.system('find . -name "*.log" -type f -delete')
+        vim.notify('Cleaned build directory', vim.log.levels.INFO)
+      end
+
       -- LaTeX-specific functions
-      local texlab_build_status = {
-        [0] = 'Success',
-        [1] = 'Error',
-        [2] = 'Failure',
-        [3] = 'Cancelled',
-      }
-
-      local texlab_forward_status = {
-        [0] = 'Success',
-        [1] = 'Error',
-        [2] = 'Failure',
-        [3] = 'Unconfigured',
-      }
-
-      local function buf_build()
-        local bufnr = vim.api.nvim_get_current_buf()
-        local texlab_client = util.get_active_client_by_name(bufnr, 'texlab')
-        if texlab_client then
-          texlab_client.request('textDocument/build', vim.lsp.util.make_position_params(), function(err, result)
-            if err then
-              error(tostring(err))
-            end
-            vim.notify('Build ' .. texlab_build_status[result.status], vim.log.levels.INFO)
-          end, bufnr)
-        else
-          vim.notify(
-            'method textDocument/build is not supported by any servers active on the current buffer',
-            vim.log.levels.WARN
-          )
-        end
+      local function tectonic_build()
+        local filename = vim.fn.expand('%:p')
+        local cmd = string.format('tectonic -X compile %s --keep-logs --keep-intermediates', filename)
+        vim.fn.system(cmd)
+        vim.notify('Built with Tectonic', vim.log.levels.INFO)
       end
 
-      local function buf_search()
-        local bufnr = vim.api.nvim_get_current_buf()
-        local texlab_client = util.get_active_client_by_name(bufnr, 'texlab')
-        if texlab_client then
-          texlab_client.request('textDocument/forwardSearch', vim.lsp.util.make_position_params(), function(err, result)
-            if err then
-              error(tostring(err))
-            end
-            vim.notify('Search ' .. texlab_forward_status[result.status], vim.log.levels.INFO)
-          end, bufnr)
-        else
-          vim.notify(
-            'method textDocument/forwardSearch is not supported by any servers active on the current buffer',
-            vim.log.levels.WARN
-          )
-        end
-      end
-
-      local function cleanArtifacts()
-        local bufnr = vim.api.nvim_get_current_buf()
-        if not util.get_active_client_by_name(bufnr, 'texlab') then
-          return vim.notify('Texlab client not found', vim.log.levels.ERROR)
-        end
-        vim.lsp.buf.execute_command {
-          command = 'texlab.cleanArtifacts',
-          arguments = { { uri = vim.uri_from_bufnr(bufnr) } },
-        }
-        vim.notify('Artifacts cleaned successfully', vim.log.levels.INFO)
-      end
-
-      local function cleanAuxiliary()
-        local bufnr = vim.api.nvim_get_current_buf()
-        if not util.get_active_client_by_name(bufnr, 'texlab') then
-          return vim.notify('Texlab client not found', vim.log.levels.ERROR)
-        end
-        vim.lsp.buf.execute_command {
-          command = 'texlab.cleanAuxiliary',
-          arguments = { { uri = vim.uri_from_bufnr(bufnr) } },
-        }
-        vim.notify('Auxiliary files cleaned successfully', vim.log.levels.INFO)
+      local function tectonic_build_and_clean()
+        vim.cmd('write')
+        tectonic_build()
+        clean_build_dir()
       end
 
 
@@ -222,20 +176,10 @@ return {
             vim.diagnostic.open_float(0, { scope = "line" })
           end, { noremap = true, silent = true })
           -- LaTeX-specific keymaps
-          if vim.bo[ev.buf].filetype == "tex" then
-            vim.keymap.set("n", "<leader>lb", buf_build, { buffer = ev.buf, desc = "Build LaTeX document" })
-            vim.keymap.set("n", "<leader>lf", buf_search, { buffer = ev.buf, desc = "Forward search" })
-            vim.keymap.set("n", "<leader>lc", cleanArtifacts, { buffer = ev.buf, desc = "Clean LaTeX artifacts" })
-            vim.keymap.set("n", "<leader>lC", cleanAuxiliary, { buffer = ev.buf, desc = "Clean LaTeX auxiliary files" })
-            -- ... [Add other LaTeX-specific keymaps here]
-          end
+          vim.keymap.set("n", "<leader>lb", tectonic_build_and_clean, { buffer = ev.bufnr, desc = "Build LaTeX with Tectonic" })
+          vim.keymap.set("n", "<leader>lc", clean_build_dir, { buffer = ev.bufnr, desc = "Clean LaTeX build directory" })
         end,
       })
-
-      -- LaTeX-specific commands
-      vim.api.nvim_create_user_command("TexlabBuild", buf_build, { desc = "Build the current buffer" })
-      vim.api.nvim_create_user_command("TexlabForward", buf_search, { desc = "Forward search from current position" })
-      -- ... [Add other LaTeX-specific commands here]
     end,
   },
 }
