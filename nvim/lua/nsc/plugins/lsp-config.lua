@@ -6,7 +6,7 @@ return {
         ensure_installed = {
           "debugpy",
           "texlab",
-          "latexindent",  -- Need to install manually in Mason
+          "latexindent", -- Need to install manually in Mason
         },
       })
     end,
@@ -38,7 +38,11 @@ return {
         require("completion").on_attach(client)
       end
 
-      -- Existing LSP setups...
+      lspconfig.lua_ls.setup({ capabilities = capabilities })
+      lspconfig.pyright.setup({ capabilities = capabilities })
+      lspconfig.ruff_lsp.setup({ capabilities = capabilities })
+      lspconfig.gopls.setup({ capabilities = capabilities })
+
       lspconfig.rust_analyzer.setup({
         on_attach = on_attach,
         settings = {
@@ -60,9 +64,11 @@ return {
           },
         },
       })
-      local mason_registry = require('mason-registry')
-      local vue_language_server_path = mason_registry.get_package('vue-language-server'):get_install_path() ..
-          '/node_modules/@vue/language-server'
+      -- VUE setup
+      local vue_language_server_path = (
+        require('mason-registry')
+        .get_package('vue-language-server'):get_install_path() .. '/node_modules/@vue/language-server'
+      )
       lspconfig.tsserver.setup {
         init_options = {
           plugins = {
@@ -76,10 +82,6 @@ return {
         filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
       }
       lspconfig.volar.setup({})
-      lspconfig.lua_ls.setup({ capabilities = capabilities })
-      lspconfig.pyright.setup({ capabilities = capabilities })
-      lspconfig.ruff_lsp.setup({ capabilities = capabilities })
-      lspconfig.gopls.setup({ capabilities = capabilities })
 
       -- Advanced TexLab setup
       lspconfig.texlab.setup({
@@ -133,13 +135,6 @@ return {
         end,
       })
 
-      -- Function to clean build directory
-      local function clean_build_dir()
-        vim.fn.system('find . -name "*.aux" -type f -delete')
-        vim.fn.system('find . -name "*.log" -type f -delete')
-        vim.notify('Cleaned build directory', vim.log.levels.INFO)
-      end
-
       -- LaTeX-specific functions
       local function tectonic_build()
         local filename = vim.fn.expand('%:p')
@@ -148,12 +143,17 @@ return {
         vim.notify('Built with Tectonic', vim.log.levels.INFO)
       end
 
+      local function clean_build_dir()
+        vim.fn.system('find . -name "*.aux" -type f -delete')
+        vim.fn.system('find . -name "*.log" -type f -delete')
+        vim.notify('Cleaned build directory', vim.log.levels.INFO)
+      end
+
       local function tectonic_build_and_clean()
         vim.cmd('write')
         tectonic_build()
         clean_build_dir()
       end
-
 
       vim.api.nvim_create_autocmd("LspAttach", {
         group = vim.api.nvim_create_augroup("UserLspConfig", {}),
@@ -170,13 +170,14 @@ return {
           vim.keymap.set("n", "<leader>gk", vim.lsp.buf.hover, opts)
           vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation, opts)
           vim.keymap.set("n", "<leader>gn", vim.lsp.buf.rename, opts)
-          vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
+          vim.keymap.set("n", "<leader>gK", vim.lsp.buf.signature_help, opts)
           vim.keymap.set({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, opts)
           vim.keymap.set("n", "<space>ge", function()
             vim.diagnostic.open_float(0, { scope = "line" })
           end, { noremap = true, silent = true })
           -- LaTeX-specific keymaps
-          vim.keymap.set("n", "<leader>lb", tectonic_build_and_clean, { buffer = ev.bufnr, desc = "Build LaTeX with Tectonic" })
+          vim.keymap.set("n", "<leader>lb", tectonic_build_and_clean,
+            { buffer = ev.bufnr, desc = "Build LaTeX with Tectonic" })
           vim.keymap.set("n", "<leader>lc", clean_build_dir, { buffer = ev.bufnr, desc = "Clean LaTeX build directory" })
         end,
       })
