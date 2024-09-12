@@ -14,40 +14,27 @@ return {
 
     -- Python Debugging configuration. Set cwd as root directory.
     -- !Important: PYTHONPATH starts with "/Users/..."
-    table.insert(dap.configurations.python, {
-      type = "python",
-      request = "launch",
-      name = "Client Reports",
-      program = "${file}",
-      cwd = vim.fn.getcwd() .. "/projects/client-reports",
-    })
+    local function create_python_config(name, project_path)
+      local cwd = vim.fn.getcwd() .. project_path
+      return {
+        type = "python",
+        request = "launch",
+        name = name,
+        program = "${file}",
+        cwd = function()
+          print(cwd)
+          return cwd
+        end,
+        env = {
+          PYTHONPATH = cwd .. ":${env:PYTHONPATH}"
+        }
+      }
+    end
 
-    table.insert(dap.configurations.python, {
-      type = "python",
-      request = "launch",
-      name = "Perfect Workforce",
-      program = "${file}",
-      cwd = vim.fn.getcwd() .. "/projects/perfect_workforce",
-    })
-
-    table.insert(dap.configurations.python, {
-      type = "python",
-      request = "launch",
-      name = "Huboo Utils",
-      program = "${file}",
-      cwd = vim.fn.getcwd() .. "/lib/huboo-utils",
-    })
-
-    table.insert(dap.configurations.python, {
-      type = "python",
-      request = "launch",
-      name = "Root",
-      program = "${file}",
-      cwd = vim.fn.getcwd(),
-      env = {
-        PYTHONPATH = vim.fn.getcwd(),
-      },
-    })
+    table.insert(dap.configurations.python, create_python_config("Client Reports", "/projects/client-reports"))
+    table.insert(dap.configurations.python, create_python_config("Perfect Workforce", "/projects/perfect_workforce"))
+    table.insert(dap.configurations.python, create_python_config("Huboo Utils", "/lib/huboo-utils"))
+    table.insert(dap.configurations.python, create_python_config("Root", ""))
 
     dap.listeners.before.attach.dapui_config = function()
       dapui.open()
