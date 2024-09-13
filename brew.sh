@@ -29,23 +29,32 @@ brew cleanup
 
 # Define an array of packages to install using Homebrew.
 packages=(
-    "python"
+    # Shell
     "bash"
     "zsh"
-    "git"
-    "tree"
-    "pylint"
-    "black"
-    "node"
-    "lf"
-    "neovim"
     "zsh-syntax-highlighting"
     "zsh-autosuggestions"
-    "pandoc"
-    "ripgrep"
+    "zoxide" # replacement for cd
+    "bat" # Cat with syntax highlighting
+    # Python
+    "python"
+    "pylint"
+    "black"
+    # Git
+    "git"
+    "git-delta"
     "jesseduffield/lazygit/lazygit"
-    "zoxide"
-    "git-delta"    
+    "tree"
+    # neovim
+    "neovim"
+    "ripgrep"
+    "lf"
+    # LaTex
+    "pandoc"
+    "tectonic" # Lightweigh LaTex Compiler
+    # Others
+    "node"
+    "go"
 )
 
 # Loop over the array to install each application.
@@ -97,7 +106,6 @@ apps=(
     "vlc"
     "rectangle"
     "postman"
-    "mactex"
     "mysqlworkbench"
     "anki"
     "ngrok"
