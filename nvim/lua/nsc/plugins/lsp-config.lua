@@ -24,6 +24,7 @@ return {
           "ruff_lsp",
           "gopls",
           "texlab",
+          "marksman",
         },
       })
     end,
@@ -42,6 +43,7 @@ return {
       lspconfig.pyright.setup({ capabilities = capabilities })
       lspconfig.ruff_lsp.setup({ capabilities = capabilities })
       lspconfig.gopls.setup({ capabilities = capabilities })
+      lspconfig.marksman.setup({ capabilities = capabilities })
 
       lspconfig.rust_analyzer.setup({
         on_attach = on_attach,
