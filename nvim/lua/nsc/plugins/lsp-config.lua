@@ -1,4 +1,5 @@
 return {
+  -- Mason setup to install LSPs and other tools
   {
     "williamboman/mason.nvim",
     config = function()
@@ -6,11 +7,12 @@ return {
         ensure_installed = {
           "debugpy",
           "texlab",
-          "latexindent", -- Need to install manually in Mason
+          "latexindent", -- Ensure installed manually
         },
       })
     end,
   },
+  -- Mason-LSPConfig to auto-install LSP servers
   {
     "williamboman/mason-lspconfig.nvim",
     config = function()
@@ -29,102 +31,123 @@ return {
       })
     end,
   },
+  -- LSPConfig setup for various language servers
   {
     "neovim/nvim-lspconfig",
     lazy = true,
     config = function()
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
-      local lspconfig = require("lspconfig")
-      local on_attach = function(client)
-        require("completion").on_attach(client)
+      -- Capabilities for nvim-cmp integration
+      local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+
+      -- General on_attach function
+      local on_attach = function(client, bufnr)
+        -- Enable completion triggered by <c-x><c-o>
+        vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
+        -- Buffer local mappings for LSP actions
+        local opts = { buffer = bufnr }
+        vim.keymap.set("n", "<leader>gf", function() vim.lsp.buf.format({ async = true }) end, opts)
+        vim.keymap.set("n", "<leader>gD", vim.lsp.buf.declaration, opts)
+        vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, opts)
+        vim.keymap.set("n", "<leader>gk", vim.lsp.buf.hover, opts)
+        vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation, opts)
+        vim.keymap.set("n", "<leader>gn", vim.lsp.buf.rename, opts)
+        vim.keymap.set("n", "<leader>gK", vim.lsp.buf.signature_help, opts)
+        vim.keymap.set({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, opts)
+        vim.keymap.set("n", "<space>ge", function()
+          vim.diagnostic.open_float(0, { scope = "line" })
+        end, { noremap = true, silent = true })
       end
 
-      lspconfig.lua_ls.setup({ capabilities = capabilities })
-      lspconfig.pyright.setup({ capabilities = capabilities })
-      lspconfig.ruff_lsp.setup({ capabilities = capabilities })
-      lspconfig.gopls.setup({ capabilities = capabilities })
-      lspconfig.marksman.setup({ capabilities = capabilities })
+      -- LSP server setups
+      local lspconfig = require("lspconfig")
 
+      -- Lua LSP setup
+      lspconfig.lua_ls.setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+      })
+
+      -- Python LSP setup
+      lspconfig.pyright.setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+      })
+
+      -- Ruff LSP for Python linting
+      lspconfig.ruff_lsp.setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+      })
+
+      -- Go LSP setup
+      lspconfig.gopls.setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+      })
+
+      -- Markdown LSP setup
+      lspconfig.marksman.setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+      })
+
+      -- Rust Analyzer with custom settings
       lspconfig.rust_analyzer.setup({
+        capabilities = capabilities,
         on_attach = on_attach,
         settings = {
           ["rust-analyzer"] = {
             imports = {
-              granularity = {
-                group = "module",
-              },
+              granularity = { group = "module" },
               prefix = "self",
             },
-            cargo = {
-              buildScripts = {
-                enable = true,
-              },
-            },
-            procMacro = {
-              enable = true,
+            cargo = { buildScripts = { enable = true } },
+            procMacro = { enable = true },
+          },
+        },
+      })
+
+      -- TypeScript and JavaScript LSP setup (tsserver)
+      lspconfig.tsserver.setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+        filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+        init_options = {
+          plugins = {
+            {
+              name = "@vue/typescript-plugin",
+              location = require("mason-registry").get_package("vue-language-server"):get_install_path() ..
+              "/node_modules/@vue/language-server",
+              languages = { "vue" },
             },
           },
         },
       })
-      -- VUE setup
-      local vue_language_server_path = (
-        require('mason-registry')
-        .get_package('vue-language-server'):get_install_path() .. '/node_modules/@vue/language-server'
-      )
-      lspconfig.tsserver.setup {
-        init_options = {
-          plugins = {
-            {
-              name = '@vue/typescript-plugin',
-              location = vue_language_server_path,
-              languages = { 'vue' },
-            },
-          },
-        },
-        filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
-      }
-      lspconfig.volar.setup({})
 
-      -- Advanced TexLab setup
+      -- Volar (Vue) setup
+      lspconfig.volar.setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+      })
+
+      -- Advanced TexLab setup for LaTeX
       lspconfig.texlab.setup({
         capabilities = capabilities,
         settings = {
           texlab = {
-            rootDirectory = nil,
             build = {
-              executable = 'tectonic',
-              args = {
-                '-X',
-                'compile',
-                '%f',
-                '--keep-logs',
-                '--keep-intermediates',
-                '--outdir=build'
-              },
+              executable = "tectonic",
+              args = { "-X", "compile", "%f", "--keep-logs", "--keep-intermediates", "--outdir=build" },
               onSave = false,
-              forwardSearchAfter = false,
             },
-            auxDirectory = 'build',
-            forwardSearch = {
-              executable = nil,
-              args = {},
-            },
-            chktex = {
-              onOpenAndSave = false,
-              onEdit = false,
-            },
-            diagnosticsDelay = 300,
-            latexFormatter = 'latexindent',
-            latexindent = {
-              ['local'] = nil,
-              modifyLineBreaks = false,
-            },
-            bibtexFormatter = 'texlab',
-            formatterLineLength = 80,
+            auxDirectory = "build",
+            latexFormatter = "latexindent",
+            latexindent = { ["local"] = nil, modifyLineBreaks = false },
+            chktex = { onOpenAndSave = false, onEdit = false },
           },
         },
         on_attach = function(client, bufnr)
-          on_attach(client)
+          on_attach(client, bufnr)
           -- Enable formatting
           client.server_capabilities.documentFormattingProvider = true
           -- Set up formatting on save
@@ -137,47 +160,30 @@ return {
         end,
       })
 
-      -- LaTeX-specific functions
+      -- LaTeX build and clean functions
       local function tectonic_build()
-        local filename = vim.fn.expand('%:p')
-        local cmd = string.format('tectonic -X compile %s --keep-logs --keep-intermediates', filename)
+        local filename = vim.fn.expand("%:p")
+        local cmd = string.format("tectonic -X compile %s --keep-logs --keep-intermediates", filename)
         vim.fn.system(cmd)
-        vim.notify('Built with Tectonic', vim.log.levels.INFO)
+        vim.notify("Built with Tectonic", vim.log.levels.INFO)
       end
 
       local function clean_build_dir()
-        vim.fn.system('find . -name "*.aux" -type f -delete')
-        vim.fn.system('find . -name "*.log" -type f -delete')
-        vim.notify('Cleaned build directory', vim.log.levels.INFO)
+        vim.fn.system("find . -name '*.aux' -type f -delete")
+        vim.fn.system("find . -name '*.log' -type f -delete")
+        vim.notify("Cleaned build directory", vim.log.levels.INFO)
       end
 
       local function tectonic_build_and_clean()
-        vim.cmd('write')
+        vim.cmd("write")
         tectonic_build()
         clean_build_dir()
       end
 
+      -- LSPAttach autocmd to set up LaTeX-specific keymaps
       vim.api.nvim_create_autocmd("LspAttach", {
         group = vim.api.nvim_create_augroup("UserLspConfig", {}),
         callback = function(ev)
-          -- Enable completion triggered by <c-x><c-o>
-          vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
-          -- Buffer local mappings.
-          local opts = { buffer = ev.buf }
-          vim.keymap.set("n", "<leader>gf", function()
-            vim.lsp.buf.format({ async = true })
-          end, { buffer = ev.buf, desc = "Format document" })
-          vim.keymap.set("n", "<leader>gD", vim.lsp.buf.declaration, opts)
-          vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, opts)
-          vim.keymap.set("n", "<leader>gk", vim.lsp.buf.hover, opts)
-          vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation, opts)
-          vim.keymap.set("n", "<leader>gn", vim.lsp.buf.rename, opts)
-          vim.keymap.set("n", "<leader>gK", vim.lsp.buf.signature_help, opts)
-          vim.keymap.set({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, opts)
-          vim.keymap.set("n", "<space>ge", function()
-            vim.diagnostic.open_float(0, { scope = "line" })
-          end, { noremap = true, silent = true })
-          -- LaTeX-specific keymaps
           vim.keymap.set("n", "<leader>lb", tectonic_build_and_clean,
             { buffer = ev.bufnr, desc = "Build LaTeX with Tectonic" })
           vim.keymap.set("n", "<leader>lc", clean_build_dir, { buffer = ev.bufnr, desc = "Clean LaTeX build directory" })

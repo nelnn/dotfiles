@@ -1,7 +1,9 @@
 return {
+  -- LSP completion source for nvim-cmp
   {
     "hrsh7th/cmp-nvim-lsp",
   },
+  -- LuaSnip setup with friendly snippets and keybindings
   {
     "L3MON4D3/LuaSnip",
     dependencies = {
@@ -15,6 +17,7 @@ return {
       vim.keymap.set({ "i", "s" }, "<C-H>", function() ls.jump(-1) end, { silent = true })
     end,
   },
+  -- nvim-cmp configuration with multiple sources and keybindings
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
@@ -28,7 +31,7 @@ return {
       local cmp = require("cmp")
       local cmp_select = { behavior = cmp.SelectBehavior.Select }
       require("luasnip.loaders.from_vscode").lazy_load()
-      require("codeium").setup({})
+      require("codeium").setup({}) -- Ensure you've configured Codeium as needed
       cmp.setup({
         snippet = {
           expand = function(args)
@@ -48,13 +51,16 @@ return {
           ["<C-e>"] = cmp.mapping.abort(),
           ["<CR>"] = cmp.mapping.confirm({ select = true }),
         }),
-        sources = cmp.config.sources({
-          { name = "codeium" },
-          { name = "nvim_lsp" },
-          { name = "luasnip" },
-        }, {
-          { name = "buffer" },
-        }),
+        sources = cmp.config.sources(
+          {
+            { name = "codeium" },  -- AI-assisted completion
+            { name = "nvim_lsp" }, -- LSP completions
+            { name = "luasnip" },  -- Snippet completions
+          },
+          {
+            { name = "buffer" }, -- Buffer completions
+          }
+        ),
       })
     end,
   },
