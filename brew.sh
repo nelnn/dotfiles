@@ -55,6 +55,7 @@ packages=(
     # Others
     "node"
     "go"
+    "hugo" # static site generator
 )
 
 # Loop over the array to install each application.
