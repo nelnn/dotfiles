@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# TODO: This is created by Claude. May need an update.
+
 # Source and destination directories
 SOURCE_DIR="$HOME/.dotfiles/.config"
 DEST_DIR="$HOME/.config"
