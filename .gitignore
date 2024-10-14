@@ -1,3 +1,4 @@
 """gitignore file"""
 
 .DS_Store
+.config/nvim/lazy-lock.json
