@@ -1,7 +1,4 @@
 local g = vim.g
-local n_keymap = function(lhs, rhs)
-  vim.api.nvim_set_keymap("n", lhs, rhs, { noremap = true, silent = true })
-end
 
 g.mapleader = " "
 -- vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
@@ -13,7 +10,10 @@ vim.keymap.set("n", "<leader>bd", vim.cmd.bdelete)
 vim.keymap.set("n", "<leader>bvs", vim.cmd.vsplit)
 vim.keymap.set("n", "<leader>bhs", vim.cmd.split)
 
-n_keymap("<Leader>w", ":bp|bd #") -- Close current buffer
+-- local n_keymap = function(lhs, rhs)
+--   vim.api.nvim_set_keymap("n", lhs, rhs, { noremap = true, silent = true })
+-- end
+-- n_keymap("<Leader>w", ":bp|bd #") -- Close current buffer (disabled, use snacks <leader>bd instead)
 
 vim.api.nvim_set_keymap('n', '<tab>', ':if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bnext<CR>', -- Tab to next buffer
   { noremap = true, silent = true })
