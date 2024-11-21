@@ -38,7 +38,7 @@ packages=(
     "zoxide" # replacement for cd
     "bat" # Cat with syntax highlighting
     "tree"
-    "lf"
+    "yazi"
     # Python
     "python"
     "pylint"
