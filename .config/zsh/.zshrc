@@ -1,3 +1,4 @@
+export EDITOR=nvim
 # ls enable directory color:
 export CLICOLOR=1
 export LSCOLORS=gxfxcxdxbxegedabagacad
