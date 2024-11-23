@@ -27,7 +27,7 @@ return {
         { "<leader>gg", function() snacks.lazygit() end,                 desc = "Lazygit" },
         { "<leader>gb", function() snacks.git.blame_line() end,          desc = "Git Blame Line" },
         { "<leader>gB", function() snacks.gitbrowse() end,               desc = "Git Browse" },
-        { "<leader>gf", function() snacks.lazygit.log_file() end,        desc = "Lazygit Current File History" },
+        -- { "<leader>gf", function() snacks.lazygit.log_file() end,        desc = "Lazygit Current File History" },
         { "<leader>gl", function() snacks.lazygit.log() end,             desc = "Lazygit Log (cwd)" },
         { "<leader>cR", function() snacks.rename.rename_file() end,      desc = "Rename File" },
         { "]]",         function() snacks.words.jump(vim.v.count1) end,  desc = "Next Reference",              mode = { "n", "t" } },
