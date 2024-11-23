@@ -1,14 +1,3 @@
-bindkey '^@' autosuggest-accept # Ctrl + Space to accept
-
-# Folder nagvigation in CLI
-lfcd () {
-    tmp="$(mktemp)"
-    lf -last-dir-path="$tmp" "$@"
-    if [ -f "$tmp" ]; then
-        dir="$(cat "$tmp")"
-        rm -f "$tmp"
-        [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
-    fi
-}
-bindkey -s '^o' 'lfcd\n'
+bindkey '^@' autosuggest-accept # Ctrl + Space to accept autosuggest
+bindkey -s '^o' 'yazi\n' # Ctrl + o open yazi
 

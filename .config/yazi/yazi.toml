@@ -1,0 +1,17 @@
+[manager]
+show_hidden = true
+
+[opener]
+
+play = [
+	{ run = 'mpv "$@"', orphan = true, for = "unix" },
+]
+
+edit = [
+	{ run = '$EDITOR "$@"', block = true, for = "unix" },
+	{ run = "%EDITOR% %*",  block = true, for = "windows" },
+]
+
+[preview]
+max_height = 10000
+max_width = 10000

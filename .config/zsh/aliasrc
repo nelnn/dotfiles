@@ -10,5 +10,6 @@ alias cd="z"
 
 alias zconfig="vi ~/.dotfiles/.config/zsh/.zshrc"
 alias nvimconfig="vi ~/.dotfiles/.config/nvim/lua/nsc"
+alias dot="vi ~/.dotfiles"
 
 alias tcli="transmission-cli"
