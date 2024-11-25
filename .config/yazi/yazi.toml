@@ -1,12 +1,11 @@
 [manager]
 show_hidden = true
+sort_by = "modified"
 
 [opener]
-
 play = [
 	{ run = 'mpv "$@"', orphan = true, for = "unix" },
 ]
-
 edit = [
 	{ run = '$EDITOR "$@"', block = true, for = "unix" },
 	{ run = "%EDITOR% %*",  block = true, for = "windows" },
@@ -15,3 +14,5 @@ edit = [
 [preview]
 max_height = 10000
 max_width = 10000
+image_filter = "nearest"
+image_quality = 50
