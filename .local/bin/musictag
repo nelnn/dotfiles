@@ -6,29 +6,35 @@
 
 echo "Enter the artists (separated by comma):"; read -r artist
 echo "Enter the album (blank if single track):"; read -r album
-echo "Enter the publication year:"; read -r year
+echo "Enter the publication year:"; read -r date
 echo "Enter the genre:"; read -r genre
 
 # Download the playlist or track
-yt-dlp --rm-cache-dir -x -o '%(playlist)s-%(playlist_index)s-%(title)s.%(ext)s' -P "$HOME/Music/temp" "https://www.youtube.com/playlist?list=$1" || yt-dlp --rm-cache-dir -x -o '%(title)s.%(ext)s' -P "$HOME/Music/temp" "https://www.youtube.com/watch?v=$1"
+yt-dlp --rm-cache-dir -x -o '%(playlist_index)s-%(title)s.%(ext)s' -P "$HOME/Music/temp" $1
 
 # Process each track in the temp directory
 for track in "$HOME/Music/temp/"*; do
     title=${track##*/}
     title=${title%.*}
-    filename="$(echo "$title" | iconv -c -f UTF-8 -t ASCII//TRANSLIT | sed 's/ - /-/g; s/ /-/g')"
+    filename="$(echo "$title" | iconv -c -f UTF-8 -t ASCII//TRANSLIT | \
+        sed -e 's/ - /-/g' \
+            -e 's/ /-/g' \
+            -e 's/([^)]*)//g' \
+            -e 's/\[[^]]*\]//g' \
+            -e 's/NA-//g' \
+            -e 's/[.,!?;:_+=<>~@#$%^&*-]\+$//g' \
+            -e 's/-\+$//g' \
+            -e 's/-\+/-/g')"
 
     ext="${track##*.}"
-    file="$HOME/Music/all/$filename.$ext"
-    
+    file="$HOME/Music/temp/$filename.$ext"
     ffmpeg -i "$track" -nostdin -y \
-        -metadata artist="$artist" \
-        -metadata title="$title" \
-        -metadata album="$album" \
-        -metadata genre="$genre" \
-        -metadata year="$year" \
+        -metadata Artist="$artist" \
+        -metadata Album_Artist="$artist" \
+        -metadata Title="$title" \
+        -metadata Album="$album" \
+        -metadata Genre="$genre" \
+        -metadata Date="$date" \
         -vn -c:a copy "$file"
-    
-    rm "$track"
 done
 

@@ -4,7 +4,7 @@
 SOURCE_DIR="$HOME/.dotfiles/.local/bin"
 
 # List of directories to symlink in ${HOME}
-directories=(musictag musicsort)
+directories=(musictag musicsort ytm)
 
 # Create symlinks (will overwrite old dotfiles)
 for directory in "${directories[@]}"; do
