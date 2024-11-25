@@ -1,3 +1,2 @@
 bindkey '^@' autosuggest-accept # Ctrl + Space to accept autosuggest
 bindkey -s '^o' 'yazi\n' # Ctrl + o open yazi
-
