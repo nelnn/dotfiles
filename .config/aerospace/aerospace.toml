@@ -115,7 +115,7 @@ alt-shift-minus = 'resize smart -50'
 alt-shift-equal = 'resize smart +50'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
-ctrl-cmd-1 = 'workspace 1'
+alt-w = 'workspace 1'
 alt-b = 'workspace B'
 alt-c = 'workspace C'
 alt-d = 'workspace D'
@@ -129,6 +129,7 @@ alt-p = 'workspace P'
 alt-r = 'workspace R'
 alt-t = 'workspace T' # Terminals alt-u = 'workspace U'
 alt-u = 'workspace U'
+alt-q = 'workspace Q'
 
 alt-f = 'fullscreen'
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
@@ -158,6 +159,7 @@ alt-shift-r = 'move-node-to-workspace R'
 # alt-shift-s = 'move-node-to-workspace S'
 alt-shift-t = 'move-node-to-workspace T'
 alt-shift-u = 'move-node-to-workspace U'
+alt-shift-q = 'move-node-to-workspace Q'
 # alt-v = 'move-node-to-workspace V'
 # alt-w = 'move-node-to-workspace W'
 # alt-x = 'move-node-to-workspace X'
@@ -195,3 +197,6 @@ run = 'layout floating'
 [[on-window-detected]]
 if.app-id = 'net.whatsapp.WhatsApp'
 run = 'layout floating'
+
+[workspace-to-monitor-force-assignment]
+1 = 'DELL S2722DC' # Home Monitor
