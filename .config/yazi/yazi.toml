@@ -1,6 +1,5 @@
 [manager]
 show_hidden = true
-sort_by = "modified"
 
 [opener]
 play = [
@@ -16,3 +15,7 @@ max_height = 10000
 max_width = 10000
 image_filter = "nearest"
 image_quality = 50
+
+[folders]
+Camera = { sort_by = "modified", sort_reverse = true }
+Pictures = { sort_by = "modified", sort_reverse = true }
