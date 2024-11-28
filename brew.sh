@@ -52,6 +52,14 @@ packages=(
     # LaTex
     "pandoc"
     "tectonic" # Lightweigh LaTex Compiler
+    # Email
+    "neomutt"
+    "isync"  # Downloads emails
+    "msmtp"  # Send mail
+    "pass"  # Securely stores user passwords encrypted with their GPG key
+    "lynx"  # Format HTML emails in neomutt
+    "notmuch"  # Index all mail making it searchable
+    "urlview"  # Allows one to follow urls
     # Other Stuff
     "node"
     "go"
