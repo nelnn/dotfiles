@@ -4,16 +4,18 @@
 
 # [ -z "$1" ] && printf "You should specify the playlist or video id\n" && exit 1
 
+# Embed metadata and thumbnail
+# yt-dlp -x --audio-format mp3 "3_Nn1Ihr1jI" --embed-thumbnail -v --convert-thumbnail jpg --ppa "EmbedThumbnail+ffmpeg_o:-c:v mjpeg -vf crop=\"'if(gt(ih,iw),iw,ih)':'if(gt(iw,ih),ih,iw)'\"" --exec ffprobe
 echo "Enter the artists (separated by comma):"; read -r artist
 echo "Enter the album (blank if single track):"; read -r album
-echo "Enter the publication year:"; read -r date
-echo "Enter the genre:"; read -r genre
+echo "Enter the publication year:"; read -r year
+# echo "Enter the genre:"; read -r genre
 
 # Download the playlist or track
-yt-dlp --rm-cache-dir -x -o '%(playlist_index)s-%(title)s.%(ext)s' -P "$HOME/Music/temp" $1
+yt-dlp --rm-cache-dir -x --audio-format 'mp3' -o '%(playlist_index)s-%(title)s.%(ext)s' -P "$HOME/Music/cache" $1
 
 # Process each track in the temp directory
-for track in "$HOME/Music/temp/"*; do
+for track in "$HOME/Music/cache/"*; do
     title=${track##*/}
     title=${title%.*}
     filename="$(echo "$title" | iconv -c -f UTF-8 -t ASCII//TRANSLIT | \
@@ -33,8 +35,8 @@ for track in "$HOME/Music/temp/"*; do
         -metadata Album_Artist="$artist" \
         -metadata Title="$title" \
         -metadata Album="$album" \
-        -metadata Genre="$genre" \
-        -metadata Date="$date" \
+        # -metadata Genre="$genre" \
+        -metadata Year="$year" \
         -vn -c:a copy "$file"
 done
 
