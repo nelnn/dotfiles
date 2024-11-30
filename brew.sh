@@ -39,6 +39,7 @@ packages=(
     "bat" # Cat with syntax highlighting
     "tree"
     "yazi"
+    "poppler" # Preview PDF
     # Python
     "python"
     "pylint"
