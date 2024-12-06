@@ -12,7 +12,7 @@ return {
     },
     config = function()
       local ls = require("luasnip")
-      require("luasnip.loaders.from_lua").load({ paths = "~/.dotfiles/nvim/lua/nsc/snippets" })
+      require("luasnip.loaders.from_snipmate").lazy_load({paths = "~/.config/nvim/lua/nsc/snippets"})
       vim.keymap.set({ "i", "s" }, "<C-L>", function() ls.jump(1) end, { silent = true })
       vim.keymap.set({ "i", "s" }, "<C-H>", function() ls.jump(-1) end, { silent = true })
     end,
@@ -37,6 +37,7 @@ return {
           expand = function(args)
             require("luasnip").lsp_expand(args.body)
           end,
+          require("luasnip.loaders.from_lua").load({ paths = "~/.dotfiles/nvim/lua/nsc/snippets" })
         },
         window = {
           completion = cmp.config.window.bordered(),
