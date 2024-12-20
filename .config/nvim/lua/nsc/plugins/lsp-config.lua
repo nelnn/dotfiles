@@ -117,7 +117,7 @@ return {
             {
               name = "@vue/typescript-plugin",
               location = require("mason-registry").get_package("vue-language-server"):get_install_path() ..
-              "/node_modules/@vue/language-server",
+                  "/node_modules/@vue/language-server",
               languages = { "vue" },
             },
           },
@@ -160,33 +160,30 @@ return {
         end,
       })
 
-      -- LaTeX build and clean functions
+
       local function tectonic_build()
         local filename = vim.fn.expand("%:p")
-        local cmd = string.format("tectonic -X compile %s --keep-logs --keep-intermediates", filename)
-        vim.fn.system(cmd)
-        vim.notify("Built with Tectonic", vim.log.levels.INFO)
+        local cmd = string.format("tectonic -X compile %s", filename)
+
+        -- Run the system command and capture the output and return code
+        local output = vim.fn.system(cmd)
+        local exit_code = vim.v.shell_error -- This holds the exit code of the last command run in Vim
+
+        -- Check if the command failed
+        if exit_code ~= 0 then
+          vim.notify("Error: " .. output, vim.log.levels.ERROR)
+        else
+          vim.notify("Rendered", vim.log.levels.INFO)
+        end
       end
 
-      local function clean_build_dir()
-        vim.fn.system("find . -name '*.aux' -type f -delete")
-        vim.fn.system("find . -name '*.log' -type f -delete")
-        vim.notify("Cleaned build directory", vim.log.levels.INFO)
-      end
-
-      local function tectonic_build_and_clean()
-        vim.cmd("write")
-        tectonic_build()
-        clean_build_dir()
-      end
 
       -- LSPAttach autocmd to set up LaTeX-specific keymaps
       vim.api.nvim_create_autocmd("LspAttach", {
         group = vim.api.nvim_create_augroup("UserLspConfig", {}),
         callback = function(ev)
-          vim.keymap.set("n", "<leader>lb", tectonic_build_and_clean,
+          vim.keymap.set("n", "<leader>lb", tectonic_build,
             { buffer = ev.bufnr, desc = "Build LaTeX with Tectonic" })
-          vim.keymap.set("n", "<leader>lc", clean_build_dir, { buffer = ev.bufnr, desc = "Clean LaTeX build directory" })
         end,
       })
     end,
