@@ -31,6 +31,7 @@ return {
       }
     end
 
+    table.insert(dap.configurations.python, create_python_config("Autostock", "/projects/autostock"))
     table.insert(dap.configurations.python, create_python_config("Client Reports", "/projects/client-reports"))
     table.insert(dap.configurations.python, create_python_config("Perfect Workforce", "/projects/perfect_workforce"))
     table.insert(dap.configurations.python, create_python_config("Huboo Utils", "/lib/huboo-utils"))

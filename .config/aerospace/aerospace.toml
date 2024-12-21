@@ -116,6 +116,9 @@ alt-shift-equal = 'resize smart +50'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
 alt-w = 'workspace 1'
+# shift-3 = 'workspace 3'
+# shift-4 = 'workspace 4'
+# shift-5 = 'workspace 5'
 alt-b = 'workspace B'
 alt-c = 'workspace C'
 alt-d = 'workspace D'
@@ -135,7 +138,6 @@ alt-q = 'workspace Q'
 alt-f = 'fullscreen'
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
 alt-shift-w = 'move-node-to-workspace 1'
-# alt-shift-2 = 'move-node-to-workspace 2'
 # alt-shift-3 = 'move-node-to-workspace 3'
 # alt-shift-4 = 'move-node-to-workspace 4'
 # alt-shift-5 = 'move-node-to-workspace 5'
@@ -190,6 +192,8 @@ alt-shift-j = ['join-with down', 'mode main']
 alt-shift-k = ['join-with up', 'mode main']
 alt-shift-l = ['join-with right', 'mode main']
 
+# Disable Tiliing for these applications
+# To get app-id: `aerospace list-apps`
 [[on-window-detected]]
 if.app-id = 'com.spotify.client'
 run = 'layout floating'
@@ -198,5 +202,14 @@ run = 'layout floating'
 if.app-id = 'net.whatsapp.WhatsApp'
 run = 'layout floating'
 
+[[on-window-detected]]
+if.app-id = 'com.tinyspeck.slackmacgap'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.microsoft.teams2'
+run = 'layout floating'
+
+# Monitor assignments
 [workspace-to-monitor-force-assignment]
 1 = 'DELL S2722DC' # Home Monitor
