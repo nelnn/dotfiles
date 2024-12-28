@@ -1,2 +1,12 @@
 bindkey '^@' autosuggest-accept # Ctrl + Space to accept autosuggest
 bindkey -s '^o' 'yazi\n' # Ctrl + o open yazi
+
+# Change working directory upon quitting yazi
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
