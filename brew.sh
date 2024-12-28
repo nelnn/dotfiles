@@ -104,19 +104,15 @@ apps=(
     "google-drive"
     "gimp"
     "vlc"
-    "rectangle"
-    "postman"
-    "mysqlworkbench"
     "anki"
     "ngrok"
     "whatsapp"
     "singal"
-    "tmux"
     "alt-tab"
     "alfred"
+    "raycast"
     "karabiner-elements"
     "github"
-    "nikitabobko/tap/aerospace" # windows tiling manager
 )
 
 # Loop over the array to install each application.
