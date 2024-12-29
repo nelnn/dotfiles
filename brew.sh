@@ -40,6 +40,7 @@ packages=(
     "tree"
     "yazi"
     "poppler" # Preview PDF
+    "smudge/smudge/nightlight" # night shift
     # Python
     "python"
     "pylint"
