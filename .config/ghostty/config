@@ -2,7 +2,7 @@
 background = #000000
 theme = xcodedarkhc
 # font-family = Osaka
-
+# window-decoration = false
 
 # Keybindings
 ## Tmux Switching Panes
