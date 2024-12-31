@@ -1,7 +1,5 @@
 # aliases
-alias vim="nvim"
 alias vi="nvim"
-alias ovi="vim"
 alias ls='ls -G'
 alias mv="mv -i"
 alias cp="cp -i"
@@ -10,7 +8,7 @@ alias cd="z"
 alias mem='top -o mem' # Check memory usage
 
 alias zconfig="vi ~/.dotfiles/.config/zsh/.zshrc"
-alias nvimconfig="vi ~/.dotfiles/.config/nvim/lua/nsc"
+alias nvimconfig="vi ~/.dotfiles/.config/nvim/lua"
 alias dot="vi ~/.dotfiles"
 
 alias tcli="transmission-cli"
