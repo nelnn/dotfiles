@@ -5,7 +5,8 @@ alias mv="mv -i"
 alias cp="cp -i"
 alias tm="tmux"
 alias cd="z"
-alias mem='top -o mem' # Check memory usage
+alias mem="top -o mem" # Check memory usage
+alias man="batman"
 
 alias zconfig="vi ~/.dotfiles/.config/zsh/.zshrc"
 alias nvimconfig="vi ~/.dotfiles/.config/nvim/lua"
