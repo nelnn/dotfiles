@@ -4,294 +4,91 @@
             "complex_modifications": {
                 "rules": [
                     {
-                        "description": "(Atom, CKII, EUIV, iTerm, muCommander, PyCharm, VSCode, VSCodium, WebStorm, AndroidStudio) Function keys work as fn keys",
+                        "description": "Map Left Control + U to Page Up and Left Control + D to Page Down",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "u",
+                                    "modifiers": { "mandatory": ["left_control"] }
+                                },
+                                "to": [{ "key_code": "page_up" }],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "d",
+                                    "modifiers": { "mandatory": ["left_control"] }
+                                },
+                                "to": [{ "key_code": "page_down" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Map Left Control + K/J/H/L to Arrow Keys in Brave",
                         "manipulators": [
                             {
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "com.github.atom",
-                                            "com.googlecode.iterm2",
-                                            "com.mucommander.muCommander",
-                                            "com.jetbrains.pycharm",
-                                            "com.microsoft.VSCode",
-                                            "com.visualstudio.code.oss",
-                                            "com.jetbrains.WebStorm",
-                                            "com.google.android.studio"
+                                            "^com\\.brave\\.Browser$"
                                         ],
-                                        "file_paths": ["ck2\\.app", "eu4\\.app"],
                                         "type": "frontmost_application_if"
                                     }
                                 ],
                                 "from": {
-                                    "key_code": "f1",
-                                    "modifiers": { "optional": ["any"] }
+                                    "key_code": "k",
+                                    "modifiers": { "mandatory": ["left_control"] }
                                 },
-                                "to": [{ "key_code": "f1" }],
+                                "to": [{ "key_code": "up_arrow" }],
                                 "type": "basic"
                             },
                             {
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "com.github.atom",
-                                            "com.googlecode.iterm2",
-                                            "com.mucommander.muCommander",
-                                            "com.jetbrains.pycharm",
-                                            "com.microsoft.VSCode",
-                                            "com.visualstudio.code.oss",
-                                            "com.jetbrains.WebStorm",
-                                            "com.google.android.studio"
+                                            "^com\\.brave\\.Browser$"
                                         ],
-                                        "file_paths": ["ck2\\.app", "eu4\\.app"],
                                         "type": "frontmost_application_if"
                                     }
                                 ],
                                 "from": {
-                                    "key_code": "f2",
-                                    "modifiers": { "optional": ["any"] }
+                                    "key_code": "j",
+                                    "modifiers": { "mandatory": ["left_control"] }
                                 },
-                                "to": [{ "key_code": "f2" }],
+                                "to": [{ "key_code": "down_arrow" }],
                                 "type": "basic"
                             },
                             {
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "com.github.atom",
-                                            "com.googlecode.iterm2",
-                                            "com.mucommander.muCommander",
-                                            "com.jetbrains.pycharm",
-                                            "com.microsoft.VSCode",
-                                            "com.visualstudio.code.oss",
-                                            "com.jetbrains.WebStorm",
-                                            "com.google.android.studio"
+                                            "^com\\.brave\\.Browser$"
                                         ],
-                                        "file_paths": ["ck2\\.app", "eu4\\.app"],
                                         "type": "frontmost_application_if"
                                     }
                                 ],
                                 "from": {
-                                    "key_code": "f3",
-                                    "modifiers": { "optional": ["any"] }
+                                    "key_code": "h",
+                                    "modifiers": { "mandatory": ["left_control"] }
                                 },
-                                "to": [{ "key_code": "f3" }],
+                                "to": [{ "key_code": "left_arrow" }],
                                 "type": "basic"
                             },
                             {
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "com.github.atom",
-                                            "com.googlecode.iterm2",
-                                            "com.mucommander.muCommander",
-                                            "com.jetbrains.pycharm",
-                                            "com.microsoft.VSCode",
-                                            "com.visualstudio.code.oss",
-                                            "com.jetbrains.WebStorm",
-                                            "com.google.android.studio"
+                                            "^com\\.brave\\.Browser$"
                                         ],
-                                        "file_paths": ["ck2\\.app", "eu4\\.app"],
                                         "type": "frontmost_application_if"
                                     }
                                 ],
                                 "from": {
-                                    "key_code": "f4",
-                                    "modifiers": { "optional": ["any"] }
+                                    "key_code": "l",
+                                    "modifiers": { "mandatory": ["left_control"] }
                                 },
-                                "to": [{ "key_code": "f4" }],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "com.github.atom",
-                                            "com.googlecode.iterm2",
-                                            "com.mucommander.muCommander",
-                                            "com.jetbrains.pycharm",
-                                            "com.microsoft.VSCode",
-                                            "com.visualstudio.code.oss",
-                                            "com.jetbrains.WebStorm",
-                                            "com.google.android.studio"
-                                        ],
-                                        "file_paths": ["ck2\\.app", "eu4\\.app"],
-                                        "type": "frontmost_application_if"
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "f5",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "to": [{ "key_code": "f5" }],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "com.github.atom",
-                                            "com.googlecode.iterm2",
-                                            "com.mucommander.muCommander",
-                                            "com.jetbrains.pycharm",
-                                            "com.microsoft.VSCode",
-                                            "com.visualstudio.code.oss",
-                                            "com.jetbrains.WebStorm",
-                                            "com.google.android.studio"
-                                        ],
-                                        "file_paths": ["ck2\\.app", "eu4\\.app"],
-                                        "type": "frontmost_application_if"
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "f6",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "to": [{ "key_code": "f6" }],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "com.github.atom",
-                                            "com.googlecode.iterm2",
-                                            "com.mucommander.muCommander",
-                                            "com.jetbrains.pycharm",
-                                            "com.microsoft.VSCode",
-                                            "com.visualstudio.code.oss",
-                                            "com.jetbrains.WebStorm",
-                                            "com.google.android.studio"
-                                        ],
-                                        "file_paths": ["ck2\\.app", "eu4\\.app"],
-                                        "type": "frontmost_application_if"
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "f7",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "to": [{ "key_code": "f7" }],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "com.github.atom",
-                                            "com.googlecode.iterm2",
-                                            "com.mucommander.muCommander",
-                                            "com.jetbrains.pycharm",
-                                            "com.microsoft.VSCode",
-                                            "com.visualstudio.code.oss",
-                                            "com.jetbrains.WebStorm",
-                                            "com.google.android.studio"
-                                        ],
-                                        "file_paths": ["ck2\\.app", "eu4\\.app"],
-                                        "type": "frontmost_application_if"
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "f8",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "to": [{ "key_code": "f8" }],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "com.github.atom",
-                                            "com.googlecode.iterm2",
-                                            "com.mucommander.muCommander",
-                                            "com.jetbrains.pycharm",
-                                            "com.microsoft.VSCode",
-                                            "com.visualstudio.code.oss",
-                                            "com.jetbrains.WebStorm",
-                                            "com.google.android.studio"
-                                        ],
-                                        "file_paths": ["ck2\\.app", "eu4\\.app"],
-                                        "type": "frontmost_application_if"
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "f9",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "to": [{ "key_code": "f9" }],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "com.github.atom",
-                                            "com.googlecode.iterm2",
-                                            "com.mucommander.muCommander",
-                                            "com.jetbrains.pycharm",
-                                            "com.microsoft.VSCode",
-                                            "com.visualstudio.code.oss",
-                                            "com.jetbrains.WebStorm",
-                                            "com.google.android.studio"
-                                        ],
-                                        "file_paths": ["ck2\\.app", "eu4\\.app"],
-                                        "type": "frontmost_application_if"
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "f10",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "to": [{ "key_code": "f10" }],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "com.github.atom",
-                                            "com.googlecode.iterm2",
-                                            "com.mucommander.muCommander",
-                                            "com.jetbrains.pycharm",
-                                            "com.microsoft.VSCode",
-                                            "com.visualstudio.code.oss",
-                                            "com.jetbrains.WebStorm",
-                                            "com.google.android.studio"
-                                        ],
-                                        "file_paths": ["ck2\\.app", "eu4\\.app"],
-                                        "type": "frontmost_application_if"
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "f11",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "to": [{ "key_code": "f11" }],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "com.github.atom",
-                                            "com.googlecode.iterm2",
-                                            "com.mucommander.muCommander",
-                                            "com.jetbrains.pycharm",
-                                            "com.microsoft.VSCode",
-                                            "com.visualstudio.code.oss",
-                                            "com.jetbrains.WebStorm",
-                                            "com.google.android.studio"
-                                        ],
-                                        "file_paths": ["ck2\\.app", "eu4\\.app"],
-                                        "type": "frontmost_application_if"
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "f12",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "to": [{ "key_code": "f12" }],
+                                "to": [{ "key_code": "right_arrow" }],
                                 "type": "basic"
                             }
                         ]
