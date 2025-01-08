@@ -1,5 +1,6 @@
 require("core.remap")
 require("core.settings")
+require("core.shortcuts")
 
 local lazypath = vim.fn.stdpath("data") .. "lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then

@@ -31,19 +31,16 @@ return {
       })
     end,
   },
-  -- LSPConfig setup for various language servers
   {
     "neovim/nvim-lspconfig",
     lazy = true,
     config = function()
       -- Capabilities for nvim-cmp integration
       local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
-
-      -- General on_attach function
       local on_attach = function(client, bufnr)
         -- Enable completion triggered by <c-x><c-o>
         vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
-        -- Buffer local mappings for LSP actions
+
         local opts = { buffer = bufnr }
         vim.keymap.set("n", "<leader>gf", function() vim.lsp.buf.format({ async = true }) end, opts)
         vim.keymap.set("n", "<leader>gD", vim.lsp.buf.declaration, opts)
@@ -56,18 +53,26 @@ return {
         vim.keymap.set("n", "<space>ge", function()
           vim.diagnostic.open_float(0, { scope = "line" })
         end, { noremap = true, silent = true })
+
+        client.server_capabilities.documentFormattingProvider = true
+        -- Format on save
+        vim.api.nvim_create_autocmd("BufWritePre", {
+          buffer = bufnr,
+          callback = function()
+            vim.lsp.buf.format({ async = false })
+          end,
+        })
       end
 
-      -- LSP server setups
       local lspconfig = require("lspconfig")
 
-      -- Lua LSP setup
+      -- Lua
       lspconfig.lua_ls.setup({
         capabilities = capabilities,
         on_attach = on_attach,
       })
 
-      -- Python LSP setup
+      -- Python
       lspconfig.pyright.setup({
         capabilities = capabilities,
         on_attach = on_attach,
@@ -79,19 +84,19 @@ return {
         on_attach = on_attach,
       })
 
-      -- Go LSP setup
+      -- Go
       lspconfig.gopls.setup({
         capabilities = capabilities,
         on_attach = on_attach,
       })
 
-      -- Markdown LSP setup
+      -- Markdown
       lspconfig.marksman.setup({
         capabilities = capabilities,
         on_attach = on_attach,
       })
 
-      -- Rust Analyzer with custom settings
+      -- Rust Analyzer
       lspconfig.rust_analyzer.setup({
         capabilities = capabilities,
         on_attach = on_attach,
@@ -107,7 +112,7 @@ return {
         },
       })
 
-      -- TypeScript and JavaScript LSP setup (tsserver)
+      -- TypeScript and JavaScript (tsserver)
       lspconfig.tsserver.setup({
         capabilities = capabilities,
         on_attach = on_attach,
@@ -124,67 +129,16 @@ return {
         },
       })
 
-      -- Volar (Vue) setup
+      -- Volar (Vue)
       lspconfig.volar.setup({
         capabilities = capabilities,
         on_attach = on_attach,
       })
 
-      -- Advanced TexLab setup for LaTeX
+      -- Texlab
       lspconfig.texlab.setup({
+        on_attach = on_attach,
         capabilities = capabilities,
-        settings = {
-          texlab = {
-            build = {
-              executable = "tectonic",
-              args = { "-X", "compile", "%f", "--keep-logs", "--keep-intermediates", "--outdir=build" },
-              onSave = false,
-            },
-            auxDirectory = "build",
-            latexFormatter = "latexindent",
-            latexindent = { ["local"] = nil, modifyLineBreaks = false },
-            chktex = { onOpenAndSave = false, onEdit = false },
-          },
-        },
-        on_attach = function(client, bufnr)
-          on_attach(client, bufnr)
-          -- Enable formatting
-          client.server_capabilities.documentFormattingProvider = true
-          -- Set up formatting on save
-          vim.api.nvim_create_autocmd("BufWritePre", {
-            buffer = bufnr,
-            callback = function()
-              vim.lsp.buf.format({ async = false })
-            end,
-          })
-        end,
-      })
-
-
-      local function tectonic_build()
-        local filename = vim.fn.expand("%:p")
-        local cmd = string.format("tectonic -X compile %s", filename)
-
-        -- Run the system command and capture the output and return code
-        local output = vim.fn.system(cmd)
-        local exit_code = vim.v.shell_error -- This holds the exit code of the last command run in Vim
-
-        -- Check if the command failed
-        if exit_code ~= 0 then
-          vim.notify("Error: " .. output, vim.log.levels.ERROR)
-        else
-          vim.notify("Rendered", vim.log.levels.INFO)
-        end
-      end
-
-
-      -- LSPAttach autocmd to set up LaTeX-specific keymaps
-      vim.api.nvim_create_autocmd("LspAttach", {
-        group = vim.api.nvim_create_augroup("UserLspConfig", {}),
-        callback = function(ev)
-          vim.keymap.set("n", "<leader>lb", tectonic_build,
-            { buffer = ev.bufnr, desc = "Build LaTeX with Tectonic" })
-        end,
       })
     end,
   },

@@ -61,7 +61,7 @@ return {
       -- vim.keymap.set('n', '<leader>:', builtin.command_history, {})
       vim.keymap.set('n', '<leader>:', ":Telescope command_history<CR>!", {})
       vim.keymap.set('n', '<leader>fy', builtin.registers, {})
-      vim.keymap.set("n", "<leader>gc", live_grep_args_shortcuts.grep_word_under_cursor)
+      vim.keymap.set("n", "<leader>gw", live_grep_args_shortcuts.grep_word_under_cursor)
     end
   },
 }
