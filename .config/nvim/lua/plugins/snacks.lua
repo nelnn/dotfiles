@@ -2,58 +2,66 @@ return {
   "folke/snacks.nvim",
   priority = 1000,
   lazy = false,
-  ---@type snacks.Config
-  opts = {
-    bigfile = { enabled = true },
-    dashboard = { enabled = true },
-    notifier = {
-      enabled = true,
-      timeout = 3000,
-    },
-    quickfile = { enabled = true },
-    statuscolumn = { enabled = true },
-    words = { enabled = true },
-    styles = {
-      notification = {
-        wo = { wrap = true } -- Wrap notifications
+  config = function()
+    -- Configure the Snacks plugin options
+    -- Apply the configuration
+    local snacks = require('snacks')
+    snacks.setup(
+      {
+        bigfile = { enabled = true },
+        dashboard = { enabled = true },
+        notifier = {
+          enabled = true,
+          timeout = 3000,
+        },
+        quickfile = { enabled = true },
+        statuscolumn = { enabled = true },
+        words = { enabled = true },
+        styles = {
+          notification = {
+            wo = { wrap = true } -- Wrap notifications
+          },
+        }
       }
-    }
-  },
-  keys = {
-    { "<leader>un", function() Snacks.notifier.hide() end, desc = "Dismiss All Notifications" },
-    { "<leader>w", function() Snacks.bufdelete() end, desc = "Delete Buffer" },
-    { "<leader>gg", function() Snacks.lazygit() end, desc = "Lazygit" },
-    { "<leader>gb", function() Snacks.git.blame_line() end, desc = "Git Blame Line" },
-    { "<leader>gB", function() Snacks.gitbrowse() end, desc = "Git Browse" },
-    { "<leader>gl", function() Snacks.lazygit.log() end, desc = "Lazygit Log (cwd)" },
-    { "<leader>cR", function() Snacks.rename.rename_file() end, desc = "Rename File" },
-    { "]]",         function() Snacks.words.jump(vim.v.count1) end, desc = "Next Reference", mode = { "n", "t" } },
-    { "[[",         function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference", mode = { "n", "t" } },
-  },
-  init = function()
+    )
+
+    vim.keymap.set('n', '<leader>fn', snacks.notifier.show_history, { noremap = true, silent = true })
+    vim.keymap.set('n', '<leader>w', function() snacks.bufdelete() end, { noremap = true, silent = true })
+    vim.keymap.set('n', '<leader>gg', function() snacks.lazygit() end, { noremap = true, silent = true })
+    vim.keymap.set('n', '<leader>gb', function() snacks.git.blame_line() end, { noremap = true, silent = true })
+    vim.keymap.set('n', '<leader>gB', function() snacks.gitbrowse() end, { noremap = true, silent = true })
+    vim.keymap.set('n', '<leader>gl', function() snacks.lazygit.log() end, { noremap = true, silent = true })
+    vim.keymap.set('n', '<leader>cR', snacks.rename.rename_file, { noremap = true, silent = true })
+    vim.keymap.set('n', ']]', function() snacks.words.jump(vim.v.count1) end, { noremap = true, silent = true })
+    vim.keymap.set('n', '[[]', function() snacks.words.jump(-vim.v.count1) end, { noremap = true, silent = true })
+    vim.keymap.set('t', ']]', function() snacks.words.jump(vim.v.count1) end, { noremap = true, silent = true })
+    vim.keymap.set('t', '[[]', function() snacks.words.jump(-vim.v.count1) end, { noremap = true, silent = true })
+
+    -- Autocmd for 'VeryLazy' event
     vim.api.nvim_create_autocmd("User", {
       pattern = "VeryLazy",
       callback = function()
         -- Setup some globals for debugging (lazy-loaded)
         _G.dd = function(...)
-          Snacks.debug.inspect(...)
+          snacks.debug.inspect(...)
         end
         _G.bt = function()
-          Snacks.debug.backtrace()
+          snacks.debug.backtrace()
         end
         vim.print = _G.dd -- Override print to use snacks for `:=` command
 
         -- Create some toggle mappings
-        Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>S")
-        Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
-        Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>uL")
-        Snacks.toggle.diagnostics():map("<leader>ud")
-        Snacks.toggle.line_number():map("<leader>ul")
-        Snacks.toggle.option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 }):map("<leader>uc")
-        Snacks.toggle.treesitter():map("<leader>uT")
-        Snacks.toggle.option("background", { off = "light", on = "dark", name = "Dark Background" }):map("<leader>ub")
-        Snacks.toggle.inlay_hints():map("<leader>uh")
+        snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>S")
+        snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
+        snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>uL")
+        snacks.toggle.diagnostics():map("<leader>ud")
+        snacks.toggle.line_number():map("<leader>ul")
+        snacks.toggle.option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 }):map(
+          "<leader>uc")
+        snacks.toggle.treesitter():map("<leader>uT")
+        snacks.toggle.option("background", { off = "light", on = "dark", name = "Dark Background" }):map("<leader>ub")
+        snacks.toggle.inlay_hints():map("<leader>uh")
       end,
     })
-  end,
+  end
 }
