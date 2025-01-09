@@ -18,7 +18,7 @@ return {
       telescope.setup({
         pickers = {
           find_files = {
-            find_command = { "rg", "-uuu", "--files", "--hidden", "--glob", "!**/.git/*", "-g", "!**/__pycache__/*", "-g", "!**/node_modules/*" },
+            find_command = { "rg", "-uuu", "--files", "--hidden", "--glob", "!**/.git/*", "-g", "!**/__pycache__/*", "-g", "!**/node_modules/*", "-g", "!**/*_cache/*", "-g", "!**/.venv/**" },
           },
           live_grep = {
             glob_pattern = { "!**/__pycache__/*" },
