@@ -13,3 +13,5 @@ alias nvimconfig="vi ~/.dotfiles/.config/nvim/lua"
 alias dot="vi ~/.dotfiles"
 
 alias tcli="transmission-cli"
+
+alias ctags="/opt/homebrew/bin/ctags"
