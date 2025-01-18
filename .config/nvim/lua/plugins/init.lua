@@ -4,5 +4,4 @@ return {
   "machakann/vim-highlightedyank",
   "preservim/tagbar",
   "JoosepAlviste/nvim-ts-context-commentstring",
-  "tpope/vim-surround",
 }

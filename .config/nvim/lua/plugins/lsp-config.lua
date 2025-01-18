@@ -27,6 +27,8 @@ return {
           "gopls",
           "texlab",
           "marksman",
+          "html",
+          "htmx",
         },
       })
     end,
@@ -37,6 +39,7 @@ return {
     config = function()
       -- Capabilities for nvim-cmp integration
       local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+      capabilities.textDocument.completion.completionItem.snippetSupport = true
       local on_attach = function(client, bufnr)
         -- Enable completion triggered by <c-x><c-o>
         vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
@@ -54,7 +57,7 @@ return {
           vim.diagnostic.open_float(0, { scope = "line" })
         end, { noremap = true, silent = true })
 
-        client.server_capabilities.documentFormattingProvider = true
+        -- client.server_capabilities.documentFormattingProvider = true
         -- Format on save
         vim.api.nvim_create_autocmd("BufWritePre", {
           buffer = bufnr,
@@ -65,6 +68,16 @@ return {
       end
 
       local lspconfig = require("lspconfig")
+      local html_capabilities = vim.lsp.protocol.make_client_capabilities()
+      html_capabilities.textDocument.completion.completionItem.snippetSupport = true
+      lspconfig.html.setup({
+        capabilities = html_capabilities,
+      })
+
+      lspconfig.htmx.setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+      })
 
       -- Lua
       lspconfig.lua_ls.setup({

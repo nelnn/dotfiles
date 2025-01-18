@@ -49,8 +49,9 @@ return {
       telescope.load_extension("live_grep_args")
 
       vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
-      vim.keymap.set("n", "<leader>fG", builtin.live_grep, {})
-      vim.keymap.set("n", "<leader>fg", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>-uuu")
+      -- vim.keymap.set("n", "<leader>fG", builtin.live_grep, {})
+      vim.keymap.set("n", "<leader>fG", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>-uuu")
+      vim.keymap.set("n", "<leader>fg", ":lua require('telescope').extensions.live_grep_args.live_grep_args()")
       vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
       vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
       vim.keymap.set('n', '<leader>fd', builtin.git_commits, {})
@@ -61,7 +62,7 @@ return {
       -- vim.keymap.set('n', '<leader>:', builtin.command_history, {})
       vim.keymap.set('n', '<leader>:', ":Telescope command_history<CR>!", {})
       vim.keymap.set('n', '<leader>fy', builtin.registers, {})
-      vim.keymap.set("n", "<leader>gw", live_grep_args_shortcuts.grep_word_under_cursor)
+      vim.keymap.set("n", "<leader>fw", live_grep_args_shortcuts.grep_word_under_cursor)
     end
   },
 }
