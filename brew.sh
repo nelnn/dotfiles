@@ -41,6 +41,8 @@ packages=(
     "yazi"
     "poppler" # Preview PDF
     "smudge/smudge/nightlight" # night shift
+    "tealdeer" # tldr for man pages
+    "universal-ctags"
     # Python
     "python"
     "pylint"
