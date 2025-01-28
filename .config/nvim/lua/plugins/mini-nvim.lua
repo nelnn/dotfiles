@@ -5,11 +5,25 @@ return {
     require("mini.ai").setup()
     require("mini.surround").setup()
     require('mini.comment').setup()
-    require('mini.pairs').setup()
     require('mini.splitjoin').setup()
     require('mini.jump').setup()
     require('mini.trailspace').setup()
     require('mini.cursorword').setup()
+    require('mini.pairs').setup({
+      mappings = {
+        ['('] = false,
+        ['['] = false,
+        ['{'] = { action = 'open', pair = '{}', neigh_pattern = '[^\\].' },
+
+        [')'] = false,
+        [']'] = false,
+        ['}'] = { action = 'open', pair = '{}', neigh_pattern = '[^\\].' },
+
+        ['"'] = false,
+        ["'"] = false,
+        ['`'] = false,
+      },
+    })
     require('mini.move').setup({
       mappings = {
         -- Move visual selection in Visual mode. Defaults are Alt (Meta) + hjkl.
