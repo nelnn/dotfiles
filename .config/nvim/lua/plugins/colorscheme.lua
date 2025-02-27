@@ -47,12 +47,30 @@ return {
         },
       })
 
-      vim.cmd([[colorscheme monokai-pro-spectrum]])
+      -- vim.cmd([[colorscheme monokai-pro-spectrum]])
     end,
   },
   {
-    "catppuccin/nvim",
+    "ellisonleao/gruvbox.nvim",
     priority = 1000,
   },
+  {
+    "rose-pine/neovim",
+    name = "rose-pine",
+    config = function()
+      require("rose-pine").setup()
+      vim.cmd("colorscheme rose-pine")
+    end,
+  },
+  {
+    'navarasu/onedark.nvim',
+    priority = 1000,
+    config = function()
+      require('onedark').setup {
+        style = 'darker',
+      }
+    end
+
+  }
 
 }

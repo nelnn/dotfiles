@@ -3,7 +3,7 @@ local o = vim.o
 o.background = "dark"
 o.hidden = true
 
-o.number = true       -- add line numbers
+o.number = true -- add line numbers
 o.relativenumber = true
 
 o.showmatch = true      -- show matching
@@ -20,7 +20,7 @@ o.softtabstop = 4       -- see multiple spaces as tabstops so <BS> does the righ
 o.expandtab = true      -- converts tabs to white space
 o.shiftwidth = 2        -- width for autoindents
 o.autoindent = true     -- indent a new line the same amount as the line just typed
-o.cc = "120"              -- set an 120 column border for good coding style
+o.cc = "120"            -- set an 120 column border for good coding style
 o.clipboard = "unnamed" -- using system clipboard
 o.ttyfast = true
 o.syntax = "on"
@@ -31,4 +31,3 @@ vim.opt.termguicolors = true
 vim.cmd('filetype on')
 vim.cmd('filetype plugin on')
 vim.cmd('filetype indent on')
-
