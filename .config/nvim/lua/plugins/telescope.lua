@@ -16,6 +16,14 @@ return {
       local live_grep_args_shortcuts = require("telescope-live-grep-args.shortcuts")
 
       telescope.setup({
+        defaults = {
+          path_display = { "truncate" },
+          layout_config = {
+            width = 0.99,
+            height = 0.99,
+            preview_width = 0.5,
+          }
+        },
         pickers = {
           find_files = {
             find_command = { "rg", "-uuu", "--files", "--hidden", "--glob", "!**/.git/*", "-g", "!**/__pycache__/*", "-g", "!**/node_modules/*", "-g", "!**/*_cache/*", "-g", "!**/.venv/**" },
