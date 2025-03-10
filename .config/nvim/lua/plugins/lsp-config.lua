@@ -29,6 +29,7 @@ return {
           "marksman",
           "html",
           "htmx",
+          "dockerls",
         },
       })
     end,
@@ -68,6 +69,12 @@ return {
       end
 
       local lspconfig = require("lspconfig")
+
+      lspconfig.dockerls.setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+      })
+
       local html_capabilities = vim.lsp.protocol.make_client_capabilities()
       html_capabilities.textDocument.completion.completionItem.snippetSupport = true
       lspconfig.html.setup({
