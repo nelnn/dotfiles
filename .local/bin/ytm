@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Requires yt-dlp
-yt-dlp --rm-cache-dir -x -o '%(playlist_index)s-%(title)s.%(ext)s' -P "$HOME/Music/cache" "$1"
+yt-dlp --rm-cache-dir --cookies-from-browser "brave" -x -o '%(playlist_index)s-%(title)s.%(ext)s' -P "$HOME/Music/cache" "$1"
 
 for track in "$HOME/Music/cache/"*; do
     title=${track##*/}
@@ -9,8 +9,8 @@ for track in "$HOME/Music/cache/"*; do
     ext="${track##*.}"
     # Clean up the filename
     filename="$(echo "$title" | iconv -c -f UTF-8 -t ASCII//TRANSLIT | \
-        sed -e 's/([^)]*)//g' \
-            -e 's/\[[^]]*\]//g' \
+        sed -e 's/ ([^)]*)//g' \
+            -e 's/ \[[^]]*\]//g' \
             -e 's/NA-//g' \
             -e 's/ - /-/g' \
             -e 's/-\+/-/g' \

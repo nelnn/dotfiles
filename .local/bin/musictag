@@ -12,7 +12,7 @@ echo "Enter the publication year:"; read -r year
 # echo "Enter the genre:"; read -r genre
 
 # Download the playlist or track
-yt-dlp --rm-cache-dir -x --audio-format 'mp3' -o '%(playlist_index)s-%(title)s.%(ext)s' -P "$HOME/Music/cache" $1
+yt-dlp --rm-cache-dir -x -o '%(playlist_index)s-%(title)s.%(ext)s' -P "$HOME/Music/cache" $1
 
 # Process each track in the temp directory
 for track in "$HOME/Music/cache/"*; do

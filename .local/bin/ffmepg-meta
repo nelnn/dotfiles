@@ -1,0 +1,12 @@
+#!/bin/sh
+# Print each filename being processed
+for track in *.opus; do
+    echo "Processing: $track"
+    
+    # Properly escape the filename
+    ffmpeg -i "${track}" -nostdin -y \
+        -c copy \
+        -map_metadata -1 \
+        -metadata artist="Karl Pilkington" \
+        "${track%.*}_new.opus"
+done
