@@ -20,10 +20,10 @@ return {
         ensure_installed = {
           "rust_analyzer",
           "lua_ls",
-          "tsserver",
+          "ts_ls",
           "pyright",
           "volar",
-          "ruff_lsp",
+          "ruff",
           "gopls",
           "texlab",
           "marksman",
@@ -99,7 +99,7 @@ return {
       })
 
       -- Ruff LSP for Python linting
-      lspconfig.ruff_lsp.setup({
+      lspconfig.ruff.setup({
         capabilities = capabilities,
         on_attach = on_attach,
       })
@@ -133,7 +133,7 @@ return {
       })
 
       -- TypeScript and JavaScript (tsserver)
-      lspconfig.tsserver.setup({
+      lspconfig.ts_ls.setup({
         capabilities = capabilities,
         on_attach = on_attach,
         filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
