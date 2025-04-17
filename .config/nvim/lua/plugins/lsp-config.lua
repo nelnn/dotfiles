@@ -30,6 +30,7 @@ return {
           "html",
           "htmx",
           "dockerls",
+          "sqlls",
         },
       })
     end,
@@ -69,6 +70,11 @@ return {
       end
 
       local lspconfig = require("lspconfig")
+
+      lspconfig.sqlls.setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+      })
 
       lspconfig.dockerls.setup({
         capabilities = capabilities,
