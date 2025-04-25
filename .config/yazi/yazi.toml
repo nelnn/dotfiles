@@ -55,10 +55,14 @@ play = [
 view = [
     { run = 'zathura "$@"', orphan = true, for = "unix" },
 ]
+excel = [
+    { run = 'open -a "Microsoft Excel" "$@"', orphan = true, for = "unix" },
+]
 
 [open]
 prepend_rules = [
   { name = "*.pdf", use = "view" },
+  { mime = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", use = "excel" },
 ]
 rules = [
 	# Folder
