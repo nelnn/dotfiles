@@ -4,7 +4,7 @@
 SOURCE_DIR="$HOME/.dotfiles/.config"
 
 # list of directories to symlink in ${homedir}
-directories=(alacritty karabiner lf nvim python tmux zk zsh)
+directories=(karabiner lf nvim python tmux zk yazi zsh)
 
 # create symlinks (will overwrite old dotfiles)
 # for directory in "$SOURCE_DIR"/*; do  # use this to apply for all files/directories
