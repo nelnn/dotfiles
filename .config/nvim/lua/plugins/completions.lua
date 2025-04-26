@@ -21,7 +21,7 @@ return {
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
-      -- "Exafunction/codeium.nvim",
+      "Exafunction/windsurf.nvim",
       "nvim-lua/plenary.nvim",
       "hrsh7th/cmp-nvim-lsp",
       "L3MON4D3/LuaSnip",
@@ -31,7 +31,7 @@ return {
       local cmp = require("cmp")
       local cmp_select = { behavior = cmp.SelectBehavior.Select }
       require("luasnip.loaders.from_vscode").lazy_load()
-      -- require("codeium").setup({}) -- Ensure you've configured Codeium as needed
+      require("codeium").setup({}) -- Ensure you've configured Codeium as needed
       cmp.setup({
         snippet = {
           expand = function(args)
@@ -54,7 +54,7 @@ return {
         }),
         sources = cmp.config.sources(
           {
-            -- { name = "codeium" },  -- AI-assisted completion
+            { name = "codeium" },  -- AI-assisted completion
             { name = "nvim_lsp" }, -- LSP completions
             { name = "luasnip" },  -- Snippet completions
           },
