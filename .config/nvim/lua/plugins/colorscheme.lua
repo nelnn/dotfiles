@@ -70,7 +70,5 @@ return {
         style = 'darker',
       }
     end
-
-  }
-
+  },
 }
