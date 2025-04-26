@@ -21,7 +21,6 @@ return {
           layout_config = {
             width = 0.99,
             height = 0.99,
-            preview_width = 0.5,
           }
         },
         pickers = {
