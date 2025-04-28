@@ -118,5 +118,3 @@ source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Load zoxide (cd replacement)
 eval "$(zoxide init zsh)"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
