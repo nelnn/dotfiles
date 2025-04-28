@@ -63,6 +63,7 @@ return {
           }
         ),
       })
+      vim.keymap.set("n", "<leader>co", ":Codeium Toggle<CR>", {})
     end,
   },
 }
