@@ -1,12 +1,12 @@
 return {
   {
-    "nelnn/visidataframe.nvim",
+    "nelnn/bear.nvim",
     ft = "python",
     dependencies = {
       "mfussenegger/nvim-dap",
     },
     opts = {
-      cache_dir = "~/.cache/nvim/visidataframe",
+      cache_dir = "~/.cache/nvim/bear",
       file_name = "df_debug" .. os.time() .. ".csv",
       window = {
         width = 0.9,
@@ -18,7 +18,7 @@ return {
       }
     },
     config = function(_, opts)
-      local df_visidata = require("visidataframe")
+      local df_visidata = require("bear")
       df_visidata.setup(opts)
     end,
   },
