@@ -18,7 +18,6 @@ return {
     config = function()
       require("mason-lspconfig").setup({
         ensure_installed = {
-          "rust_analyzer",
           "lua_ls",
           "ts_ls",
           "pyright",
@@ -26,113 +25,59 @@ return {
           "ruff",
           "gopls",
           "texlab",
-          "html",
-          "htmx",
-          "dockerls",
-          "sqlls",
         },
       })
     end,
   },
   {
     "neovim/nvim-lspconfig",
-    dependencies = { 'saghen/blink.cmp' },
+    dependencies = { 'saghen/blink.cmp', "nvim-telescope/telescope.nvim",
+    },
     lazy = true,
-    config = function()
-      -- Capabilities for nvim-cmp integration
-      local capabilities = require("blink.cmp").get_lsp_capabilities()
-      capabilities.textDocument.completion.completionItem.snippetSupport = true
+    opts = {
+      servers = {
+        lua_ls = {},
+        pyright = {},
+        ruff = {},
+        volar = {},
+        gopls = {},
+        texlab = {},
+      }
+    },
+    config = function(_, opts)
+      local lspconfig = require("lspconfig")
+      local builtin = require('telescope.builtin')
       local on_attach = function(client, bufnr)
-        -- Enable completion triggered by <c-x><c-o>
-        vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
-
-        local opts = { buffer = bufnr }
-        vim.keymap.set("n", "<leader>gf", function() vim.lsp.buf.format({ async = true }) end, opts)
-        vim.keymap.set("n", "<leader>gD", vim.lsp.buf.declaration, opts)
-        vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, opts)
-        vim.keymap.set("n", "<leader>gk", vim.lsp.buf.hover, opts)
-        vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation, opts)
-        vim.keymap.set("n", "<leader>gn", vim.lsp.buf.rename, opts)
-        vim.keymap.set("n", "<leader>gK", vim.lsp.buf.signature_help, opts)
-        vim.keymap.set({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, opts)
+        vim.keymap.set("n", "<leader>gf", function() vim.lsp.buf.format({ async = true }) end, { buffer = bufnr })
+        vim.keymap.set("n", "<leader>gD", vim.lsp.buf.declaration, { buffer = bufnr })
+        vim.keymap.set("n", "<leader>gk", vim.lsp.buf.hover, { buffer = bufnr })
+        vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation, { buffer = bufnr })
+        vim.keymap.set("n", "<leader>gn", vim.lsp.buf.rename, { buffer = bufnr })
+        vim.keymap.set("n", "<leader>gK", vim.lsp.buf.signature_help, { buffer = bufnr })
+        vim.keymap.set("n", "<leader>gr", builtin.lsp_references, { buffer = bufnr })
+        vim.keymap.set("n", "<leader>gd", builtin.lsp_definitions, { buffer = bufnr })
+        vim.keymap.set({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, { buffer = bufnr })
         vim.keymap.set("n", "<space>ge", function()
           vim.diagnostic.open_float(0, { scope = "line" })
         end, { noremap = true, silent = true })
 
-        -- client.server_capabilities.documentFormattingProvider = true
-        -- Format on save
-        vim.api.nvim_create_autocmd("BufWritePre", {
-          buffer = bufnr,
-          callback = function()
-            vim.lsp.buf.format({ async = false })
-          end,
-        })
+        if client.server_capabilities.documentFormattingProvider then
+          vim.api.nvim_create_autocmd("BufWritePre", {
+            buffer = bufnr,
+            callback = function()
+              vim.lsp.buf.format({ async = false })
+            end,
+          })
+        end
+      end
+      for server, config in pairs(opts.servers) do
+        config.capabilities = require('blink.cmp').get_lsp_capabilities(config.capabilities)
+        config.on_attach = on_attach
+        lspconfig[server].setup(config)
       end
 
-      local lspconfig = require("lspconfig")
+      local capabilities = require('blink.cmp').get_lsp_capabilities()
 
-      lspconfig.sqlls.setup({
-        capabilities = capabilities,
-        on_attach = on_attach,
-      })
-
-      lspconfig.dockerls.setup({
-        capabilities = capabilities,
-        on_attach = on_attach,
-      })
-
-      local html_capabilities = vim.lsp.protocol.make_client_capabilities()
-      html_capabilities.textDocument.completion.completionItem.snippetSupport = true
-      lspconfig.html.setup({
-        capabilities = html_capabilities,
-      })
-
-      lspconfig.htmx.setup({
-        capabilities = capabilities,
-        on_attach = on_attach,
-      })
-
-      -- Lua
-      lspconfig.lua_ls.setup({
-        capabilities = capabilities,
-        on_attach = on_attach,
-      })
-
-      -- Python
-      lspconfig.pyright.setup({
-        capabilities = capabilities,
-        on_attach = on_attach,
-      })
-
-      -- Ruff LSP for Python linting
-      lspconfig.ruff.setup({
-        capabilities = capabilities,
-        on_attach = on_attach,
-      })
-
-      -- Go
-      lspconfig.gopls.setup({
-        capabilities = capabilities,
-        on_attach = on_attach,
-      })
-
-      -- Rust Analyzer
-      lspconfig.rust_analyzer.setup({
-        capabilities = capabilities,
-        on_attach = on_attach,
-        settings = {
-          ["rust-analyzer"] = {
-            imports = {
-              granularity = { group = "module" },
-              prefix = "self",
-            },
-            cargo = { buildScripts = { enable = true } },
-            procMacro = { enable = true },
-          },
-        },
-      })
-
-      -- TypeScript and JavaScript (tsserver)
       lspconfig.ts_ls.setup({
         capabilities = capabilities,
         on_attach = on_attach,
@@ -147,18 +92,6 @@ return {
             },
           },
         },
-      })
-
-      -- Volar (Vue)
-      lspconfig.volar.setup({
-        capabilities = capabilities,
-        on_attach = on_attach,
-      })
-
-      -- Texlab
-      lspconfig.texlab.setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
       })
     end,
   },
