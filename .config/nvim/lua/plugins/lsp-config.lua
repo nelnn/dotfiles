@@ -26,7 +26,6 @@ return {
           "ruff",
           "gopls",
           "texlab",
-          "marksman",
           "html",
           "htmx",
           "dockerls",
@@ -37,10 +36,11 @@ return {
   },
   {
     "neovim/nvim-lspconfig",
+    dependencies = { 'saghen/blink.cmp' },
     lazy = true,
     config = function()
       -- Capabilities for nvim-cmp integration
-      local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+      local capabilities = require("blink.cmp").get_lsp_capabilities()
       capabilities.textDocument.completion.completionItem.snippetSupport = true
       local on_attach = function(client, bufnr)
         -- Enable completion triggered by <c-x><c-o>
@@ -116,12 +116,6 @@ return {
         on_attach = on_attach,
       })
 
-      -- Markdown
-      lspconfig.marksman.setup({
-        capabilities = capabilities,
-        on_attach = on_attach,
-      })
-
       -- Rust Analyzer
       lspconfig.rust_analyzer.setup({
         capabilities = capabilities,
@@ -181,5 +175,6 @@ return {
     config = function()
       require("tailwind-tools").setup()
     end,
+    ft = { "html", "ts", "js", "tsx", "vue" },
   }
 }
