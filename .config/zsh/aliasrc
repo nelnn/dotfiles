@@ -7,6 +7,8 @@ alias tm="tmux"
 alias cd="z"
 alias mem="top -o mem" # Check memory usage
 alias man="batman"
+alias g="lazygit"
+alias d="lazydocker"
 
 alias zconfig="vi ~/.dotfiles/.config/zsh/.zshrc"
 alias nvimconfig="vi ~/.dotfiles/.config/nvim/lua"
