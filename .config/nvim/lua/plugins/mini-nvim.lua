@@ -8,11 +8,11 @@ return {
       require('mini.comment').setup()
       require('mini.splitjoin').setup()
       require('mini.jump').setup()
-      require('mini.trailspace').setup()
       require('mini.cursorword').setup()
       require('mini.icons').setup()
       require('mini.tabline').setup()
       require('mini.statusline').setup()
+      require('mini.trailspace').setup()
       require('mini.move').setup({
         mappings = {
           -- Move visual selection in Visual mode. Defaults are Alt (Meta) + hjkl.
@@ -28,6 +28,7 @@ return {
           line_up = "<leader>k",
         },
       })
+      vim.keymap.set("n", "<leader>xt", ":lua MiniTrailspace.trim()<CR>")
     end
   },
   {
