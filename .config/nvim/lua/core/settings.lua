@@ -27,6 +27,8 @@ o.syntax = "on"
 o.cursorline = true
 o.swapfile = false
 
+vim.g.python3_host_prog = vim.fn.expand("~/.virtualenvs/neovim/bin/python3")
+
 vim.opt.guicursor = ""
 vim.opt.termguicolors = true
 vim.cmd('filetype on')
