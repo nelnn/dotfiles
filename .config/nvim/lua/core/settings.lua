@@ -27,6 +27,7 @@ o.syntax = "on"
 o.cursorline = true
 o.swapfile = false
 
+vim.opt.guicursor = ""
 vim.opt.termguicolors = true
 vim.cmd('filetype on')
 vim.cmd('filetype plugin on')
