@@ -29,7 +29,8 @@ o.swapfile = false
 
 vim.g.python3_host_prog = vim.fn.expand("~/.virtualenvs/neovim/bin/python3")
 
-vim.opt.guicursor = ""
+vim.o.guicursor = "n-v-c-i-ci-ve-r-cr-o:block"
+
 vim.opt.termguicolors = true
 vim.cmd('filetype on')
 vim.cmd('filetype plugin on')
