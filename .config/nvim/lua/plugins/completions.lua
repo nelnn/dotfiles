@@ -2,7 +2,7 @@ return {
   {
     "github/copilot.vim",
     config = function()
-      vim.keymap.set('i', '<C-J>', 'copilot#Accept("\\<CR>")', {
+      vim.keymap.set('i', '<C-l>', 'copilot#Accept("\\<CR>")', {
         expr = true,
         replace_keycodes = false
       })
@@ -40,7 +40,12 @@ return {
       -- C-k: Toggle signature help (if signature.enabled = true)
       --
       -- See :h blink-cmp-config-keymap for defining your own keymap
-      keymap = { preset = 'default' },
+      keymap = {
+        preset = 'default',
+
+        ['<C-space>'] = { 'accept', 'fallback' },
+        ['<C-j>'] = { 'show_documentation', 'fallback' },
+      },
 
       appearance = {
         -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
