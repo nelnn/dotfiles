@@ -7,14 +7,16 @@ return {
     },
     opts = {
       cache_dir = "~/.cache/nvim/bear",
-      file_name = "df_debug" .. os.time() .. ".csv",
+      file_name = "tmp_" .. os.date("%m%d_%H%M%S") .. ".csv",
+      remove_file = false,
       window = {
         width = 0.9,
         height = 0.8,
         border = "rounded"
       },
       keymap = {
-        visualise = "<Leader>df"
+        visualise = "<Leader>df",
+        visualise_buf = "<leader>bdf",
       }
     },
     config = function(_, opts)
