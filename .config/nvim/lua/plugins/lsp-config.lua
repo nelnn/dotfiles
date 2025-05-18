@@ -33,7 +33,6 @@ return {
     "neovim/nvim-lspconfig",
     dependencies = { 'saghen/blink.cmp', "nvim-telescope/telescope.nvim",
     },
-    lazy = true,
     opts = {
       servers = {
         lua_ls = {},
@@ -45,7 +44,6 @@ return {
       }
     },
     config = function(_, opts)
-      local lspconfig = require("lspconfig")
       local builtin = require('telescope.builtin')
       local on_attach = function(client, bufnr)
         vim.keymap.set("n", "<leader>gf", function() vim.lsp.buf.format({ async = true }) end, { buffer = bufnr })
@@ -55,7 +53,8 @@ return {
         vim.keymap.set("n", "<leader>gn", vim.lsp.buf.rename, { buffer = bufnr })
         vim.keymap.set("n", "<leader>gK", vim.lsp.buf.signature_help, { buffer = bufnr })
         vim.keymap.set("n", "<leader>gr", builtin.lsp_references, { buffer = bufnr })
-        vim.keymap.set("n", "<leader>gd", builtin.lsp_definitions, { buffer = bufnr })
+        -- vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, { buffer = bufnr })
+        vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, { buffer = bufnr })
         vim.keymap.set({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, { buffer = bufnr })
         vim.keymap.set("n", "<space>ge", function()
           vim.diagnostic.open_float(0, { scope = "line" })
@@ -73,12 +72,12 @@ return {
       for server, config in pairs(opts.servers) do
         config.capabilities = require('blink.cmp').get_lsp_capabilities(config.capabilities)
         config.on_attach = on_attach
-        lspconfig[server].setup(config)
+        vim.lsp.config(server, config)
       end
 
       local capabilities = require('blink.cmp').get_lsp_capabilities()
 
-      lspconfig.ts_ls.setup({
+      vim.lsp.config("ts_ls", {
         capabilities = capabilities,
         on_attach = on_attach,
         filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
@@ -86,8 +85,8 @@ return {
           plugins = {
             {
               name = "@vue/typescript-plugin",
-              location = require("mason-registry").get_package("vue-language-server"):get_install_path() ..
-                  "/node_modules/@vue/language-server",
+              location = vim.fn.stdpath('data') ..
+                  '/mason/packages/vue-language-server/node_modules/@vue/language-server/node_modules/@vue/typescript-plugin',
               languages = { "vue" },
             },
           },
