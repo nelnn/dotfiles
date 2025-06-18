@@ -21,7 +21,6 @@ return {
           "lua_ls",
           "ts_ls",
           "pyright",
-          "volar",
           "ruff",
           "gopls",
           "texlab",
