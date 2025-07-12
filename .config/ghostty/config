@@ -5,14 +5,14 @@ theme = xcodedarkhc
 # window-decoration = false
 
 # Keybindings
-## Tmux Switching Panes
-## Note: \x02 = Ctrl+B
-keybind = cmd+one=text:\x021
-keybind = cmd+two=text:\x022
-keybind = cmd+three=text:\x023
-keybind = cmd+four=text:\x024
-keybind = cmd+five=text:\x025
-keybind = cmd+six=text:\x026
-keybind = cmd+seven=text:\x027
-keybind = cmd+eight=text:\x028
-keybind = cmd+nine=text:\x029
+# Tmux switching windows
+# Unbind goto_tab
+keybind = alt+1=unbind
+keybind = alt+2=unbind
+keybind = alt+3=unbind
+keybind = alt+4=unbind
+keybind = alt+5=unbind
+keybind = alt+6=unbind
+keybind = alt+7=unbind
+keybind = alt+8=unbind
+keybind = alt+9=unbind
