@@ -61,7 +61,7 @@ excel = [
 
 [open]
 prepend_rules = [
-  { name = "*.pdf", use = "view" },
+  { name = "*.pdf", use = ["open", "reveal", "view"] },
   { mime = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", use = "excel" },
 ]
 rules = [
