@@ -27,3 +27,6 @@ PYTHONSTARTUP=$HOME/.config/python/.pythonstartup
 
 # Poetry
 PATH="$HOME/.local/bin:$PATH"
+
+# Golang
+PATH="$HOME/go/bin:$PATH"
