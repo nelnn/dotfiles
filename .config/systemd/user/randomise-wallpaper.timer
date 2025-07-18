@@ -1,0 +1,10 @@
+[Unit]
+Description=Change wallpaper every minute
+
+[Timer]
+OnBootSec=30
+OnUnitActiveSec=1800
+Persistent=true
+
+[Install]
+WantedBy=default.target

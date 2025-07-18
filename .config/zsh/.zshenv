@@ -3,17 +3,17 @@
 ZDOTDIR=$HOME/.config/zsh
 
 # Homebrew directory
-PATH=/opt/homebrew/bin:$PATH
+# PATH=/opt/homebrew/bin:$PATH
 
 # Cargo (for RUST)
-. "$HOME/.cargo/env"
+#. "$HOME/.cargo/env"
 
 ###################################
 ######### Python Stuff ############
 ###################################
 
 # Start up script
-PYTHONSTARTUP=$HOME/.config/python/.pythonstartup
+# PYTHONSTARTUP=$HOME/.config/python/.pythonstartup
 
 ## History
 # PYTHON_HISTORY=$HOME/.local/state/python/history
@@ -24,6 +24,3 @@ PYTHONSTARTUP=$HOME/.config/python/.pythonstartup
 # PYTHONPATH=$HOME/Documents/Github/galactus/projects/sentinel:$PYTHONPATH
 # PYTHONPATH=$HOME/Documents/Github/galactus/lib/huboo-utils:$PYTHONPATH
 # PYTHONPATH=$HOME/Documents/Github/huboo_reports:$PYTHONPATH
-
-# Poetry
-PATH="$HOME/.local/bin:$PATH"

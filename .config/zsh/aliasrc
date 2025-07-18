@@ -1,19 +1,13 @@
 # aliases
-alias vi="nvim"
-alias ls='ls -G'
-alias mv="mv -i"
-alias cp="cp -i"
+alias v="nvim"
 alias tm="tmux"
 alias cd="z"
-alias mem="top -o mem" # Check memory usage
 alias man="batman"
 alias g="lazygit"
 alias d="lazydocker"
 
-alias zconfig="vi ~/.dotfiles/.config/zsh/.zshrc"
-alias nvimconfig="vi ~/.dotfiles/.config/nvim/lua"
-alias dot="vi ~/.dotfiles"
+alias zconfig="v ~/.dotfiles/.config/zsh/.zshrc"
+alias nvimconfig="v ~/.dotfiles/.config/nvim/lua"
+alias dot="v ~/.dotfiles"
 
 alias tcli="transmission-cli"
-
-alias ctags="/opt/homebrew/bin/ctags"

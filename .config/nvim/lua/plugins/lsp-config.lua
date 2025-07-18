@@ -7,7 +7,6 @@ return {
         ensure_installed = {
           "debugpy",
           "texlab",
-          "latexindent", -- Ensure installed manually
         },
       })
     end,
