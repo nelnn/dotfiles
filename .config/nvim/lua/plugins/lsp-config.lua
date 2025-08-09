@@ -24,6 +24,7 @@ return {
           "ruff",
           "gopls",
           "texlab",
+          "tinymist",
         },
       })
     end,
