@@ -1,5 +1,5 @@
 # aliases
-alias vi="nvim"
+alias v="nvim"
 alias ls='ls -G'
 alias mv="mv -i"
 alias cp="cp -i"
@@ -10,9 +10,9 @@ alias man="batman"
 alias g="lazygit"
 alias d="lazydocker"
 
-alias zconfig="vi ~/.dotfiles/.config/zsh/.zshrc"
-alias nvimconfig="vi ~/.dotfiles/.config/nvim/lua"
-alias dot="vi ~/.dotfiles"
+alias zconfig="v ~/.dotfiles/.config/zsh/.zshrc"
+alias nvimconfig="v ~/.dotfiles/.config/nvim/lua"
+alias dot="v ~/.dotfiles"
 
 alias tcli="transmission-cli"
 
