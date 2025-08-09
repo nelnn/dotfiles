@@ -27,7 +27,7 @@ o.syntax = "on"
 o.cursorline = true
 o.swapfile = false
 
-vim.g.python3_host_prog = vim.fn.expand("~/.virtualenvs/neovim/bin/python3")
+vim.g.python3_host_prog = vim.fn.expand("~/.local/share/venvs/neovim/bin/python3")
 
 vim.o.guicursor = "n-v-c-i-ci-ve-r-cr-o:block"
 
