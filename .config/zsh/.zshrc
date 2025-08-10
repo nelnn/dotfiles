@@ -1,6 +1,6 @@
 # Start Tmux
-if [ -x "$(command -v tmux)" ] && [ -n "${DISPLAY}" ] && [ -z "${TMUX}" ]; then
-  exec tmux new-session -A -s ${USER} > /dev/null 2>&1
+if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
+  tmux attach-session -t default || tmux new-session -s default
 fi
 
 setopt auto_cd
