@@ -4,7 +4,7 @@
 # Default Programs:
 export EDITOR="nvim"
 export TERMINAL="com.mitchellh.ghostty"
-export BROWSER="librewolf"
+# export BROWSER="librewolf.desktop"
 
 
 # ~/ Clean-up:
@@ -22,6 +22,7 @@ export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
 export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
 export IPYTHONDIR="$XDG_CONFIG_HOME/ipython"
 export TINYTEX="$XDG_DATA_HOME/TinyTeX"
+export NVM_DIR="$XDG_CONFIG_HOME/nvm"
 
 
 # Export other program settings

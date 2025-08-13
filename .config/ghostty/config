@@ -3,6 +3,7 @@ background = #000000
 theme = xcodedarkhc
 # font-family = Osaka
 # window-decoration = false
+confirm-close-surface = false
 
 # Keybindings
 # Tmux switching windows

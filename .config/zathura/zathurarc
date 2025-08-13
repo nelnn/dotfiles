@@ -10,3 +10,4 @@ map R rotate
 map K zoom in
 map J zoom out
 map i recolor
+map <C-d> toggle_page_mode

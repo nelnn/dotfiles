@@ -5,6 +5,8 @@ alias cd="z"
 alias man="batman"
 alias g="lazygit"
 alias d="lazydocker"
+alias dcu="docker compose up -d"
+alias dcd="docker compose down"
 
 alias zconfig="v ~/.dotfiles/.config/zsh/.zshrc"
 alias nvimconfig="v ~/.dotfiles/.config/nvim/lua"

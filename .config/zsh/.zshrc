@@ -1,3 +1,8 @@
+# Start Tmux
+if [ -x "$(command -v tmux)" ] && [ -n "${DISPLAY}" ] && [ -z "${TMUX}" ]; then
+    exec tmux new-session -A -s ${USER} >/dev/null 2>&1
+fi
+
 setopt auto_cd
 # Enable colors and change prompt:
 autoload -U colors && colors
@@ -90,8 +95,5 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 # Load zoxide (cd replacement)
 eval "$(zoxide init zsh)"
 
-export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-. "$HOME/.local/share/../bin/env"
