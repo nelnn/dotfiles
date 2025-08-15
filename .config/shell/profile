@@ -1,6 +1,10 @@
 #!/bin/sh
 # shellcheck disable=SC2155
 
+if [ -f "$HOME/.env" ]; then
+  export $(grep -v '^#' "$HOME/.env" | xargs)
+fi
+
 # Default Programs:
 export EDITOR="nvim"
 export TERMINAL="com.mitchellh.ghostty"
@@ -15,6 +19,7 @@ export XDG_CACHE_HOME="$HOME/.cache"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 export GOPATH="$XDG_DATA_HOME/go"
 export GOMODCACHE="$XDG_CACHE_HOME/go/mod"
+export PATH=$PATH:$GOPATH/bin
 export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/pythonrc"
 export SQLITE_HISTORY="$XDG_DATA_HOME/sqlite_history"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
