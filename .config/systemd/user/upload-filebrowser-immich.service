@@ -1,0 +1,9 @@
+[Unit]
+Description=Upload Filebrowser to Immich
+
+[Service]
+ExecStart=/home/n/.local/bin/upload-filebrowser-immich
+Restart=always
+
+[Install]
+WantedBy=default.target

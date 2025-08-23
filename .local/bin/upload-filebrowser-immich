@@ -1,0 +1,13 @@
+#!/bin/sh
+set -e
+
+export PATH=/home/n/.local/share/nvm/versions/node/v24.4.0/bin:$PATH
+
+WATCH_DIR="$HOME/personal/filebrowser/photos"
+
+inotifywait -m -e create "$WATCH_DIR" --format '%f' | while read FILE
+do
+    echo "New file detected: $FILE"
+    immich upload "$WATCH_DIR/$FILE"
+    rm "$WATCH_DIR/$FILE"
+done
