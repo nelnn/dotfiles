@@ -1,0 +1,17 @@
+[Unit]
+Description=FileBrowser Daemon
+After=network.target
+
+[Service]
+User=n
+WorkingDirectory=/home/n/personal/filebrower
+Environment=FB_CONFIG=/etc/filebrowser/config.toml
+Environment=FB_DATABASE=/etc/filebrowser/filebrowser.db
+ExecStart=/usr/local/bin/filebrowser
+Restart=always
+RestartSec=5
+Environment=PATH=/usr/local/bin:/usr/bin:/bin
+
+[Install]
+WantedBy=multi-user.target
+
