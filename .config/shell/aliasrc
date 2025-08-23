@@ -13,3 +13,6 @@ alias nvimconfig="v ~/.dotfiles/.config/nvim/lua"
 alias dot="v ~/.dotfiles"
 
 alias tcli="transmission-cli"
+
+# temp
+alias arch="v ~/personal/arch_conf"
