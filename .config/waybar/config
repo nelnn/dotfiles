@@ -9,22 +9,28 @@
   /* === Modules Order === */
   "modules-left": [
     "custom/archicon",
-    "clock",
-    "cpu",
-    "memory",
-    "disk",
-    "temperature"
+    "wlr/taskbar",
+    "hyprland/window"
+    // "clock",
+    // "cpu",
+    // "memory",
+    // "disk",
+    // "temperature"
   ],
   "modules-center": [
     "hyprland/workspaces"
   ],
   "modules-right": [
-    "wlr/taskbar",
+    "cpu",
+    "memory",
+    "disk",
+    "temperature",
     "idle_inhibitor",
     "pulseaudio_slider",
     "pulseaudio",
     "network",
-    "hyprland/language"
+    "hyprland/language",
+    "clock"
   ],
   /* === Modules Left === */
   "custom/archicon": {
@@ -32,6 +38,38 @@
     "on-click": "wofi --show drun",
     "tooltip": false
   },
+  "wlr/taskbar": {
+    "format": "{icon}",
+    "all-outputs": true,
+    "active-first": true,
+    "tooltip-format": "{name}",
+    "on-click": "activate",
+    "on-click-middle": "close",
+    "ignore-list": [
+      "rofi"
+    ]
+  },
+  "hyprland/window": {
+    "max-length": 60,
+    "format": "{title}"
+  },
+  /* === Modules Center === */
+  "hyprland/workspaces": {
+    "format": "{name}",
+    "format-icons": {
+      "default": "{name}",
+      "active": "[{name}]"
+      // "default": "",
+      // "active": ""
+    },
+    // "persistent-workspaces": {
+    //   "*": 2
+    // },
+    "disable-scroll": true,
+    "all-outputs": true,
+    "show-special": true
+  },
+  /* === Modules Right === */
   "clock": {
     "timezone": "Europe/London",
     "format": "{:%H:%M %d/%m %a}",
@@ -61,32 +99,6 @@
     "tooltip-format": "Temperatura actual: {temperatureC}°C\nCrítico si > 80°C",
     "format-icons": [
       ""
-    ]
-  },
-  /* === Modules Center === */
-  "hyprland/workspaces": {
-    "format": "{icon}",
-    "format-icons": {
-      "default": "",
-      "active": ""
-    },
-    "persistent-workspaces": {
-      "*": 2
-    },
-    "disable-scroll": true,
-    "all-outputs": true,
-    "show-special": true
-  },
-  /* === Modules Right === */
-  "wlr/taskbar": {
-    "format": "{icon}",
-    "all-outputs": true,
-    "active-first": true,
-    "tooltip-format": "{name}",
-    "on-click": "activate",
-    "on-click-middle": "close",
-    "ignore-list": [
-      "rofi"
     ]
   },
   "idle_inhibitor": {

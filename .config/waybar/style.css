@@ -52,6 +52,15 @@ window#waybar.hidden {
   border-bottom-right-radius: 10px;
 }
 
+#clock {
+  margin-right: 5px;
+  border-radius: 10px;
+}
+
+#window {
+  color: white;
+}
+
 /* -- Specific styles -- */
 
 /* Modules left */
@@ -62,24 +71,26 @@ window#waybar.hidden {
   padding-right: 17px;
 }
 
-#clock {
-  background: #ABE9B3;
+#taskbar {
+  background: transparent;
+  border-radius: 10px;
+  padding: 0px 5px;
+  margin: 6px 5px;
 }
 
-#cpu {
-  background: #96CDFB;
+#taskbar button {
+  padding: 0px 5px;
+  margin: 0px 3px;
+  border-radius: 6px;
+  transition: background 0.3s ease;
 }
 
-#memory {
-  background: #DDB6F2;
+#taskbar button.active {
+  background: rgba(34, 36, 54, 0.5);
 }
 
-#disk {
-  background: #F5C2E7;
-}
-
-#temperature {
-  background: #F8BD96;
+#taskbar button:hover {
+  background: rgba(34, 36, 54, 0.5);
 }
 
 /* Modules center */
@@ -113,26 +124,24 @@ window#waybar.hidden {
 #workspaces button.active:hover {}
 
 /* Modules right */
-#taskbar {
-  background: transparent;
-  border-radius: 10px;
-  padding: 0px 5px;
-  margin: 6px 5px;
+#clock {
+  background: #ABE9B3;
 }
 
-#taskbar button {
-  padding: 0px 5px;
-  margin: 0px 3px;
-  border-radius: 6px;
-  transition: background 0.3s ease;
+#cpu {
+  background: #96CDFB;
 }
 
-#taskbar button.active {
-  background: rgba(34, 36, 54, 0.5);
+#memory {
+  background: #DDB6F2;
 }
 
-#taskbar button:hover {
-  background: rgba(34, 36, 54, 0.5);
+#disk {
+  background: #F5C2E7;
+}
+
+#temperature {
+  background: #F8BD96;
 }
 
 #idle_inhibitor {
