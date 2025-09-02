@@ -37,6 +37,9 @@ export MPLCONFIGDIR="/path/to/new/mplconfig" # matplotlib
 export PATH="/opt/homebrew/bin:$PATH"
 export HOMEBREW_NO_AUTO_UPDATE=1
 
+## pipx
+export PATH="$PATH:/Users/nsc/.local/bin"
+
 # Export other program settings
 ## ls enable directory color:
 export CLICOLOR=1
