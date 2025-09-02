@@ -20,6 +20,8 @@ return {
         ensure_installed = {
           "lua_ls",
           "ts_ls",
+          "vtsls",
+          "vue_ls",
           "pyright",
           "ruff",
           "gopls",
@@ -31,16 +33,34 @@ return {
   },
   {
     "neovim/nvim-lspconfig",
-    dependencies = { 'saghen/blink.cmp', "nvim-telescope/telescope.nvim",
+    dependencies = {
+      'saghen/blink.cmp',
+      "nvim-telescope/telescope.nvim",
     },
     opts = {
       servers = {
         lua_ls = {},
         pyright = {},
         ruff = {},
-        volar = {},
         gopls = {},
         texlab = {},
+        vue_ls = {},
+        vtsls = {},
+        ts_ls = {
+          init_options = {
+            plugins = {
+              {
+                name = '@vue/typescript-plugin',
+                location = vim.fn.stdpath('data') ..
+                    "/mason/packages/vue-language-server/node_modules/@vue/language-server",
+                languages = { 'vue' },
+                configNamespace = 'typescript',
+              }
+            },
+          },
+          filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+
+        },
       }
     },
     config = function(_, opts)
@@ -70,28 +90,9 @@ return {
         end
       end
       for server, config in pairs(opts.servers) do
-        config.capabilities = require('blink.cmp').get_lsp_capabilities(config.capabilities)
         config.on_attach = on_attach
         vim.lsp.config(server, config)
       end
-
-      local capabilities = require('blink.cmp').get_lsp_capabilities()
-
-      vim.lsp.config("ts_ls", {
-        capabilities = capabilities,
-        on_attach = on_attach,
-        filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
-        init_options = {
-          plugins = {
-            {
-              name = "@vue/typescript-plugin",
-              location = vim.fn.stdpath('data') ..
-                  '/mason/packages/vue-language-server/node_modules/@vue/language-server/node_modules/@vue/typescript-plugin',
-              languages = { "vue" },
-            },
-          },
-        },
-      })
     end,
   },
   {
