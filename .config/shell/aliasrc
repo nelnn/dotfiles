@@ -8,11 +8,14 @@ alias d="lazydocker"
 alias dcu="docker compose up -d"
 alias dcd="docker compose down"
 
-alias zconfig="v ~/.dotfiles/.config/zsh/.zshrc"
-alias nvimconfig="v ~/.dotfiles/.config/nvim/lua"
-alias dot="v ~/.dotfiles"
+alias ls="eza --icons"
+
+alias zconf="v ~/.dotfiles/.config/zsh/.zshrc"
+alias vconf="v ~/.dotfiles/.config/nvim/lua"
 
 alias tcli="transmission-cli"
+
+alias venv="source .venv/bin/activate"
 
 # temp
 alias arch="v ~/personal/arch_conf"
