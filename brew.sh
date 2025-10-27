@@ -43,6 +43,7 @@ packages=(
     "smudge/smudge/nightlight" # night shift
     "tealdeer" # tldr for man pages
     "universal-ctags"
+    "eza"
     # Python
     "python"
     "pylint"

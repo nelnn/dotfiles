@@ -9,6 +9,8 @@ alias mem="top -o mem" # Check memory usage
 alias man="batman"
 alias g="lazygit"
 alias d="lazydocker"
+alias ls="eza -a --icons"
+alias cat="bat"
 
 alias dcu="docker compose up -d"
 alias dcd="docker compose down"
