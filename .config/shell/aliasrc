@@ -10,10 +10,14 @@ alias man="batman"
 alias g="lazygit"
 alias d="lazydocker"
 
-alias zconfig="v ~/.dotfiles/.config/zsh/.zshrc"
-alias nvimconfig="v ~/.dotfiles/.config/nvim/lua"
-alias dot="v ~/.dotfiles"
+alias dcu="docker compose up -d"
+alias dcd="docker compose down"
+
+# Edit config files
+alias aliasconf="nvim ~/.dotfiles/.config/shell/aliasrc"
+alias zconf="v ~/.dotfiles/.config/zsh/.zshrc"
+alias nvimconf="v ~/.dotfiles/.config/nvim/lua"
+alias dot="cd ~/.dotfiles"
 
 alias tcli="transmission-cli"
-
 alias ctags="/opt/homebrew/bin/ctags"
