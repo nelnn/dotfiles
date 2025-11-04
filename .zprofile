@@ -1,0 +1,1 @@
+/home/n/.dotfiles/config/shell/profile

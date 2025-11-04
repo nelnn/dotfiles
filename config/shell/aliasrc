@@ -1,0 +1,29 @@
+alias v="nvim"
+alias tm="tmux"
+alias cd="z"
+alias man="batman"
+alias g="lazygit"
+alias d="lazydocker"
+alias dcu="docker compose up -d"
+alias dcd="docker compose down"
+
+alias ls="eza --icons"
+alias p="sudo pacman"
+alias smic="sudo make install clean"
+
+alias zconf="v ~/.config/zsh/.zshrc"
+alias vconf="v ~/.config/nvim/lua"
+alias prof="v ~/.config/shell/profile"
+alias ali="v ~/.config/shell/aliasrc"
+
+alias tcli="transmission-cli"
+
+alias venv="source .venv/bin/activate"
+
+
+alias dwmc="cd ~/build/dwm; v config.h"
+alias stc="cd ~/build/st-luke; v config.h"
+alias blk="cd ~/build/dwmblocks-async; v config.h"
+
+# temp
+alias arch="v ~/personal/post_install"

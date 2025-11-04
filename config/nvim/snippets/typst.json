@@ -1,0 +1,21 @@
+{
+  "simpleSetup": {
+    "prefix": "setup",
+    "body": [
+      "#set heading(numbering: \"1.\")",
+      " #show link: it => {",
+      " set text(blue)",
+      " if type(it.dest) != str {",
+      "     it",
+      " }",
+      " else {",
+      "     underline(it)",
+      " }",
+      "}",
+      "",
+      "#let page(number) = {",
+      " [*(p.#((number)))* #v(0em)]",
+      "}"
+    ]
+  }
+}
