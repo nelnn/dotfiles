@@ -18,6 +18,7 @@ return {
         ensure_installed = {
           "lua_ls",
           "ts_ls",
+          "tailwindcss",
           "pyright",
           "ruff",
           "gopls",
@@ -34,6 +35,7 @@ return {
     opts = {
       servers = {
         lua_ls = {},
+        tailwindcss = {},
         pyright = {},
         ruff = {},
         volar = {},

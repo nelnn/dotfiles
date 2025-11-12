@@ -1,5 +1,4 @@
 alias v="nvim"
-alias tm="tmux"
 alias cd="z"
 alias man="batman"
 alias g="lazygit"
@@ -22,8 +21,9 @@ alias venv="source .venv/bin/activate"
 
 
 alias dwmc="cd ~/build/dwm; v config.h"
-alias stc="cd ~/build/st-luke; v config.h"
 alias blk="cd ~/build/dwmblocks-async; v config.h"
+
+alias tms="tmux-sessioniser"
 
 # temp
 alias arch="v ~/personal/post_install"

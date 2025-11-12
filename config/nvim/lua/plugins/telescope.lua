@@ -31,6 +31,8 @@ return {
               "--glob",
               "!**/.git/*",
               "-g",
+              "!**/.jj/*",
+              "-g",
               "!**/__pycache__/*",
               "-g",
               "!**/node_modules/*",
