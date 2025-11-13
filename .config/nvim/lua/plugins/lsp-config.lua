@@ -18,6 +18,7 @@ return {
     config = function()
       require("mason-lspconfig").setup({
         ensure_installed = {
+          "tailwindcss",
           "lua_ls",
           "ts_ls",
           "vtsls",
@@ -39,6 +40,7 @@ return {
     },
     opts = {
       servers = {
+        tailwindcss = {},
         lua_ls = {},
         pyright = {},
         ruff = {},
@@ -95,19 +97,4 @@ return {
       end
     end,
   },
-  {
-    "luckasRanarison/tailwind-tools.nvim",
-    name = "tailwind-tools",
-    build = ":UpdateRemotePlugins",
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-      "nvim-telescope/telescope.nvim", -- optional
-      "neovim/nvim-lspconfig",         -- optional
-    },
-    opts = {},                         -- your configuration
-    config = function()
-      require("tailwind-tools").setup()
-    end,
-    ft = { "html", "ts", "js", "tsx", "vue" },
-  }
 }
