@@ -81,4 +81,8 @@ return {
       vim.keymap.set("n", "<leader>fw", live_grep_args_shortcuts.grep_word_under_cursor)
     end
   },
+  {
+    'ibhagwan/fzf-lua',
+  }
+
 }
