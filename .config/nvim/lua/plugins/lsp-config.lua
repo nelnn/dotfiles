@@ -6,8 +6,6 @@ return {
       require("mason").setup({
         ensure_installed = {
           "debugpy",
-          "texlab",
-          "latexindent", -- Ensure installed manually
         },
       })
     end,
@@ -18,6 +16,7 @@ return {
     config = function()
       require("mason-lspconfig").setup({
         ensure_installed = {
+          "bashls",
           "tailwindcss",
           "lua_ls",
           "ts_ls",
@@ -26,7 +25,6 @@ return {
           "pyright",
           "ruff",
           "gopls",
-          "texlab",
           "tinymist",
         },
       })
@@ -40,12 +38,12 @@ return {
     },
     opts = {
       servers = {
+        bashls = {},
         tailwindcss = {},
         lua_ls = {},
         pyright = {},
         ruff = {},
         gopls = {},
-        texlab = {},
         vue_ls = {},
         vtsls = {},
         ts_ls = {
@@ -54,7 +52,8 @@ return {
               {
                 name = '@vue/typescript-plugin',
                 location = vim.fn.stdpath('data') ..
-                    "/mason/packages/vue-language-server/node_modules/@vue/language-server",
+                    "/mason/packages/vue-language-server/node_modules/@vue/language-server/node_modules/@vue/typescript-plugin",
+
                 languages = { 'vue' },
                 configNamespace = 'typescript',
               }
