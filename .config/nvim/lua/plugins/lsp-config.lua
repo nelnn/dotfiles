@@ -34,7 +34,7 @@ return {
     "neovim/nvim-lspconfig",
     dependencies = {
       'saghen/blink.cmp',
-      "nvim-telescope/telescope.nvim",
+      'ibhagwan/fzf-lua',
     },
     opts = {
       servers = {
@@ -65,17 +65,15 @@ return {
       }
     },
     config = function(_, opts)
-      local builtin = require('telescope.builtin')
+      local builtin = require('fzf-lua')
       local on_attach = function(client, bufnr)
         vim.keymap.set("n", "<leader>gf", function() vim.lsp.buf.format({ async = true }) end, { buffer = bufnr })
-        vim.keymap.set("n", "<leader>gD", vim.lsp.buf.declaration, { buffer = bufnr })
+        vim.keymap.set("n", "<leader>gd", vim.lsp.buf.declaration, { buffer = bufnr })
         vim.keymap.set("n", "<leader>gk", vim.lsp.buf.hover, { buffer = bufnr })
         vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation, { buffer = bufnr })
         vim.keymap.set("n", "<leader>gn", vim.lsp.buf.rename, { buffer = bufnr })
         vim.keymap.set("n", "<leader>gK", vim.lsp.buf.signature_help, { buffer = bufnr })
         vim.keymap.set("n", "<leader>gr", builtin.lsp_references, { buffer = bufnr })
-        -- vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, { buffer = bufnr })
-        vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, { buffer = bufnr })
         vim.keymap.set({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, { buffer = bufnr })
         vim.keymap.set("n", "<space>ge", function()
           vim.diagnostic.open_float(0, { scope = "line" })

@@ -14,6 +14,7 @@ function y() {
 bindkey -s '^f' '^ucd "$(dirname "$(fzf --height=40 --preview "bat --color=always --style=numbers --line-range=:500 {}")")"\n'
 
 
+# Fuzzy find and open files with preview using fzf and bat
 rfv() (
   RELOAD='reload:rg --column --color=always --smart-case {q} || :'
   OPENER='if [[ $FZF_SELECT_COUNT -eq 0 ]]; then
@@ -31,3 +32,5 @@ rfv() (
       --preview-window '~4,+{2}+4/3,<80(up)' \
       --query "$*"
 )
+
+bindkey -s '^f' 'rfv\n'
