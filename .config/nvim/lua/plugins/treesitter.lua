@@ -1,7 +1,6 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
-    dependencies = { "nvim-telescope/telescope.nvim" },
     config = function()
       require("nvim-treesitter.configs").setup({
         -- A list of parser names, or "all" (the five listed parsers should always be installed)
@@ -39,8 +38,6 @@ return {
           additional_vim_regex_highlighting = false,
         },
       })
-
-      vim.keymap.set('n', '<leader>ft', require('telescope.builtin').treesitter, {})
     end,
   },
   {

@@ -3,11 +3,7 @@ return {
   {
     "williamboman/mason.nvim",
     config = function()
-      require("mason").setup({
-        ensure_installed = {
-          "debugpy",
-        },
-      })
+      require("mason").setup()
     end,
   },
   -- Mason-LSPConfig to auto-install LSP servers
@@ -22,7 +18,7 @@ return {
           "ts_ls",
           "vtsls",
           "vue_ls",
-          "pyright",
+          "ty",
           "ruff",
           "gopls",
           "tinymist",
@@ -41,7 +37,7 @@ return {
         bashls = {},
         tailwindcss = {},
         lua_ls = {},
-        pyright = {},
+        ty = {},
         ruff = {},
         gopls = {},
         vue_ls = {},
@@ -68,7 +64,7 @@ return {
       local builtin = require('fzf-lua')
       local on_attach = function(client, bufnr)
         vim.keymap.set("n", "<leader>gf", function() vim.lsp.buf.format({ async = true }) end, { buffer = bufnr })
-        vim.keymap.set("n", "<leader>gd", vim.lsp.buf.declaration, { buffer = bufnr })
+        vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, { buffer = bufnr })
         vim.keymap.set("n", "<leader>gk", vim.lsp.buf.hover, { buffer = bufnr })
         vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation, { buffer = bufnr })
         vim.keymap.set("n", "<leader>gn", vim.lsp.buf.rename, { buffer = bufnr })

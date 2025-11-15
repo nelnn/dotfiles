@@ -13,6 +13,9 @@ return {
       require("mini.surround").setup()
       require('mini.tabline').setup()
       require('mini.trailspace').setup()
+      require('mini.visits').setup({
+        vim.keymap.set("n", "<leader>v", ":lua MiniVisits.select_path()<CR>")
+      })
       require('mini.files').setup({
         vim.keymap.set("n", "<leader>e", ":lua MiniFiles.open()<CR>")
       })
