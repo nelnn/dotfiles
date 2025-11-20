@@ -11,8 +11,19 @@ function y() {
 	rm -f -- "$tmp"
 }
 
-bindkey -s '^f' '^ucd "$(dirname "$(fzf --height=40 --preview "bat --color=always --style=numbers --line-range=:500 {}")")"\n'
+# bindkey -s '^f' '^ucd "$(dirname "$(fzf --height=40 --preview "bat --color=always --style=numbers --line-range=:500 {}")")"\n'
 
+ffv() (
+  OPENER='nvim {1}'   # Open the selected file
+
+  fzf --ansi \
+      --preview 'bat --color=always --style=numbers --line-range=:500 {}' \
+      --bind "enter:become:$OPENER" \
+      --bind 'ctrl-/:toggle-preview' \
+      --height=40%
+)
+
+bindkey -s '^f' 'ffv\n'
 
 # Fuzzy find and open files with preview using fzf and bat
 rfv() (
@@ -20,7 +31,7 @@ rfv() (
   OPENER='if [[ $FZF_SELECT_COUNT -eq 0 ]]; then
             nvim {1} +{2}     # No selection. Open the current line in Vim.
           else
-            vim +cw -q {+f}  # Build quickfix list for the selected items.
+            nvim +cw -q {+f}  # Build quickfix list for the selected items.
           fi'
   fzf --disabled --ansi --multi \
       --bind "start:$RELOAD" --bind "change:$RELOAD" \
@@ -33,4 +44,4 @@ rfv() (
       --query "$*"
 )
 
-bindkey -s '^f' 'rfv\n'
+bindkey -s '^g' 'rfv\n'

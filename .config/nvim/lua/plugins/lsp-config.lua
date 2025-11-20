@@ -22,6 +22,7 @@ return {
           "ruff",
           "gopls",
           "tinymist",
+          "pyright",
         },
       })
     end,
@@ -39,6 +40,7 @@ return {
         lua_ls = {},
         ty = {},
         ruff = {},
+        pyright = {},
         gopls = {},
         vue_ls = {},
         vtsls = {},
@@ -64,7 +66,7 @@ return {
       local builtin = require('fzf-lua')
       local on_attach = function(client, bufnr)
         vim.keymap.set("n", "<leader>gf", function() vim.lsp.buf.format({ async = true }) end, { buffer = bufnr })
-        vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, { buffer = bufnr })
+        vim.keymap.set("n", "<leader>gd", builtin.lsp_declarations, { buffer = bufnr })
         vim.keymap.set("n", "<leader>gk", vim.lsp.buf.hover, { buffer = bufnr })
         vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation, { buffer = bufnr })
         vim.keymap.set("n", "<leader>gn", vim.lsp.buf.rename, { buffer = bufnr })

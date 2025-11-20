@@ -3,7 +3,7 @@ return {
     'ibhagwan/fzf-lua',
     keys = {
       { "<leader>ff", "<cmd>FzfLua files<CR>",           desc = "Files" },
-      { "<leader>fg", "<cmd>FzfLua grep<CR><CR>",        desc = "Grep" },
+      { "<leader>fg", "<cmd>FzfLua live_grep<CR>",        desc = "Grep" },
       { '<leader>fb', "<cmd>FzfLua buffers<CR>",         desc = "Buffers" },
       { '<leader>fh', "<cmd>FzfLua help_tags<CR>",       desc = "Help Tags" },
       { '<leader>fd', "<cmd>FzfLua git_commits<CR>",     desc = "Git Commits" },
