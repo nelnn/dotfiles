@@ -1,20 +1,26 @@
 return {
   {
-    'stevearc/oil.nvim',
-    dependencies = { "nvim-tree/nvim-web-devicons" },
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
     config = function()
-      require("oil").setup({
-        default_file_explorer = true,
-        view_options = {
-          -- Show files and directories that start with "."
-          show_hidden = true,
-          -- This function defines what is considered a "hidden" file
-          is_hidden_file = function(name, bufnr)
-            return vim.startswith(name, ".")
-          end,
-        }
-      })
-      vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+      local harpoon = require('harpoon')
+      vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end)
+      vim.keymap.set("n", "<leader>he", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+
+      vim.keymap.set("n", "<leader>1", function() harpoon:list():select(1) end)
+      vim.keymap.set("n", "<leader>2", function() harpoon:list():select(2) end)
+      vim.keymap.set("n", "<leader>3", function() harpoon:list():select(3) end)
+      vim.keymap.set("n", "<leader>4", function() harpoon:list():select(4) end)
+      vim.keymap.set("n", "<leader>5", function() harpoon:list():select(5) end)
+      vim.keymap.set("n", "<leader>6", function() harpoon:list():select(6) end)
+      vim.keymap.set("n", "<leader>7", function() harpoon:list():select(7) end)
+
+      -- Toggle previous & next buffers stored within Harpoon list
+      vim.keymap.set("n", "<leader>p", function() harpoon:list():prev() end)
+      vim.keymap.set("n", "<leader>n", function() harpoon:list():next() end)
     end
   },
   {
@@ -52,56 +58,6 @@ return {
     },
     config = function()
       require("yazi").setup(opts)
-    end
-  },
-  {
-    'j-morano/buffer_manager.nvim',
-    config = function()
-      local opts = { noremap = true }
-      local map = vim.keymap.set
-
-      ---- Setup
-      require("buffer_manager").setup({
-        select_menu_item_commands = {
-          v = {
-            key = "<C-v>",
-            command = "vsplit"
-          },
-          h = {
-            key = "<C-h>",
-            command = "split"
-          }
-        },
-        focus_alternate_buffer = false,
-        short_file_names = true,
-        short_term_names = true,
-        loop_nav = false,
-        highlight = 'Normal:BufferManagerBorder',
-        win_extra_options = {
-          winhighlight = 'Normal:BufferManagerNormal',
-        },
-        use_shortcuts = true,
-      })
-
-      ---- Navigate buffers bypassing the menu
-      local bmui = require("buffer_manager.ui")
-      local keys = '1234567890'
-      for i = 1, #keys do
-        local key = keys:sub(i, i)
-        map(
-          'n',
-          string.format('<leader>%s', key),
-          function() bmui.nav_file(i) end,
-          opts
-        )
-      end
-
-      ---- Just the menu
-      map({ 't', 'n' }, '<M-Space>', bmui.toggle_quick_menu, opts)
-
-      ---- Next/Prev
-      -- map('n', '<M-j>', bmui.nav_next, opts)
-      -- map('n', '<M-k>', bmui.nav_prev, opts)
     end
   },
 }

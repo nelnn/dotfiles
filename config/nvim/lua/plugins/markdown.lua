@@ -15,5 +15,21 @@ return {
     ---@type render.md.UserConfig
     opts = {},
     ft = { "markdown" },
-  }
+  },
+  {
+    "roodolv/markdown-toggle.nvim",
+    config = function()
+      require("markdown-toggle").setup({
+        keymaps = {
+          toggle = {
+            ["<leader>q"] = "quote",
+            ["<leader>l"] = "list",
+            ["<C-n>"] = "olist",
+            ["<C-c>"] = "checkbox",
+            ["<C-h>"] = "heading",
+          },
+        },
+      })
+    end,
+  },
 }
