@@ -11,19 +11,7 @@ function y() {
 	rm -f -- "$tmp"
 }
 
-# bindkey -s '^f' '^ucd "$(dirname "$(fzf --height=40 --preview "bat --color=always --style=numbers --line-range=:500 {}")")"\n'
-
-ffv() (
-  OPENER='nvim {1}'   # Open the selected file
-
-  fzf --ansi \
-      --preview 'bat --color=always --style=numbers --line-range=:500 {}' \
-      --bind "enter:become:$OPENER" \
-      --bind 'ctrl-/:toggle-preview' \
-      --height=40%
-)
-
-bindkey -s '^f' 'ffv\n'
+bindkey -s '^f' '^unvim "$(fzf --height=40 --preview "bat --color=always --style=numbers --line-range=:500 {}")"\n'
 
 # Fuzzy find and open files with preview using fzf and bat
 rfv() (
