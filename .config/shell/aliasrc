@@ -5,10 +5,10 @@ alias mv="mv -i"
 alias cp="cp -i"
 alias tm="tmux"
 alias cd="z"
-alias mem="top -o mem" # Check memory usage
 alias man="batman"
 alias g="lazygit"
 alias d="lazydocker"
+alias j="lazyjj"
 alias ls="eza -a --icons"
 alias cat="bat"
 
