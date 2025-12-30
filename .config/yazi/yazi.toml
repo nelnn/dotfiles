@@ -2,7 +2,7 @@
 # If you encounter any issues, please make an issue at https://github.com/yazi-rs/schemas.
 "$schema" = "https://yazi-rs.github.io/schemas/yazi.json"
 
-[manager]
+[mgr]
 ratio          = [ 1, 4, 3 ]
 sort_by        = "alphabetical"
 sort_sensitive = false
@@ -19,13 +19,12 @@ title_format   = "Yazi: {cwd}"
 [preview]
 wrap            = "no"
 tab_size        = 2
-max_width       = 1200
-max_height      = 1200
+max_width       = 600
+max_height      = 900
 cache_dir       = ""
 image_delay     = 30
 image_filter    = "triangle"
 image_quality   = 75
-sixel_fraction  = 15
 ueberzug_scale  = 1
 ueberzug_offset = [ 0, 0, 0, 0 ]
 
@@ -61,7 +60,7 @@ excel = [
 
 [open]
 prepend_rules = [
-  { name = "*.pdf", use = ["open", "reveal", "view"] },
+  { url = "*.pdf", use = ["open", "reveal", "view"] },
   { mime = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", use = "excel" },
 ]
 rules = [
@@ -89,31 +88,38 @@ micro_workers    = 10
 macro_workers    = 10
 bizarre_retry    = 3
 image_alloc      = 536870912  # 512MB
-image_bound      = [ 0, 0 ]
+image_bound      = [ 10000, 10000 ]
 suppress_preload = false
 
 [plugin]
-
 fetchers = [
 	# Mimetype
-	{ id = "mime", name = "*", run = "mime", if = "!mime", prio = "high" },
+	{ id = "mime", url = "*/",         run = "mime.dir", prio = "high" },
+	{ id = "mime", url = "local://*",  run = "mime.local", prio = "high" },
+	{ id = "mime", url = "remote://*", run = "mime.remote", prio = "high" },
 ]
 spotters = [
-	{ name = "*/", run = "folder" },
+	{ url = "*/", run = "folder" },
 	# Code
 	{ mime = "text/*", run = "code" },
-	{ mime = "*/{xml,javascript,wine-extension-ini}", run = "code" },
+	{ mime = "application/{mbox,javascript,wine-extension-ini}", run = "code" },
 	# Image
-	{ mime = "image/{avif,hei?,jxl,svg+xml}", run = "magick" },
+	{ mime = "image/{avif,hei?,jxl}", run = "magick" },
+	{ mime = "image/svg+xml", run = "svg" },
 	{ mime = "image/*", run = "image" },
 	# Video
 	{ mime = "video/*", run = "video" },
+	# Virtual file system
+	{ mime = "vfs/*", run = "vfs" },
+	# Error
+	{ mime = "null/*", run = "null" },
 	# Fallback
-	{ name = "*", run = "file" },
+	{ url = "*", run = "file" },
 ]
 preloaders = [
 	# Image
-	{ mime = "image/{avif,hei?,jxl,svg+xml}", run = "magick" },
+	{ mime = "image/{avif,hei?,jxl}", run = "magick" },
+	{ mime = "image/svg+xml", run = "svg" },
 	{ mime = "image/*", run = "image" },
 	# Video
 	{ mime = "video/*", run = "video" },
@@ -124,14 +130,15 @@ preloaders = [
 	{ mime = "application/ms-opentype", run = "font" },
 ]
 previewers = [
-	{ name = "*/", run = "folder", sync = true },
+	{ url = "*/", run = "folder" },
 	# Code
 	{ mime = "text/*", run = "code" },
-	{ mime = "*/{xml,javascript,wine-extension-ini}", run = "code" },
+	{ mime = "application/{mbox,javascript,wine-extension-ini}", run = "code" },
 	# JSON
 	{ mime = "application/{json,ndjson}", run = "json" },
 	# Image
-	{ mime = "image/{avif,hei?,jxl,svg+xml}", run = "magick" },
+	{ mime = "image/{avif,hei?,jxl}", run = "magick" },
+	{ mime = "image/svg+xml", run = "svg" },
 	{ mime = "image/*", run = "image" },
 	# Video
 	{ mime = "video/*", run = "video" },
@@ -140,18 +147,22 @@ previewers = [
 	# Archive
 	{ mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}", run = "archive" },
 	{ mime = "application/{debian*-package,redhat-package-manager,rpm,android.package-archive}", run = "archive" },
-	{ name = "*.{AppImage,appimage}", run = "archive" },
+	{ url = "*.{AppImage,appimage}", run = "archive" },
 	# Virtual Disk / Disk Image
 	{ mime = "application/{iso9660-image,qemu-disk,ms-wim,apple-diskimage}", run = "archive" },
 	{ mime = "application/virtualbox-{vhd,vhdx}", run = "archive" },
-	{ name = "*.{img,fat,ext,ext2,ext3,ext4,squashfs,ntfs,hfs,hfsx}", run = "archive" },
+	{ url = "*.{img,fat,ext,ext2,ext3,ext4,squashfs,ntfs,hfs,hfsx}", run = "archive" },
 	# Font
 	{ mime = "font/*", run = "font" },
 	{ mime = "application/ms-opentype", run = "font" },
 	# Empty file
 	{ mime = "inode/empty", run = "empty" },
+	# Virtual file system
+	{ mime = "vfs/*", run = "vfs" },
+	# Error
+	{ mime = "null/*", run = "null" },
 	# Fallback
-	{ name = "*", run = "file" },
+	{ url = "*", run = "file" },
 ]
 
 [input]
@@ -163,7 +174,7 @@ cd_origin = "top-center"
 cd_offset = [ 0, 2, 50, 3 ]
 
 # create
-create_titles  = [ "Create:", "Create (dir):" ]
+create_title  = [ "Create:", "Create (dir):" ]
 create_origin = "top-center"
 create_offset = [ 0, 2, 50, 3 ]
 
@@ -204,16 +215,16 @@ delete_origin	= "center"
 delete_offset	= [ 0, 0, 70, 20 ]
 
 # overwrite
-overwrite_title   = "Overwrite file?"
-overwrite_content = "Will overwrite the following file:"
-overwrite_origin  = "center"
-overwrite_offset  = [ 0, 0, 50, 15 ]
+overwrite_title  = "Overwrite file?"
+overwrite_body   = "Will overwrite the following file:"
+overwrite_origin = "center"
+overwrite_offset = [ 0, 0, 50, 15 ]
 
 # quit
-quit_title   = "Quit?"
-quit_content = "The following task is still running, are you sure you want to quit?"
-quit_origin  = "center"
-quit_offset  = [ 0, 0, 50, 15 ]
+quit_title  = "Quit?"
+quit_body   = "The following tasks are still running, are you sure you want to quit?"
+quit_origin = "center"
+quit_offset = [ 0, 0, 50, 15 ]
 
 [pick]
 open_title  = "Open with:"
