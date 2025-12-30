@@ -1,9 +1,14 @@
 #!/bin/sh
 # shellcheck disable=SC2155
+export PATH="$PATH:$(find ~/.local/bin -type d | paste -sd ':' -)"
+
+if [ -f "$HOME/.env" ]; then
+  export $(grep -v '^#' "$HOME/.env" | xargs)
+fi
 
 # Default Programs:
 export EDITOR="nvim"
-export TERMINAL="com.mitchellh.ghostty"
+export TERMINAL="org.alacritty"
 # export BROWSER="librewolf.desktop"
 
 
@@ -16,20 +21,21 @@ export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 export GOPATH="$XDG_DATA_HOME/go"
 export GOMODCACHE="$XDG_CACHE_HOME/go/mod"
 export PATH=$PATH:$GOPATH/bin
-export SQLITE_HISTORY="$XDG_DATA_HOME/sqlite_history"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
 export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
 export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
 export IPYTHONDIR="$XDG_CONFIG_HOME/ipython"
 export TINYTEX="$XDG_DATA_HOME/TinyTeX"
 export NVM_DIR="$XDG_DATA_HOME/nvm"
-export MINIKUBE_HOME="$XDG_CONFIG_HOME/minikube"
-export KUBECONFIG="$XDG_CONFIG_HOME/kube"
-export CARGO_HOME="$XDG_CONFIG_HOME/cargo"
+export RUSTUP_HOME="$XDG_CONFIG_HOME/rustup"
+export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export PATH="$CARGO_HOME/bin:$PATH"
+export GIT_CONFIG_GLOBAL="$XDG_CONFIG_HOME/git/config"
+
 ## aws
 export AWS_SHARED_CREDENTIALS_FILE="$XDG_CONFIG_HOME/aws/credentials"
 export AWS_CONFIG_FILE="$XDG_CONFIG_HOME/aws/config"
+
 ## Python
 export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/pythonrc"
 export MPLCONFIGDIR="$XDG_CONFIG_HOME/matplotlib"
@@ -38,8 +44,15 @@ export MPLCONFIGDIR="$XDG_CONFIG_HOME/matplotlib"
 export PATH="/opt/homebrew/bin:$PATH"
 export HOMEBREW_NO_AUTO_UPDATE=1
 
-## pipx
-export PATH="$PATH:/Users/nsc/.local/bin"
+## History files:
+export WGET_HIST="$XDG_DATA_HOME/wget-hsts"
+export SQLITE_HISTORY="$XDG_DATA_HOME/sqlite_history"
+export PSQL_HISTORY="$XDG_DATA_HOME/psql_history"
+export HISTFILE="$XDG_DATA_HOME/zsh_history"
+
+# Paths (X220)
+# export PATH="$HOME/.local/bin/scripts:$PATH"
+# export PATH="$HOME/.local/bin/scripts/statusbar:$PATH"
 
 # Export other program settings
 ## ls enable directory color:
@@ -53,4 +66,3 @@ export LESS_TERMCAP_se=$'\e[0m'
 export LESS_TERMCAP_so=$'\e[01;33m'
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;31m'
-
