@@ -1,5 +1,7 @@
-
+# Reload Config: cmd + shift + ,
+macos-titlebar-style = transparent
 background = #000000
+background-opacity = 0.7
 # theme = xcodedarkhc
 # font-family = Osaka
 # window-decoration = false
@@ -7,12 +9,12 @@ background = #000000
 # Keybindings
 ## Tmux Switching Panes
 ## Note: \x02 = Ctrl+B
-keybind = cmd+one=text:\x021
-keybind = cmd+two=text:\x022
-keybind = cmd+three=text:\x023
-keybind = cmd+four=text:\x024
-keybind = cmd+five=text:\x025
-keybind = cmd+six=text:\x026
-keybind = cmd+seven=text:\x027
-keybind = cmd+eight=text:\x028
-keybind = cmd+nine=text:\x029
+keybind = alt+one=text:\x021
+keybind = alt+two=text:\x022
+keybind = alt+three=text:\x023
+keybind = alt+four=text:\x024
+keybind = alt+five=text:\x025
+keybind = alt+six=text:\x026
+keybind = alt+seven=text:\x027
+keybind = alt+eight=text:\x028
+keybind = alt+nine=text:\x029
