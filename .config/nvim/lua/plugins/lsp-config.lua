@@ -12,6 +12,7 @@ return {
     config = function()
       require("mason-lspconfig").setup({
         ensure_installed = {
+          "clangd",
           "bashls",
           "tailwindcss",
           "lua_ls",
@@ -35,6 +36,9 @@ return {
     },
     opts = {
       servers = {
+        clangd = {
+          filetypes = { "c", "cpp" },
+        },
         bashls = {},
         tailwindcss = {},
         lua_ls = {},
