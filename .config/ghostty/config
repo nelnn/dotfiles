@@ -2,6 +2,7 @@
 macos-titlebar-style = transparent
 background = #000000
 background-opacity = 0.7
+confirm-close-surface = false
 # theme = xcodedarkhc
 # font-family = Osaka
 # window-decoration = false
