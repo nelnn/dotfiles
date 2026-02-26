@@ -13,6 +13,12 @@ return {
       require("mini.surround").setup()
       require('mini.tabline').setup()
       require('mini.trailspace').setup()
+      require('mini.indentscope').setup({
+        draw = {
+          delay = 20,
+          animation = require('mini.indentscope').gen_animation.none(),
+        }
+      })
       require('mini.visits').setup({
         vim.keymap.set("n", "<leader>v", ":lua MiniVisits.select_path()<CR>")
       })
