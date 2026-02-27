@@ -2,16 +2,17 @@ return {
   {
     'ibhagwan/fzf-lua',
     keys = {
-      { "<leader>ff", "<cmd>FzfLua files<CR>",           desc = "Files" },
-      { "<leader>fg", "<cmd>FzfLua live_grep<CR>",       desc = "Grep" },
-      { '<leader>fb', "<cmd>FzfLua buffers<CR>",         desc = "Buffers" },
-      { '<leader>fh', "<cmd>FzfLua help_tags<CR>",       desc = "Help Tags" },
-      { '<leader>fd', "<cmd>FzfLua git_commits<CR>",     desc = "Git Commits" },
-      { '<leader>fm', "<cmd>FzfLua marks<CR>",           desc = "Marks" },
-      { '<leader>:',  "<cmd>FzfLua command_history<CR>", desc = "Command History" },
-      { '<leader>fy', "<cmd>FzfLua registers<CR>",       desc = "Registers" },
-      { "<leader>fw", "<cmd>FzfLua grep_cword<CR>",      desc = "Grep Word Under Cursor" },
-      { "<leader>ft", "<cmd>FzfLua treesitter<CR>",      desc = "Treesitter" },
+      { "<leader>ff", "<cmd>FzfLua files<CR>",                desc = "Files" },
+      { "<leader>fg", "<cmd>FzfLua live_grep<CR>",            desc = "Grep" },
+      { '<leader>fb', "<cmd>FzfLua buffers<CR>",              desc = "Buffers" },
+      { '<leader>fh', "<cmd>FzfLua help_tags<CR>",            desc = "Help Tags" },
+      { '<leader>fd', "<cmd>FzfLua git_commits<CR>",          desc = "Git Commits" },
+      { '<leader>fm', "<cmd>FzfLua marks<CR>",                desc = "Marks" },
+      { '<leader>:',  "<cmd>FzfLua command_history<CR>",      desc = "Command History" },
+      { '<leader>fy', "<cmd>FzfLua registers<CR>",            desc = "Registers" },
+      { "<leader>fw", "<cmd>FzfLua grep_cword<CR>",           desc = "Grep Word Under Cursor" },
+      { "<leader>ft", "<cmd>FzfLua treesitter<CR>",           desc = "Treesitter" },
+      { "<leader>fc", "<cmd>FzfLua awesome_colorschemes<CR>", desc = "Colour Picker" },
     },
     config = function()
       require("fzf-lua").setup {
