@@ -1,5 +1,6 @@
 {
   "foo": {
+    "description": "example",
     "prefix": "foo",
     "body": [
       "local ${1:foo} = ${2:bar}",

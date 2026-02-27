@@ -1,7 +1,12 @@
 return {
   "christoomey/vim-tmux-navigator",
-  "tpope/vim-commentary",
-  "machakann/vim-highlightedyank",
-  "preservim/tagbar",
-  "JoosepAlviste/nvim-ts-context-commentstring",
+  "xiyaowong/transparent.nvim",
+  {
+    "rose-pine/neovim",
+    name = "rose-pine",
+    config = function()
+      require("rose-pine").setup()
+      vim.cmd("colorscheme rose-pine")
+    end,
+  },
 }
