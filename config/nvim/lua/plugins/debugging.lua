@@ -36,7 +36,7 @@ return {
     config = function()
       local path = "~/.local/share/nvim/mason/packages/debugpy/venv/bin/python"
       local dap, dapui = require("dap"), require("dapui")
-      require("dap-python").setup("uv")
+      require("dap-python").setup(path)
       dapui.setup({
         layouts = {
           {
@@ -70,6 +70,7 @@ return {
           name = name,
           program = "${file}",
           cwd = function()
+            print(cwd)
             return cwd
           end,
           env = {
@@ -78,6 +79,11 @@ return {
         }
       end
 
+      table.insert(dap.configurations.python, create_python_config("Autostock", "/projects/autostock"))
+      table.insert(dap.configurations.python, create_python_config("Client Reports", "/projects/client-reports"))
+      table.insert(dap.configurations.python, create_python_config("Perfect Workforce", "/projects/perfect_workforce"))
+      table.insert(dap.configurations.python, create_python_config("Sentinel", "/projects/sentinel"))
+      table.insert(dap.configurations.python, create_python_config("Huboo Utils", "/lib/huboo-utils"))
       table.insert(dap.configurations.python, create_python_config("Root", ""))
 
       dap.listeners.before.attach.dapui_config = function()

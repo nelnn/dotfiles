@@ -12,16 +12,18 @@ return {
     config = function()
       require("mason-lspconfig").setup({
         ensure_installed = {
+          "clangd",
           "bashls",
           "tailwindcss",
           "lua_ls",
           "ts_ls",
           "vtsls",
           "vue_ls",
-          "ty",
+          -- "ty",
           "ruff",
           "gopls",
           "tinymist",
+          "pyright",
         },
       })
     end,
@@ -34,11 +36,15 @@ return {
     },
     opts = {
       servers = {
+        clangd = {
+          filetypes = { "c", "cpp" },
+        },
         bashls = {},
         tailwindcss = {},
         lua_ls = {},
-        ty = {},
+        -- ty = {},
         ruff = {},
+        pyright = {},
         gopls = {},
         vue_ls = {},
         vtsls = {},
@@ -58,13 +64,23 @@ return {
           filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
 
         },
+        tinymist = {
+          settings = {
+            formatterMode = "typstyle",
+            -- exportPdf = "onType",
+            semanticTokens = "disable",
+            formatterProseWrap = true, -- wrap lines in content mode
+            formatterPrintWidth = 80,  -- limit line length to 80 if possible
+            -- formatterIndentSize = 4,   -- indentation width
+          }
+        },
       }
     },
     config = function(_, opts)
       local builtin = require('fzf-lua')
       local on_attach = function(client, bufnr)
         vim.keymap.set("n", "<leader>gf", function() vim.lsp.buf.format({ async = true }) end, { buffer = bufnr })
-        vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, { buffer = bufnr })
+        vim.keymap.set("n", "<leader>gd", builtin.lsp_definitions, { buffer = bufnr })
         vim.keymap.set("n", "<leader>gk", vim.lsp.buf.hover, { buffer = bufnr })
         vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation, { buffer = bufnr })
         vim.keymap.set("n", "<leader>gn", vim.lsp.buf.rename, { buffer = bufnr })

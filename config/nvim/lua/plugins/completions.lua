@@ -1,20 +1,20 @@
 return {
-  {
-    "github/copilot.vim",
-    config = function()
-      vim.keymap.set('i', '<C-l>', 'copilot#Accept("\\<CR>")', {
-        expr = true,
-        replace_keycodes = false
-      })
-      vim.g.copilot_no_tab_map = true
-    end
-  },
+  -- {
+  --   "github/copilot.vim",
+  --   config = function()
+  --     vim.keymap.set('i', '<C-l>', 'copilot#Accept("\\<CR>")', {
+  --       expr = true,
+  --       replace_keycodes = false
+  --     })
+  --     vim.g.copilot_no_tab_map = true
+  --   end
+  -- },
 
   {
     'saghen/blink.cmp',
     -- optional: provides snippets for the snippet source
     dependencies = {
-      "fang2hou/blink-copilot",
+      -- "fang2hou/blink-copilot",
       'rafamadriz/friendly-snippets',
     },
 
@@ -61,7 +61,7 @@ return {
       -- Default list of enabled providers defined so that you can extend it
       -- elsewhere in your config, without redefining it, due to `opts_extend`
       sources = {
-        default = { 'lsp', 'path', 'snippets', 'buffer', "copilot" },
+        default = { 'lsp', 'path', 'snippets', 'buffer' }, --"copilot"
         providers = {
           lsp = {
             name = "LSP",
@@ -75,12 +75,11 @@ return {
             score_offset = 800,
             async = true,
           },
-          copilot = {
-            name = "copilot",
-            module = "blink-copilot",
-            score_offset = 100,
-            async = true,
-          },
+          -- copilot = {
+          --   name = "copilot",
+          --   module = "blink-copilot",
+          --   score_offset = 100,
+          --   async = true,
 
         }
       },

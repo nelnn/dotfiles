@@ -23,7 +23,7 @@ return {
         },
 
         -- Install parsers synchronously (only applied to `ensure_installed`)
-        sync_install = true,
+        sync_install = false,
 
         -- Automatically install missing parsers when entering buffer
         -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
@@ -62,17 +62,4 @@ return {
       })
     end
   },
-  {
-    'norcalli/nvim-colorizer.lua',
-    config = function()
-      require('colorizer').setup {
-        'css',
-        'javascript',
-        'vue',
-        html = {
-          mode = 'foreground',
-        }
-      }
-    end
-  }
 }

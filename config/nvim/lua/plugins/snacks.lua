@@ -27,11 +27,11 @@ return {
 
     vim.keymap.set('n', '<leader>fn', snacks.notifier.show_history, { noremap = true, silent = true })
     vim.keymap.set('n', '<leader>w', function() snacks.bufdelete() end, { noremap = true, silent = true })
-    vim.keymap.set('n', '<leader>gg', function() snacks.lazygit() end, { noremap = true, silent = true })
+    -- vim.keymap.set('n', '<leader>gg', function() snacks.lazygit() end, { noremap = true, silent = true })
     vim.keymap.set('n', '<leader>gb', function() snacks.git.blame_line() end, { noremap = true, silent = true })
     vim.keymap.set('n', '<leader>gB', function() snacks.gitbrowse() end, { noremap = true, silent = true })
     vim.keymap.set('n', '<leader>gl', function() snacks.lazygit.log() end, { noremap = true, silent = true })
-    vim.keymap.set('n', '<leader>cR', snacks.rename.rename_file, { noremap = true, silent = true })
+    vim.keymap.set('n', '<leader>E', snacks.rename.rename_file, { noremap = true, silent = true })
     vim.keymap.set('n', ']]', function() snacks.words.jump(vim.v.count1) end, { noremap = true, silent = true })
     vim.keymap.set('n', '[[]', function() snacks.words.jump(-vim.v.count1) end, { noremap = true, silent = true })
     vim.keymap.set('t', ']]', function() snacks.words.jump(vim.v.count1) end, { noremap = true, silent = true })
