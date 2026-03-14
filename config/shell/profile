@@ -43,6 +43,8 @@ export HISTFILE="$XDG_DATA_HOME/zsh_history"
 # Paths
 export PATH="$HOME/.local/bin/scripts:$PATH"
 export PATH="$HOME/.local/bin/scripts/statusbar:$PATH"
+## opencode
+export PATH=/home/n/.opencode/bin:$PATH
 
 # Export other program settings
 ## ls enable directory color:
