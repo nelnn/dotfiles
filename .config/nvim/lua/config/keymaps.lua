@@ -12,3 +12,7 @@ map("n", "<leader>gg", "<cmd>!tmux new-window -c " .. vim.fn.getcwd() .. " -- la
 -- Open lazyjj in a new tmux window
 map("n", "<leader>jj", "<cmd>!tmux new-window -c " .. vim.fn.getcwd() .. " -- lazyjj <CR><CR>",
   { desc = "jj" })
+
+-- Open yazi in a new tmux window
+vim.keymap.set("n", "<leader>y", "<cmd>!tmux new-window -c " .. vim.fn.getcwd() .. " -- yazi <CR><CR>",
+  { desc = "yazi" })
