@@ -1,14 +1,14 @@
 return {
   -- Mason setup to install LSPs and other tools
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     config = function()
       require("mason").setup()
     end,
   },
   -- Mason-LSPConfig to auto-install LSP servers
   {
-    "williamboman/mason-lspconfig.nvim",
+    "mason-org/mason-lspconfig.nvim",
     config = function()
       require("mason-lspconfig").setup({
         ensure_installed = {
@@ -19,11 +19,11 @@ return {
           "ts_ls",
           "vtsls",
           "vue_ls",
-          -- "ty",
+          "ty",
           "ruff",
           "gopls",
           "tinymist",
-          "pyright",
+          -- "pyright",
         },
       })
     end,
