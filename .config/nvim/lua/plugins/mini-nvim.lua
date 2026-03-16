@@ -16,7 +16,7 @@ return {
       require('mini.trailspace').setup()
       require('mini.visits').setup()
 
-      minifiles = require('mini.files')
+      local minifiles = require('mini.files')
       minifiles.setup()
       vim.keymap.set("n", "<leader>xt", ":lua MiniTrailspace.trim()<CR>", { desc = "Trim trailing whitespace" })
       vim.keymap.set("n", "<leader>v", ":lua MiniVisits.select_path()<CR>", { desc = "Select visit path" })
