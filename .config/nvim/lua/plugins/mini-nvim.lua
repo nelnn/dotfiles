@@ -95,6 +95,7 @@ return {
 
         window = {
           delay = 0,
+          config = { width = 'auto' },
         },
 
         clues = {

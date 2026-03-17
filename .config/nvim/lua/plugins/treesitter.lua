@@ -1,17 +1,24 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
+    branch = "master", -- main branch for neovim >= 0.12.0 (nigtly at the moment)
+    lazy = false,
     build = ":TSUpdate",
-    main = "nvim-treesitter",
-    opts = {
-      ensure_installed = {
-        "lua", "vim", "vimdoc", "query",
-        "python", "css", "javascript", "typescript",
-        "html", "regex", "toml", "yaml", "latex",
-        "markdown", "markdown_inline", "dockerfile",
-      },
-      auto_install = true,
-    },
+    config = function()
+      require("nvim-treesitter.configs").setup({
+        ensure_installed = {
+          "lua", "vim", "vimdoc", "query",
+          "python", "css", "javascript", "typescript",
+          "html", "regex", "toml", "yaml",
+          "markdown", "markdown_inline", "dockerfile",
+        },
+        auto_install = true,
+        highlight = {
+          enable = true,
+          additional_vim_regex_highlighting = false,
+        },
+      })
+    end,
   },
   {
     "windwp/nvim-ts-autotag",
