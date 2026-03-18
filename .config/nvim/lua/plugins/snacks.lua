@@ -10,23 +10,14 @@ return {
       {
         bigfile = { enabled = true },
         dashboard = { enabled = true },
-        notifier = {
-          enabled = true,
-          timeout = 3000,
-        },
+        notifier = { enabled = false },
         quickfile = { enabled = true },
         statuscolumn = { enabled = true },
         words = { enabled = true },
-        styles = {
-          notification = {
-            wo = { wrap = true } -- Wrap notifications
-          },
-        }
+
       }
     )
 
-    vim.keymap.set('n', '<leader>fn', snacks.notifier.show_history,
-      { noremap = true, silent = true, desc = "Show notification history" })
     vim.keymap.set('n', '<leader>w', function() snacks.bufdelete() end,
       { noremap = true, silent = true, desc = "Delete buffer" })
     -- vim.keymap.set('n', '<leader>gg', function() snacks.lazygit() end, { noremap = true, silent = true })

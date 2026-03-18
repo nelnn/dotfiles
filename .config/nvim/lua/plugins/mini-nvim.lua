@@ -16,6 +16,18 @@ return {
       require('mini.trailspace').setup()
       require('mini.visits').setup()
 
+      local mininotify = require('mini.notify')
+      mininotify.setup()
+      vim.notify = mininotify.make_notify()
+      vim.keymap.set('n', '<leader>fn', mininotify.show_history,
+        { noremap = true, silent = true, desc = "Show notification history" })
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "mininotify-history",
+        callback = function()
+          vim.keymap.set('n', 'q', '<cmd>bdelete<cr>', { buffer = true, silent = true })
+        end,
+      })
+
       local minifiles = require('mini.files')
       minifiles.setup()
       vim.keymap.set("n", "<leader>xt", ":lua MiniTrailspace.trim()<CR>", { desc = "Trim trailing whitespace" })

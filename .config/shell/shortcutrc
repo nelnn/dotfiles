@@ -11,7 +11,12 @@ function y() {
 	rm -f -- "$tmp"
 }
 
-bindkey -s '^f' '^unvim "$(fzf --height=40 --preview "bat --color=always --style=numbers --line-range=:500 {}")"\n'
+function fff() {
+  local file
+  file=$(fd --type f 2>/dev/null | fzf --height=40 --preview "bat --color=always --style=numbers --line-range=:500 {}")
+  [[ -n "$file" ]] && nvim "$file"
+}
+bindkey -s '^f' 'fff\n'
 
 # Fuzzy find and open files with preview using fzf and bat
 rfv() (
