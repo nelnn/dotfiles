@@ -78,8 +78,23 @@ return {
     },
     config = function(_, opts)
       local builtin = require('fzf-lua')
+
+      -- Track autoformat state per buffer
+      local autoformat_enabled = {}
+
+      -- Function to toggle autoformat for current buffer
+      local function toggle_autoformat()
+        local bufnr = vim.api.nvim_get_current_buf()
+        autoformat_enabled[bufnr] = not (autoformat_enabled[bufnr] or false)
+        local status = autoformat_enabled[bufnr] and "enabled" or "disabled"
+        vim.notify("Autoformat " .. status .. " for buffer " .. bufnr, vim.log.levels.INFO)
+      end
+
       local on_attach = function(client, bufnr)
-        vim.keymap.set("n", "<leader>gf", function() vim.lsp.buf.format({ async = true }) end, { buffer = bufnr })
+        -- Format manually with <leader>gf
+        vim.keymap.set("n", "<leader>gf", function() vim.lsp.buf.format({ async = true }) end, { buffer = bufnr, desc = "Format buffer" })
+        -- Toggle autoformat on save
+        vim.keymap.set("n", "<leader>gF", toggle_autoformat, { buffer = bufnr, desc = "Toggle autoformat on save" })
         vim.keymap.set("n", "<leader>gd", builtin.lsp_definitions, { buffer = bufnr })
         vim.keymap.set("n", "<leader>gk", vim.lsp.buf.hover, { buffer = bufnr })
         vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation, { buffer = bufnr })
@@ -91,11 +106,14 @@ return {
           vim.diagnostic.open_float(0, { scope = "line" })
         end, { noremap = true, silent = true })
 
+        -- Autoformat on save (can be toggled)
         if client.server_capabilities.documentFormattingProvider then
           vim.api.nvim_create_autocmd("BufWritePre", {
             buffer = bufnr,
             callback = function()
-              vim.lsp.buf.format({ async = false })
+              if autoformat_enabled[bufnr] then
+                vim.lsp.buf.format({ async = false })
+              end
             end,
           })
         end
