@@ -28,17 +28,17 @@ return {
         end,
       })
 
-      local minifiles = require('mini.files')
-      minifiles.setup()
+      -- local minifiles = require('mini.files')
+      -- minifiles.setup()
       vim.keymap.set("n", "<leader>xt", ":lua MiniTrailspace.trim()<CR>", { desc = "Trim trailing whitespace" })
       vim.keymap.set("n", "<leader>v", ":lua MiniVisits.select_path()<CR>", { desc = "Select visit path" })
-      vim.keymap.set("n", "<leader>e", function()
-        local buf_name = vim.api.nvim_buf_get_name(0)
-        local path = vim.fn.filereadable(buf_name) == 1 and buf_name or vim.fn.getcwd()
-        minifiles.open(path)
-        minifiles.reveal_cwd()
-      end, { desc = "Open Mini Files" })
-      vim.keymap.set("n", "-", ":lua MiniFiles.open()<CR>", { desc = "Open file explorer" })
+      -- vim.keymap.set("n", "<leader>e", function()
+      --   local buf_name = vim.api.nvim_buf_get_name(0)
+      --   local path = vim.fn.filereadable(buf_name) == 1 and buf_name or vim.fn.getcwd()
+      --   minifiles.open(path)
+      --   minifiles.reveal_cwd()
+      -- end, { desc = "Open Mini Files" })
+      -- vim.keymap.set("n", "-", ":lua MiniFiles.open()<CR>", { desc = "Open file explorer" })
       require('mini.hipatterns').setup({
         highlighters = {
           -- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'

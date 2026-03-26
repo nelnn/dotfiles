@@ -24,7 +24,18 @@ return {
       end
       set_hl()
       vim.api.nvim_create_autocmd("ColorScheme", { callback = set_hl })
+      local function save_colorscheme(selected, opts)
+        require("fzf-lua.actions").colorscheme(selected, opts)
+        local cs = vim.g.colors_name
+        if cs then
+          local f = io.open(vim.fn.stdpath("data") .. "/colorscheme", "w")
+          if f then f:write(cs) f:close() end
+        end
+      end
+
       require("fzf-lua").setup({
+        colorschemes = { actions = { ["default"] = save_colorscheme } },
+        awesome_colorschemes = { actions = { ["default"] = save_colorscheme } },
         -- fzf_colors = {
         --   true,
         --   ["fg+"] = "#ffffff",

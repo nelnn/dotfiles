@@ -127,3 +127,34 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
   end,
 })
+
+-- Load saved colorscheme after plugins are ready
+vim.api.nvim_create_autocmd("User", {
+  pattern = "LazyDone",
+  once = true,
+  callback = function()
+    local fzf_pack = vim.fn.stdpath("cache") .. "/fzf-lua"
+    vim.opt.packpath:append(fzf_pack)
+    local f = io.open(vim.fn.stdpath("data") .. "/colorscheme", "r")
+    local cs = f and f:read("*l") or nil
+    if f then f:close() end
+    if cs then
+      local opt_dir = fzf_pack .. "/pack/fzf-lua/opt/"
+      for _, pkg in ipairs(vim.fn.glob(opt_dir .. cs .. "*", false, true)) do
+        pcall(vim.cmd, "packadd " .. vim.fn.fnamemodify(pkg, ":t"))
+      end
+      pcall(vim.cmd, "colorscheme " .. cs)
+    end
+  end,
+})
+
+-- Get current dirrectory in Oil for compile-mode.nvim
+vim.api.nvim_create_autocmd("BufEnter", {
+  callback = function()
+    if vim.bo.filetype == "oil" then
+      if require("oil").get_current_dir() then
+        vim.cmd.cd(require("oil").get_current_dir())
+      end
+    end
+  end,
+})
