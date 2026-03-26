@@ -10,32 +10,32 @@ return {
       {
         bigfile = { enabled = true },
         dashboard = { enabled = true },
-        notifier = {
-          enabled = true,
-          timeout = 3000,
-        },
+        notifier = { enabled = false },
         quickfile = { enabled = true },
         statuscolumn = { enabled = true },
         words = { enabled = true },
-        styles = {
-          notification = {
-            wo = { wrap = true } -- Wrap notifications
-          },
-        }
+
       }
     )
 
-    vim.keymap.set('n', '<leader>fn', snacks.notifier.show_history, { noremap = true, silent = true })
-    vim.keymap.set('n', '<leader>w', function() snacks.bufdelete() end, { noremap = true, silent = true })
+    vim.keymap.set('n', '<leader>w', function() snacks.bufdelete() end,
+      { noremap = true, silent = true, desc = "Delete buffer" })
     -- vim.keymap.set('n', '<leader>gg', function() snacks.lazygit() end, { noremap = true, silent = true })
-    vim.keymap.set('n', '<leader>gb', function() snacks.git.blame_line() end, { noremap = true, silent = true })
-    vim.keymap.set('n', '<leader>gB', function() snacks.gitbrowse() end, { noremap = true, silent = true })
-    vim.keymap.set('n', '<leader>gl', function() snacks.lazygit.log() end, { noremap = true, silent = true })
-    vim.keymap.set('n', '<leader>E', snacks.rename.rename_file, { noremap = true, silent = true })
-    vim.keymap.set('n', ']]', function() snacks.words.jump(vim.v.count1) end, { noremap = true, silent = true })
-    vim.keymap.set('n', '[[]', function() snacks.words.jump(-vim.v.count1) end, { noremap = true, silent = true })
-    vim.keymap.set('t', ']]', function() snacks.words.jump(vim.v.count1) end, { noremap = true, silent = true })
-    vim.keymap.set('t', '[[]', function() snacks.words.jump(-vim.v.count1) end, { noremap = true, silent = true })
+    vim.keymap.set('n', '<leader>gb', function() snacks.git.blame_line() end,
+      { noremap = true, silent = true, desc = "Git blame line" })
+    vim.keymap.set('n', '<leader>gB', function() snacks.gitbrowse() end,
+      { noremap = true, silent = true, desc = "Git browse" })
+    vim.keymap.set('n', '<leader>gl', function() snacks.lazygit.log() end,
+      { noremap = true, silent = true, desc = "Git log" })
+    vim.keymap.set('n', '<leader>E', snacks.rename.rename_file, { noremap = true, silent = true, desc = "Rename file" })
+    vim.keymap.set('n', ']]', function() snacks.words.jump(vim.v.count1) end,
+      { noremap = true, silent = true, desc = "Jump to next word reference" })
+    vim.keymap.set('n', '[[]', function() snacks.words.jump(-vim.v.count1) end,
+      { noremap = true, silent = true, desc = "Jump to previous word reference" })
+    vim.keymap.set('t', ']]', function() snacks.words.jump(vim.v.count1) end,
+      { noremap = true, silent = true, desc = "Jump to next word reference" })
+    vim.keymap.set('t', '[[]', function() snacks.words.jump(-vim.v.count1) end,
+      { noremap = true, silent = true, desc = "Jump to previous word reference" })
 
     -- Autocmd for 'VeryLazy' event
     vim.api.nvim_create_autocmd("User", {

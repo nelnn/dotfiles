@@ -1,6 +1,6 @@
-require("core.remap")
-require("core.settings")
-require("core.shortcuts")
+require("config.options")
+require("config.autocmds")
+require("config.keymaps")
 
 
 -- Download lazy.nvim if not exist
@@ -10,24 +10,12 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
     "git",
     "clone",
     "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
+    "https://github.com/folke/lazy.nvim",
     "--branch=stable", -- latest stable release
     lazypath,
   })
 end
 vim.opt.rtp:prepend(lazypath)
-
-
--- highlight yank
-vim.api.nvim_create_autocmd('TextYankPost', {
-  group = vim.api.nvim_create_augroup('highlight_yank', { clear = true }),
-  desc = 'Highlight yanked text',
-  pattern = '*',
-  callback = function()
-    vim.highlight.on_yank { higroup = 'IncSearch', timeout = 500 }
-  end,
-})
-
 
 require("lazy").setup("plugins", {
   change_detection = {

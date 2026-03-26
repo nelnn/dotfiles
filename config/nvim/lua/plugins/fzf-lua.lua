@@ -15,8 +15,36 @@ return {
       { "<leader>fc", "<cmd>FzfLua awesome_colorschemes<CR>", desc = "Colour Picker" },
     },
     config = function()
-      require("fzf-lua").setup {
+      -- config runs once at plugin load time.
+      -- If a colorscheme loads after, it resets all highlights — including FzfLuaCursorLine.
+      -- By also registering the function as a ColorScheme autocmd, it re-runs every time
+      -- a colorscheme is applied, keeping the highlight intact.
+      local function set_hl()
+        vim.api.nvim_set_hl(0, "FzfLuaCursorLine", { bg = "#8b0000", fg = "#ffffff" })
+      end
+      set_hl()
+      vim.api.nvim_create_autocmd("ColorScheme", { callback = set_hl })
+      local function save_colorscheme(selected, opts)
+        require("fzf-lua.actions").colorscheme(selected, opts)
+        local cs = vim.g.colors_name
+        if cs then
+          local f = io.open(vim.fn.stdpath("data") .. "/colorscheme", "w")
+          if f then f:write(cs) f:close() end
+        end
+      end
+
+      require("fzf-lua").setup({
+        colorschemes = { actions = { ["default"] = save_colorscheme } },
+        awesome_colorschemes = { actions = { ["default"] = save_colorscheme } },
+        -- fzf_colors = {
+        --   true,
+        --   ["fg+"] = "#ffffff",
+        --   ["bg+"] = "#8b0000",
+        -- },
         file_icon_padding = ' ',
+        defaults = {
+          formatter = "path.filename_first",
+        },
         --   -- MISC GLOBAL SETUP OPTIONS, SEE BELOW
         --   -- fzf_bin = ...,
         --   winopts = { ...  },     -- UI Options
@@ -79,7 +107,7 @@ return {
             ["ctrl-x"]     = "jump",
           },
         },
-      }
+      })
     end,
 
   }

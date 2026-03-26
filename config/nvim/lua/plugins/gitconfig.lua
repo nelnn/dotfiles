@@ -2,8 +2,8 @@ return {
   {
     "tpope/vim-fugitive",
     config = function()
-      vim.keymap.set("n", "<leader>B", ":G blame<CR>")
-      vim.keymap.set("n", "<leader>D", ":Gvdiffsplit<CR>")
+      vim.keymap.set("n", "<leader>B", ":G blame<CR>", { desc = "Git blame" })
+      vim.keymap.set("n", "<leader>D", ":Gvdiffsplit<CR>", { desc = "Git diff split" })
     end
   },
   {
@@ -15,7 +15,7 @@ return {
   {
     "mbbill/undotree",
     config = function()
-      vim.keymap.set('n', '<leader>U', vim.cmd.UndotreeToggle)
+      vim.keymap.set('n', '<leader>U', vim.cmd.UndotreeToggle, { desc = "Toggle undo tree" })
     end
   }
 }

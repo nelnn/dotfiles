@@ -1,0 +1,83 @@
+-- This file is automatically loaded by plugins.core
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
+
+-- Hide deprecation warnings
+vim.g.deprecation_warnings = false
+
+-- Fix markdown indentation settings
+vim.g.markdown_recommended_style = 0
+
+vim.g.python3_host_prog = vim.fn.expand("~/.local/share/venvs/neovim/bin/python3")
+
+local opt = vim.opt
+
+opt.autoindent = true                                          -- Indent a new line the same amount as the line just typed
+opt.autowrite = true                                           -- Enable auto write
+opt.background = "dark"                                        -- Use dark colorscheme variant
+opt.clipboard = vim.env.SSH_CONNECTION and "" or "unnamedplus" -- Sync with system clipboard
+opt.colorcolumn = "120"                                        -- Highlight column 120 as line-length guide
+opt.completeopt = "menu,menuone,noselect"                      -- Completion menu behaviour
+opt.conceallevel = 2                                           -- Hide * markup for bold and italic, but not markers with substitutions
+opt.confirm = true                                             -- Confirm to save changes before exiting modified buffer
+opt.cursorline = true                                          -- Enable highlighting of the current line
+opt.expandtab = true                                           -- Use spaces instead of tabs
+opt.fillchars = {
+  foldopen = "",
+  foldclose = "",
+  fold = " ",
+  foldsep = " ",
+  diff = "╱",
+  eob = " ",
+}
+opt.foldlevel = 99                                               -- Start with all folds open
+opt.foldmethod = "indent"                                        -- Fold based on indentation
+opt.foldtext = ""                                                -- Use default fold text
+opt.formatexpr = "v:lua.LazyVim.format.formatexpr()"
+opt.formatoptions = "jcroqlnt"                                   -- Auto-wrap comments, join lines, etc.
+opt.grepformat = "%f:%l:%c:%m"
+opt.grepprg = "rg --vimgrep"                                     -- Use ripgrep for :grep
+opt.hidden = true                                                -- Keep abandoned buffers open in the background
+opt.hlsearch = true                                              -- Highlight search results
+opt.ignorecase = true                                            -- Ignore case in search patterns
+opt.inccommand = "nosplit"                                       -- Preview incremental substitute
+opt.incsearch = true                                             -- Show search matches as you type
+opt.jumpoptions = "view"                                         -- Restore view when jumping
+opt.laststatus = 3                                               -- Global statusline
+opt.linebreak = true                                             -- Wrap lines at convenient points
+-- opt.list = true                                                  -- Show some invisible characters (tabs, trailing spaces)
+opt.mouse = "a"                                                  -- Enable mouse in all modes
+opt.number = true                                                -- Show line numbers
+opt.pumblend = 10                                                -- Popup blend
+opt.pumheight = 10                                               -- Maximum number of entries in a popup
+opt.relativenumber = true                                        -- Relative line numbers
+opt.ruler = false                                                -- Disable the default ruler
+opt.scrolloff = 4                                                -- Lines of context above/below cursor
+opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" }
+opt.shiftround = true                                            -- Round indent to shiftwidth multiple
+opt.shiftwidth = 2                                               -- Size of an indent
+opt.shortmess:append({ W = true, I = true, c = true, C = true }) -- Suppress various messages
+opt.showmatch = true                                             -- Briefly jump to matching bracket
+opt.showmode = false                                             -- Don't show mode (statusline handles it)
+opt.sidescrolloff = 8                                            -- Columns of context left/right of cursor
+opt.signcolumn = "yes"                                           -- Always show the signcolumn
+opt.smartcase = true                                             -- Case-sensitive when pattern has uppercase
+opt.smartindent = true                                           -- Insert indents automatically
+opt.smoothscroll = true                                          -- Scroll by screen lines when wrapping
+opt.softtabstop = 2                                              -- Spaces per tab in insert mode
+opt.spelllang = { "en" }
+opt.splitbelow = true                                            -- Put new windows below current
+opt.splitkeep = "screen"                                         -- Keep text on screen when splitting
+opt.splitright = true                                            -- Put new windows right of current
+opt.statuscolumn = [[%!v:lua.LazyVim.statuscolumn()]]
+opt.swapfile = false                                             -- Disable swap files
+opt.tabstop = 2                                                  -- Number of spaces a tab counts for
+opt.termguicolors = true                                         -- True color support
+opt.timeoutlen = vim.g.vscode and 1000 or 300                    -- Timeout for mapped sequences (triggers which-key)
+opt.undofile = true                                              -- Persist undo history across sessions
+opt.undolevels = 10000                                           -- Maximum number of undo changes
+opt.updatetime = 200                                             -- Save swap file and trigger CursorHold
+opt.virtualedit = "block"                                        -- Allow cursor past end of line in visual block mode
+opt.wildmode = "longest:full,full"                               -- Command-line completion mode
+opt.winminwidth = 5                                              -- Minimum window width
+opt.wrap = false                                                 -- Disable line wrap
