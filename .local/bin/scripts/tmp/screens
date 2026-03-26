@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# Takes a screenshot using scrot.
+set -euo pipefail
+export DISPLAY="${DISPLAY:-:0}"
+
+# Output directory: default to $HOME/Screenshots
+OUTDIR="${1:-${HOME}/pics/screenshots}"
+mkdir -p "${OUTDIR}"
+current="$(date +%Y%m%d_%H%M%S).png"
+filepath="${OUTDIR}/${current}"
+
+
+FMT="${2:-png}"
+
+case "$FMT" in
+  png) ext="png" ;;
+  jpg) ext="jpg" ;;
+  jpeg) ext="jpeg" ;;
+  *) ext="png" ;;
+esac
+
+MODE="${3:-F}"
+case "$MODE" in
+  F) scrot "${filepath}" ;; # Fullscreen
+  f) scrot --focused "${filepath}" ;; # Focused window
+  s) scrot --select "${filepath}" ;; # Select area interactively
+  S) scrot --select -ignorekeyboard "${filepath}" ;; # Select area with interactive mode
+esac

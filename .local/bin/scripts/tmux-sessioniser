@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+search_dirs=(
+    ~/.dotfiles
+    ~/books
+    ~/work/build
+    ~/projects
+    ~/projects/archives/
+    ~/projects/learn
+    ~/work
+    ~/personal
+)
+
+ignore_patterns=(
+    '.*'
+)
+
+if [[ $# -eq 1 ]]; then
+    selected=$1
+else
+    find_args=()
+    for dir in "${search_dirs[@]}"; do
+        find_args+=("$dir")
+    done
+
+    prune_args=()
+    for pattern in "${ignore_patterns[@]}"; do
+        prune_args+=(-name "$pattern" -prune -o)
+    done
+
+    selected=$(find "${find_args[@]}" -mindepth 1 -maxdepth 1 \( "${prune_args[@]}" -type d -print \) | fzf)
+fi
+
+if [[ -z $selected ]]; then
+    exit 0
+fi
+
+selected_name=$(basename "$selected" | tr . _)
+tmux_running=$(pgrep tmux)
+
+if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
+    tmux new-session -s "$selected_name" -c "$selected"
+    exit 0
+fi
+
+if ! tmux has-session -t="$selected_name" 2> /dev/null; then
+    tmux new-session -ds "$selected_name" -c "$selected"
+fi
+
+tmux switch-client -t "$selected_name"
