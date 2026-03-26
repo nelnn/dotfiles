@@ -12,3 +12,5 @@ function y() {
 }
 
 bindkey -s '^f' '^ucd "$(dirname "$(fzf --height=40 --preview "bat --color=always --style=numbers --line-range=:500 {}")")"\n'
+
+bindkey -s '^t' 'tmux-sessioniser \n'

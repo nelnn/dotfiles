@@ -23,6 +23,7 @@ alias venv="source .venv/bin/activate"
 alias dwmc="cd ~/build/dwm; v config.h"
 alias blk="cd ~/build/dwmblocks-async; v config.h"
 
+alias tm="tmux"
 alias tms="tmux-sessioniser"
 
 # temp

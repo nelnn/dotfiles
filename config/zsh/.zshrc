@@ -1,14 +1,14 @@
 # Start Tmux
-if [ -x "$(command -v tmux)" ] && [ -n "${DISPLAY}" ] && [ -z "${TMUX}" ]; then
-    tmux attach-session -t 0 || tmux new-session -s 0
-fi
+# if [ -x "$(command -v tmux)" ] && [ -n "${DISPLAY}" ] && [ -z "${TMUX}" ]; then
+#     tmux attach-session -t 0 || tmux new-session -s 0
+# fi
 
 # Attach only if there's no session
-# if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
-#   if ! tmux has-session 2>/dev/null; then
-#     tmux new-session -s 0
-#   fi
-# fi
+if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
+  if ! tmux has-session 2>/dev/null; then
+    tmux new-session -s 0
+  fi
+fi
 
 setopt auto_cd
 # Enable colors and change prompt:
