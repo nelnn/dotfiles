@@ -1,1 +1,1 @@
-/home/n/.dotfiles/config/shell/profile
+/home/n/.dotfiles/.config/shell/profile
