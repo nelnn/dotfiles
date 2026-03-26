@@ -13,7 +13,6 @@ _G.FnHistory = state
 local M = {}
 
 local defaults = {
-  dir  = vim.fn.stdpath('data') .. '/fn-history',
   sign = { text = '󰋚', hl = 'DiagnosticSignInfo' },
 }
 
@@ -69,8 +68,8 @@ end
 
 local function find_project_root(from)
   local path = from or vim.fn.expand('%:p:h')
-  local git  = vim.fn.finddir('.git', path .. ';')
-  if git ~= '' then return vim.fn.fnamemodify(git, ':p:h') end
+  -- local git  = vim.fn.finddir('.git', path .. ';')
+  -- if git ~= '' then return vim.fn.fnamemodify(git, ':p:h') end
   return vim.fn.getcwd()
 end
 
@@ -124,17 +123,11 @@ local function get_qualified_name(fn_node, bufnr)
 end
 
 local function history_path(filepath, name, ext)
-  local dir = state.cfg.dir
-  if vim.fn.isabsolutepath(dir) == 1 then
-    -- Global store: {hash}__{name}.{ext}  (hash is djb2 of the full filepath)
-    return dir .. '/' .. short_hash(filepath) .. '__' .. name .. '.' .. ext
-  else
-    -- Project-relative store
-    local root    = find_project_root(vim.fn.fnamemodify(filepath, ':h'))
-    local rel     = filepath:sub(#root + 2)
-    local rel_dir = vim.fn.fnamemodify(rel, ':r')
-    return root .. '/' .. dir .. '/' .. rel_dir .. '/' .. name .. '.' .. ext
-  end
+  local root    = find_project_root(vim.fn.fnamemodify(filepath, ':h'))
+  local rel     = filepath:sub(#root + 2)       -- e.g. src/foo/bar.go
+  local rel_dir = vim.fn.fnamemodify(rel, ':r') -- e.g. src/foo/bar (strip ext)
+  local hash    = short_hash(filepath)
+  return root .. '/.cache/' .. rel_dir .. '/' .. hash .. '_' .. name .. '.' .. ext
 end
 
 -- save
@@ -256,7 +249,7 @@ end
 function M.refresh_signs(bufnr)
   bufnr = bufnr or vim.api.nvim_get_current_buf()
   local filepath = vim.api.nvim_buf_get_name(bufnr)
-  if filepath == '' or filepath:sub(1, #state.cfg.dir) == state.cfg.dir then return end
+  if filepath == '' or filepath:find('/.cache/', 1, true) then return end
 
   local ext    = vim.fn.fnamemodify(filepath, ':e')
   local parser = vim.treesitter.get_parser(bufnr, nil, { error = false })
@@ -290,15 +283,11 @@ function M.setup(opts)
   state.cfg = vim.tbl_deep_extend('force', defaults, opts or {})
 
   vim.api.nvim_create_autocmd({ 'BufRead', 'BufEnter' }, {
-    callback = function(ev)
-      if ev.file:sub(1, #state.cfg.dir) ~= state.cfg.dir then
-        M.refresh_signs(ev.buf)
-      end
-    end,
+    callback = function(ev) M.refresh_signs(ev.buf) end,
   })
 
   vim.api.nvim_create_autocmd('BufRead', {
-    pattern  = state.cfg.dir .. '/*',
+    pattern  = '*/.cache/*',
     callback = function(ev)
       vim.diagnostic.enable(false, { bufnr = ev.buf })
     end,
