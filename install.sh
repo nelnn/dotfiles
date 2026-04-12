@@ -62,6 +62,9 @@ packages=(
     "sniffnet"         # network monitor
     "poppler"          # PDF rendering (yazi preview)
     "smudge/smudge/nightlight" # Night Shift CLI
+    # Docker
+    "docker"
+    "colima"           # https://github.com/abiosoft/colima
     # Git
     "git"
     "jesseduffield/lazygit/lazygit"
@@ -103,8 +106,8 @@ packages=(
     # "r"
     "cmake"
     # AI / ML
-    "ollama"
-    "llama.cpp"
+    # "ollama"
+    # "llama.cpp"
     "opencode"         # AI coding agent for terminal
     "mlx"              # Apple ML framework
     # Database & Infrastructure
