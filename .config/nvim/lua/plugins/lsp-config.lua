@@ -23,7 +23,6 @@ return {
           "ruff",
           "gopls",
           "tinymist",
-          -- "pyright",
         },
       })
     end,
@@ -42,9 +41,8 @@ return {
         bashls = {},
         tailwindcss = {},
         lua_ls = {},
-        -- ty = {},
+        ty = {},
         ruff = {},
-        pyright = {},
         gopls = {},
         vue_ls = {},
         vtsls = {},
@@ -78,27 +76,19 @@ return {
     },
     config = function(_, opts)
       local builtin = require('fzf-lua')
-      local on_attach = function(client, bufnr)
-        vim.keymap.set("n", "<leader>gf", function() vim.lsp.buf.format({ async = true }) end, { buffer = bufnr, desc = "Format buffer" })
-        vim.keymap.set("n", "<leader>gd", builtin.lsp_definitions, { buffer = bufnr, desc = "Go to definition" })
-        vim.keymap.set("n", "<leader>gk", vim.lsp.buf.hover, { buffer = bufnr, desc = "Hover documentation" })
-        vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation, { buffer = bufnr, desc = "Go to implementation" })
-        vim.keymap.set("n", "<leader>gn", vim.lsp.buf.rename, { buffer = bufnr, desc = "Rename symbol" })
-        vim.keymap.set("n", "<leader>gK", vim.lsp.buf.signature_help, { buffer = bufnr, desc = "Signature help" })
-        vim.keymap.set("n", "<leader>gr", builtin.lsp_references, { buffer = bufnr, desc = "Go to references" })
-        vim.keymap.set({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, { buffer = bufnr, desc = "Code action" })
+      local on_attach = function(_, bufnr)
+        vim.keymap.set("n", "<leader>gf", function() vim.lsp.buf.format({ async = true }) end,
+          { buffer = bufnr, desc = "Format buffer" })
+        vim.keymap.set("n", "<leader>gd", builtin.lsp_definitions, { buffer = bufnr })
+        vim.keymap.set("n", "<leader>gk", vim.lsp.buf.hover, { buffer = bufnr })
+        vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation, { buffer = bufnr })
+        vim.keymap.set("n", "<leader>gn", vim.lsp.buf.rename, { buffer = bufnr })
+        vim.keymap.set("n", "<leader>gK", vim.lsp.buf.signature_help, { buffer = bufnr })
+        vim.keymap.set("n", "<leader>gr", builtin.lsp_references, { buffer = bufnr })
+        vim.keymap.set({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, { buffer = bufnr })
         vim.keymap.set("n", "<space>ge", function()
           vim.diagnostic.open_float(0, { scope = "line" })
-        end, { noremap = true, silent = true, desc = "Show line diagnostics" })
-
-        if client.server_capabilities.documentFormattingProvider then
-          vim.api.nvim_create_autocmd("BufWritePre", {
-            buffer = bufnr,
-            callback = function()
-              vim.lsp.buf.format({ async = false })
-            end,
-          })
-        end
+        end, { noremap = true, silent = true })
       end
       for server, config in pairs(opts.servers) do
         config.on_attach = on_attach

@@ -1,7 +1,5 @@
--- This file is automatically loaded by lazyvim.config.init.
-
 local function augroup(name)
-  return vim.api.nvim_create_augroup("lazyvim_" .. name, { clear = true })
+  return vim.api.nvim_create_augroup(name, { clear = true })
 end
 
 -- Check if we need to reload the file when it changed
@@ -40,10 +38,10 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   callback = function(event)
     local exclude = { "gitcommit" }
     local buf = event.buf
-    if vim.tbl_contains(exclude, vim.bo[buf].filetype) or vim.b[buf].lazyvim_last_loc then
+    if vim.tbl_contains(exclude, vim.bo[buf].filetype) or vim.b[buf].last_loc then
       return
     end
-    vim.b[buf].lazyvim_last_loc = true
+    vim.b[buf].last_loc = true
     local mark = vim.api.nvim_buf_get_mark(buf, '"')
     local lcount = vim.api.nvim_buf_line_count(buf)
     if mark[1] > 0 and mark[1] <= lcount then
@@ -144,17 +142,6 @@ vim.api.nvim_create_autocmd("User", {
         pcall(vim.cmd, "packadd " .. vim.fn.fnamemodify(pkg, ":t"))
       end
       pcall(vim.cmd, "colorscheme " .. cs)
-    end
-  end,
-})
-
--- Get current dirrectory in Oil for compile-mode.nvim
-vim.api.nvim_create_autocmd("BufEnter", {
-  callback = function()
-    if vim.bo.filetype == "oil" then
-      if require("oil").get_current_dir() then
-        vim.cmd.cd(require("oil").get_current_dir())
-      end
     end
   end,
 })

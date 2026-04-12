@@ -25,7 +25,7 @@ return {
       -- the command (and behave more like `:!`), add:
       -- bang_expansion = true,
     }
-    vim.keymap.set("n", "<leader>r", "<CMD>Recompile<CR>", { desc = "Open parent directory" })
-    vim.keymap.set("n", "<leader>cc", ":Compile ", { desc = "Open parent directory" })
+    vim.keymap.set("n", "<leader>r", "<CMD>Recompile<CR>", { desc = "Recompile" })
+    vim.keymap.set("n", "<leader>cc", ":Compile ", { desc = "Compile" })
   end,
 }

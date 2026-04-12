@@ -60,12 +60,6 @@ local class_types = {
 }
 
 -- helpers
-local function short_hash(s)
-  local h = 5381
-  for i = 1, #s do h = (h * 33 + s:byte(i)) % 0x100000000 end
-  return string.format('%08x', h)
-end
-
 local function find_project_root(from)
   local path = from or vim.fn.expand('%:p:h')
   -- local git  = vim.fn.finddir('.git', path .. ';')
@@ -126,8 +120,7 @@ local function history_path(filepath, name, ext)
   local root    = find_project_root(vim.fn.fnamemodify(filepath, ':h'))
   local rel     = filepath:sub(#root + 2)       -- e.g. src/foo/bar.go
   local rel_dir = vim.fn.fnamemodify(rel, ':r') -- e.g. src/foo/bar (strip ext)
-  local hash    = short_hash(filepath)
-  return root .. '/.cache/' .. rel_dir .. '/' .. hash .. '_' .. name .. '.' .. ext
+  return root .. '/.cache/' .. rel_dir .. '/' .. name .. '.' .. ext
 end
 
 -- save

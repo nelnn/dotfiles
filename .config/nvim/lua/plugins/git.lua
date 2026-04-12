@@ -1,6 +1,7 @@
 return {
   {
     "tpope/vim-fugitive",
+    'sindrets/diffview.nvim',
     config = function()
       vim.keymap.set("n", "<leader>B", ":G blame<CR>", { desc = "Git blame" })
       vim.keymap.set("n", "<leader>D", ":Gvdiffsplit<CR>", { desc = "Git diff split" })
