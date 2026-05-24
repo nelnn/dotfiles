@@ -17,7 +17,6 @@ return {
           "tailwindcss",
           "lua_ls",
           "ts_ls",
-          "vtsls",
           "vue_ls",
           "ty",
           "ruff",
@@ -45,7 +44,6 @@ return {
         ruff = {},
         gopls = {},
         vue_ls = {},
-        vtsls = {},
         ts_ls = {
           init_options = {
             plugins = {

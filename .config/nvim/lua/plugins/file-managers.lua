@@ -49,15 +49,6 @@ return {
     vim.keymap.set("n", "<leader>e", "<CMD>Oil<CR>", { desc = "Open parent directory" })
   },
   {
-    "refractalize/oil-git-status.nvim",
-
-    dependencies = {
-      "stevearc/oil.nvim",
-    },
-
-    config = true,
-  },
-  {
     "otavioschwanck/arrow.nvim",
     dependencies = {
       { "echasnovski/mini.nvim" },
