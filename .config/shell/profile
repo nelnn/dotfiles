@@ -3,14 +3,14 @@
 # shellcheck disable=SC2155
 export PATH="$PATH:$(find ~/.local/bin -type d | paste -sd ':' -)"
 
-if [ -f "$HOME/.env" ]; then
-  export $(grep -v '^#' "$HOME/.env" | xargs)
-fi
+# if [ -f "$HOME/.env" ]; then
+#   export $(grep -v '^#' "$HOME/.env" | xargs)
+# fi
 
 # Default Programs:
 export EDITOR="nvim"
-export TERMINAL="st"
-export BROWSER="brave.desktop"
+export TERMINAL="ghostty"
+# export BROWSER="brave.desktop"
 
 
 # ~/ Clean-up:
@@ -58,6 +58,3 @@ export LESS_TERMCAP_se=$'\e[0m'
 export LESS_TERMCAP_so=$'\e[01;33m'
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;31m'
-
-# Start X on login
-[[ -z $DISPLAY && $(tty) = /dev/tty1 ]] && exec startx

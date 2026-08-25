@@ -1,5 +1,12 @@
+-- This file is automatically loaded by plugins.core
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
+
+-- Hide deprecation warnings
+vim.g.deprecation_warnings = false
+
+-- Fix markdown indentation settings
+vim.g.markdown_recommended_style = 0
 
 vim.g.python3_host_prog = vim.fn.expand("~/.local/share/venvs/neovim/bin/python3")
 

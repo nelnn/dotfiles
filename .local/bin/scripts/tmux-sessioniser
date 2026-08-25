@@ -2,11 +2,8 @@
 
 search_dirs=(
     ~/.dotfiles
-    ~/books
     ~/work/build
     ~/projects
-    ~/projects/archives/
-    ~/projects/learn
     ~/work
     ~/personal
 )

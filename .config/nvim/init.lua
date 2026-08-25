@@ -22,3 +22,5 @@ require("lazy").setup("plugins", {
     notify = false,
   },
 })
+
+vim.cmd.packadd('cfilter')
