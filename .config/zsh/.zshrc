@@ -92,14 +92,14 @@ preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/zshnameddirrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/zshnameddirrc"
 
 # zsh-autosuggestions
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 bindkey '^@' autosuggest-accept # Ctrl + Space to accept
 
 # Bind Tab to menu-complete (Which is the default)
 # bindkey '^L' menu-complete
 
 # Load zsh-syntax-highlighting; should be last.
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Load zoxide (cd replacement)
 eval "$(zoxide init zsh)"
