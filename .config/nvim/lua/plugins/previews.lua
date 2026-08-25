@@ -1,5 +1,45 @@
 return {
   {
+    -- View images in nvim
+    "3rd/image.nvim",
+    build = false,
+    opts = {
+      processor = "magick_cli",
+    }
+  },
+  {
+    'chomosuke/typst-preview.nvim',
+    ft = 'typst',
+    version = '1.*',
+    opts = {
+      dependencies_bin = { ['tinymist'] = 'tinymist' }
+    },
+    config = function(_, opts)
+      require('typst-preview').setup(opts)
+    end
+  },
+
+  -- Markdown
+  {
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    build = "cd app && npm install",
+    init = function()
+      vim.g.mkdp_filetypes = { "markdown" }
+    end,
+    ft = { "markdown" },
+  },
+  {
+    'MeanderingProgrammer/render-markdown.nvim',
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' },
+    ---@module 'render-markdown'
+    ---@type render.md.UserConfig
+    opts = {},
+    ft = { "markdown" },
+  },
+
+  -- CSV Preview
+  {
     "hat0uma/csvview.nvim",
     ---@module "csvview"
     ---@type CsvView.Options

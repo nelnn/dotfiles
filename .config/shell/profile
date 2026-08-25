@@ -2,9 +2,9 @@
 # shellcheck disable=SC2155
 export PATH="$PATH:$(find ~/.local/bin -type d | paste -sd ':' -)"
 
-if [ -f "$HOME/.env" ]; then
-  export $(grep -v '^#' "$HOME/.env" | xargs)
-fi
+# if [ -f "$HOME/.env" ]; then
+#   export $(grep -v '^#' "$HOME/.env" | xargs)
+# fi
 
 # Default Programs:
 export EDITOR="nvim"

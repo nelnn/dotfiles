@@ -11,8 +11,8 @@ alias j="lazyjj"
 alias ls="eza -la --icons"
 alias cat="bat"
 
-alias dcu="docker-compose up -d"
-alias dcd="docker-compose down"
+alias dcu="docker compose up -d"
+alias dcd="docker compose down"
 
 # Edit config files
 alias aconf="nvim ~/.dotfiles/.config/shell/aliasrc"

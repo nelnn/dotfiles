@@ -5,6 +5,7 @@
 # At least for Debian 13
 
 
+set -o vi
 apt-get update
 apt install -y curl wget git rsync sudo tmux
 

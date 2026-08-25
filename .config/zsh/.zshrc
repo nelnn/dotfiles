@@ -99,8 +99,8 @@ bindkey '^@' autosuggest-accept # Ctrl + Space to accept
 # Load zsh-syntax-highlighting; should be last.
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-# Load zoxide (cd replacement)
-eval "$(zoxide init zsh)"
 
+eval "$(zoxide init zsh)" # Load zoxide (cd replacement)
+eval "$(fnm env --use-on-cd --shell zsh)" # fnm for node.js version manager
 # Load nvm (Node Version Manager)
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
