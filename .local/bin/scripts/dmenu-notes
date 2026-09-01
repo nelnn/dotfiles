@@ -1,23 +1,38 @@
 #!/usr/bin/env bash
 
-folder=$HOME/personal/notes/
+folder="$HOME/work/notes"
 
-newnote () { \
-  dir="$(command ls -d "$folder" "$folder"*/ | dmenu -c -l 5 -i -p 'Choose directory: ')"|| exit 0
-  : "${dir:=$folder}"
-  name="$(echo "" | dmenu -c -sb "#300A3D" -nf "#D8DEE9" -p "Enter a name: " <&-)" || exit 0
-  : "${name:=$(date +%F)}"
-  setsid -f "$TERMINAL" -e nvim $dir$name".md" >/dev/null 2>&1
+# wofi works on GNOME Wayland in its normal-window fallback mode.  Keep dmenu
+# as a fallback so this script remains usable in an X11 session.
+menu() {
+  local prompt=$1
+  if command -v wofi >/dev/null 2>&1; then
+    wofi --normal-window --location center --show dmenu --prompt "$prompt" --lines 5 --insensitive
+  else
+    dmenu -l 5 -i -p "$prompt"
+  fi
 }
 
-selected () { \
+newnote() {
+  dir="$(printf '%s\n' "$folder" "$folder"/*/ | menu 'Choose directory:')" || exit 0
+  : "${dir:=$folder}"
+  name="$(printf '\n' | menu 'Enter a name:')" || exit 0
+  : "${name:=$(date +%F)}"
+  setsid -f "$TERMINAL" -e nvim "$dir/$name.md" >/dev/null 2>&1
+}
+
+selected() {
   choice=$(
-    echo -e "New\n$(find $folder -type f -printf '%T@ %P\n' | sort -nr | cut -d' ' -f2-)" | dmenu -c -l 5 -i -p "Choose note or create new: "
-  )
+    {
+      printf 'New\n'
+      find "$folder" -type f -printf '%T@ %P\n' | sort -nr | cut -d' ' -f2-
+    } | menu 'Choose note or create new:'
+  ) || exit 0
+
   case $choice in
     New) newnote ;;
-    *.md) setsid -f "$TERMINAL" -e nvim "$folder$choice" >/dev/null 2>&1 ;;
-    *) exit ;;
+    *.md) setsid -f "$TERMINAL" -e nvim "$folder/$choice" >/dev/null 2>&1 ;;
+    *) exit 0 ;;
   esac
 }
 

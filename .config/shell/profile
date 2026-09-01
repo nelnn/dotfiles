@@ -43,8 +43,12 @@ export HISTFILE="$XDG_DATA_HOME/zsh_history"
 # Paths
 export PATH="$HOME/.local/bin/scripts:$PATH"
 export PATH="$HOME/.local/bin/scripts/statusbar:$PATH"
-## opencode
-export PATH=/home/n/.opencode/bin:$PATH
+export PATH="$XDG_DATA_HOME/cargo/bin:$PATH"
+
+# AICO
+export BIFROST_REPO="$HOME/work/bifrost"
+export PATH="$HOME/.pulumi/bin:$PATH"
+export BIFROST_SSO_URL="https://d-9c677f3c10.awsapps.com/start/#"
 
 # Export other program settings
 ## ls enable directory color:
