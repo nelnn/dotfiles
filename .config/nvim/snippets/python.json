@@ -1,0 +1,19 @@
+{
+  "mmd": {
+    "description": "dbx magic command md",
+    "prefix": "mmd",
+    "body": [
+      "# COMMAND ----------",
+      "# MAGIC %md",
+      "# "
+    ]
+  },
+  "mcmd": {
+    "description": "dbx magic command python cell",
+    "prefix": "mcmd",
+    "body": [
+      "# COMMAND ----------",
+      ""
+    ]
+  }
+}

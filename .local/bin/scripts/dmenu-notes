@@ -14,10 +14,10 @@ menu() {
 }
 
 newnote() {
-  dir="$(printf '%s\n' "$folder" "$folder"/*/ | menu 'Choose directory:')" || exit 0
+  dir="$(printf '%s\n' "$folder" "$folder"/*/ | sort -r | menu 'Choose directory:')" || exit 0
   : "${dir:=$folder}"
   name="$(printf '\n' | menu 'Enter a name:')" || exit 0
-  : "${name:=$(date +%F)}"
+  : "${name:=$(date +%F-w%V)}"
   setsid -f "$TERMINAL" -e nvim "$dir/$name.md" >/dev/null 2>&1
 }
 

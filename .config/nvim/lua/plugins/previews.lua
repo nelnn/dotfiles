@@ -1,11 +1,55 @@
 return {
   {
+    "sotte/presenting.nvim",
+    opts = {
+      -- fill in your options here
+      -- see :help Presenting.config
+    },
+    cmd = { "Presenting" },
+  },
+  {
     -- View images in nvim
     "3rd/image.nvim",
     build = false,
     opts = {
       processor = "magick_cli",
-    }
+      integrations = {
+        markdown = {
+          only_render_image_at_cursor = true,
+        },
+        typst = {
+          only_render_image_at_cursor = true,
+        },
+      },
+    },
+    config = function(_, opts)
+      require("image").setup(opts)
+      local group = vim.api.nvim_create_augroup("ImageOnlyInNormal", { clear = true })
+      local image = require("image")
+      vim.keymap.set("n", "<leader>i", function()
+        if image.is_enabled() then
+          vim.api.nvim_exec_autocmds("CursorMoved", { modeline = false }) -- closes an open image popup
+          image.disable()
+        else
+          image.enable()
+          vim.api.nvim_exec_autocmds("CursorMoved", { modeline = false })
+        end
+      end, { desc = "Toggle image preview" })
+      local disabled_outside_normal = false
+      vim.api.nvim_create_autocmd("ModeChanged", {
+        group = group,
+        callback = function()
+          if vim.api.nvim_get_mode().mode == "n" then
+            if disabled_outside_normal then image.enable() end
+            disabled_outside_normal = false
+          elseif image.is_enabled() then
+            vim.api.nvim_exec_autocmds("CursorMoved", { modeline = false }) -- closes an open image popup
+            image.disable()
+            disabled_outside_normal = true
+          end
+        end,
+      })
+    end,
   },
   {
     'chomosuke/typst-preview.nvim',

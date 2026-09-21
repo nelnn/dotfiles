@@ -42,7 +42,7 @@ export HISTFILE="$XDG_DATA_HOME/zsh_history"
 
 # Paths
 export PATH="$HOME/.local/bin/scripts:$PATH"
-export PATH="$HOME/.local/bin/scripts/statusbar:$PATH"
+export PATH="$HOME/.local/bin/scripts/work:$PATH"
 export PATH="$XDG_DATA_HOME/cargo/bin:$PATH"
 
 # AICO

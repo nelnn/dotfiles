@@ -1,13 +1,6 @@
-# Start Tmux
-# if [ -x "$(command -v tmux)" ] && [ -n "${DISPLAY}" ] && [ -z "${TMUX}" ]; then
-#     tmux attach-session -t 0 || tmux new-session -s 0
-# fi
-
-# Attach only if there's no session
-if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
-  if ! tmux has-session 2>/dev/null; then
-    tmux new-session -s 0
-  fi
+# Start or attach to the Herdr session.
+if command -v herdr &> /dev/null && [ -z "$HERDR_ENV" ]; then
+  herdr --session default
 fi
 
 setopt auto_cd

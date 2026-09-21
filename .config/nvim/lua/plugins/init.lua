@@ -1,6 +1,15 @@
 return {
-  "christoomey/vim-tmux-navigator",
   "xiyaowong/transparent.nvim",
+  {
+    "christoomey/vim-tmux-navigator",
+    lazy = false,
+    init = function()
+      vim.g.tmux_navigator_no_mappings = 1
+    end,
+    config = function()
+      dofile(vim.fn.expand("~/.config/herdr/vim-herdr-navigation/editor/nvim.lua"))
+    end,
+  },
   {
     "tpope/vim-fugitive",
     config = function()
@@ -45,7 +54,7 @@ return {
       require('nvim-treesitter').install {
         "lua", "vim", "vimdoc", "query",
         "python", "css", "javascript", "typescript",
-        "html", "regex", "toml", "yaml", "typst",
+        "html", "regex", "toml", "yaml", "sql", "typst",
         "markdown", "markdown_inline", "dockerfile",
       }
     end,
@@ -99,7 +108,7 @@ return {
           snippets = {
             name = "Snippet",
             module = "blink.cmp.sources.snippets",
-            score_offset = 800,
+            score_offset = 2000,
             async = true,
           },
         }
@@ -209,6 +218,7 @@ return {
         defaults = {
           formatter = "path.filename_first",
         },
+        grep = { hidden = true },
         --   -- MISC GLOBAL SETUP OPTIONS, SEE BELOW
         --   -- fzf_bin = ...,
         --   winopts = { ...  },     -- UI Options

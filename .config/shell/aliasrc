@@ -1,19 +1,27 @@
 alias v="nvim"
 alias cd="z"
 alias man="batman"
+alias cat="batcat"
 alias g="lazygit"
 alias d="lazydocker"
 alias dcu="docker compose up -d"
 alias dcd="docker compose down"
 
-#alias ls="eza --icons"
+alias ls="eza --icons"
 
 alias zconf="v ~/.config/zsh/.zshrc"
 alias vconf="v ~/.config/nvim/lua"
 alias prof="v ~/.config/shell/profile"
-alias ali="v ~/.config/shell/aliasrc"
+alias aliasrc="v ~/.config/shell/aliasrc"
 
 alias venv="source .venv/bin/activate"
 
 alias tm="tmux"
 alias tms="tmux-sessioniser"
+
+alias cam-on="systemctl --user start laptop-camera"
+alias cam-off="systemctl --user stop laptop-camera"
+alias cam-status="systemctl --user status laptop-camera"
+
+# Work stuff
+

@@ -86,7 +86,7 @@ return {
         require('nvim-treesitter').install {
           "lua", "vim", "vimdoc", "query",
           "python", "css", "javascript", "typescript",
-          "html", "regex", "toml", "yaml",
+          "html", "regex", "toml", "yaml", "sql",
           "markdown", "markdown_inline", "dockerfile",
         }
       end,
@@ -218,6 +218,7 @@ return {
           "ruff",
           "gopls",
           "tinymist",
+          "sqls",
         },
       })
     end,
@@ -240,6 +241,7 @@ return {
         ruff = {},
         gopls = {},
         vue_ls = {},
+        sqls = {},
         ts_ls = {
           init_options = {
             plugins = {
