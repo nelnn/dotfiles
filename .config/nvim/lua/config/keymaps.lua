@@ -22,7 +22,7 @@ map("n", "<leader>R", "<cmd>restart<cr>", { desc = "Restart Neovim" })
 local function herdr_tab(command)
   local herdr = vim.env.HERDR_BIN_PATH ~= "" and vim.env.HERDR_BIN_PATH or "herdr"
   local return_tab = vim.env.HERDR_TAB_ID or ""
-  local tab = vim.fn.system({ herdr, "tab", "create", "--cwd", vim.fn.getcwd(), "--focus" })
+  local tab = vim.fn.system({ herdr, "tab", "create", "--cwd", vim.fn.getcwd(), "--env", "ZDOTDIR=/nonexistent", "--focus" })
   if vim.v.shell_error ~= 0 then
     vim.notify(tab, vim.log.levels.ERROR)
     return

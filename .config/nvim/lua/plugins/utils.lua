@@ -17,7 +17,9 @@ return {
       require('mini.visits').setup()
 
       local mininotify = require('mini.notify')
-      mininotify.setup()
+      mininotify.setup({
+        lsp_progress = { enable = false },
+      })
       vim.notify = mininotify.make_notify()
       vim.keymap.set('n', '<leader>fn', mininotify.show_history,
         { noremap = true, silent = true, desc = "Show notification history" })

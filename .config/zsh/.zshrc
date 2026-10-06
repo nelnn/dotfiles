@@ -1,7 +1,7 @@
 # Start or attach to the Herdr session.
-if command -v herdr &> /dev/null && [ -z "$HERDR_ENV" ]; then
-  herdr --session default
-fi
+# if command -v herdr &> /dev/null && [ -z "$HERDR_ENV" ]; then
+#   herdr --session default
+# fi
 
 setopt auto_cd
 # Enable colors and change prompt:

@@ -1,7 +1,8 @@
 --- Run the SQL statement under the cursor against ClickHouse: into a scratch
 --- buffer (`:ClickHouse`) or into VisiData in a Herdr pane/tab.
 
-local PORT = 9440
+local PORT = 8123
+local PREVIEW_ROWS = 100
 
 ---The SQL statement the cursor sits in, or nil (notifies) if it sits between statements.
 ---@return string?
@@ -65,7 +66,9 @@ local function query_command(name, fn)
   end, {})
 end
 
-query_command("ClickHouse", function(query)
+---Run `query` and drop the pretty-printed result into a scratch buffer.
+---@param query string
+local function show_in_buffer(query)
   local args = curl_args("default_format=PrettyCompact&output_format_pretty_grid_charset=ASCII"
     .. "&output_format_pretty_color=0&output_format_pretty_max_value_width=30")
   vim.system(args, { stdin = query, text = true }, vim.schedule_wrap(function(result)
@@ -76,7 +79,9 @@ query_command("ClickHouse", function(query)
     local output = (result.code == 0 or result.stdout ~= "") and result.stdout or result.stderr
     vim.api.nvim_buf_set_lines(0, 0, -1, false, vim.split(output, "\n"))
   end))
-end)
+end
+
+query_command("ClickHouse", show_in_buffer)
 
 ---A `$'...'` shell literal, safe for newlines and quotes.
 ---@param value string
@@ -87,7 +92,8 @@ local function shell_string(value)
   }) .. "'"
 end
 
----A shell command piping the query's CSV result into VisiData (errors go to stderr instead).
+---A shell command piping the query's CSV result into VisiData. On failure the error is
+---printed and the shell waits for `q`, since the caller closes the pane afterwards.
 ---@param query string
 ---@return string
 local function visidata_command(query)
@@ -97,7 +103,13 @@ local function visidata_command(query)
     .. table.concat(vim.tbl_map(vim.fn.shellescape, args), " ")
     .. " " .. shell_string(query:gsub("%s*;?%s*$", "") .. ";")
     .. ' > "$ch_output"; then visidata -f csv - < "$ch_output";'
-    .. ' else cat "$ch_output" >&2; fi; rm -f "$ch_output"; }'
+    .. ' else cat "$ch_output" >&2; printf "\\nPress q to close..." >&2;'
+    -- `.` is the sentinel command substitution cannot strip: a bare one means EOF (no tty).
+    .. ' tty=$(stty -g 2>/dev/null) && stty -icanon -echo min 1;'
+    .. ' while :; do key=$(dd bs=1 count=1 2>/dev/null; printf .);'
+    .. ' case $key in "q."|".") break;; esac; done;'
+    .. ' [ -n "$tty" ] && stty "$tty";'
+    .. ' fi; rm -f "$ch_output"; }'
 end
 
 ---Run `herdr <args...>` and hand the decoded `result` field to `callback`.
@@ -231,8 +243,18 @@ local function toggle()
   render()
 end
 
--- Databases -> tables -> columns, in a tree buffer on the left. Closing it (`q`)
--- drops the cached tree, so reopening refreshes.
+---`p`: show the SELECT that would preview a table's rows, and run it if confirmed.
+local function preview()
+  local node = sidebar.lines[vim.api.nvim_win_get_cursor(0)[1]]
+  if not node or node.kind ~= "table" then return end
+  local query = ("SELECT * FROM `%s`.`%s` LIMIT %d"):format(node.db, node.label, PREVIEW_ROWS)
+  if vim.fn.confirm(query, "&Run\n&Cancel", 2) ~= 1 then return end
+  vim.cmd.wincmd("p") -- the result splits the editing window, not the narrow sidebar
+  show_in_buffer(query)
+end
+
+-- Databases -> tables -> columns, in a tree buffer on the left. `p` previews a table.
+-- Closing it (`q`) drops the cached tree, so reopening refreshes.
 vim.api.nvim_create_user_command("ClickHouseSchema", function()
   local win = sidebar.buf and vim.fn.bufwinid(sidebar.buf) or -1
   if win ~= -1 then return vim.api.nvim_set_current_win(win) end
@@ -244,6 +266,7 @@ vim.api.nvim_create_user_command("ClickHouseSchema", function()
     vim.wo.number, vim.wo.relativenumber, vim.wo.winfixwidth = false, false, true
     vim.keymap.set("n", "<cr>", toggle, { buffer = sidebar.buf })
     vim.keymap.set("n", "q", "<cmd>bd<cr>", { buffer = sidebar.buf })
+    vim.keymap.set("n", "p", preview, { buffer = sidebar.buf })
     sidebar.root = vim.tbl_map(function(name)
       return { label = name, kind = "database", depth = 0, expanded = false }
     end, databases)

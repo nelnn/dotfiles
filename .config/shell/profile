@@ -45,6 +45,10 @@ export PATH="$HOME/.local/bin/scripts:$PATH"
 export PATH="$HOME/.local/bin/scripts/work:$PATH"
 export PATH="$XDG_DATA_HOME/cargo/bin:$PATH"
 
+# Flutter
+export PATH="$HOME/build/flutter/bin:$PATH"
+export PATH="$HOME/build/fvm/bin:$PATH"
+
 # AICO
 export BIFROST_REPO="$HOME/work/bifrost"
 export PATH="$HOME/.pulumi/bin:$PATH"

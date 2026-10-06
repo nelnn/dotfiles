@@ -1,5 +1,26 @@
 return {
   {
+    "joryeugene/dadbod-grip.nvim",
+    opts = {
+      connections_path = vim.fn.expand("~/.config/grip/connections.json"),
+      keymaps = { qpad_execute = "<leader>df", grid_export_file = "<C-s>" },
+    },
+    keys = {
+      { "<leader>db", "<cmd>GripConnect<cr>", desc = "Database connections" },
+    },
+  },
+  {
+    "github/copilot.vim",
+    init = function() vim.g.copilot_enabled = false end,
+    config = function()
+      vim.keymap.set('i', '<C-l>', 'copilot#Accept("\\<CR>")', {
+        expr = true,
+        replace_keycodes = false
+      })
+      vim.g.copilot_no_tab_map = true
+    end
+  },
+  {
     "ej-shafran/compile-mode.nvim",
     version = "^5.0.0",
     -- branch = "latest",
@@ -77,43 +98,18 @@ return {
     end
   },
   {
-    {
-      "nvim-treesitter/nvim-treesitter",
-      branch = "main",
-      lazy = false,
-      build = ":TSUpdate",
-      config = function()
-        require('nvim-treesitter').install {
-          "lua", "vim", "vimdoc", "query",
-          "python", "css", "javascript", "typescript",
-          "html", "regex", "toml", "yaml", "sql",
-          "markdown", "markdown_inline", "dockerfile",
-        }
-      end,
-    },
-    {
-      "windwp/nvim-ts-autotag",
-      lazy = true,
-      ft = { "html", "vue", "ts", "tsx" },
-      config = function()
-        require("nvim-ts-autotag").setup({
-          opts = {
-            -- Defaults
-            enable_close = true,         -- Auto close tags
-            enable_rename = true,        -- Auto rename pairs of tags
-            enable_close_on_slash = true -- Auto close on trailing </
-          },
-          -- Also override individual filetype configs, these take priority.
-          -- Empty by default, useful if one of the "opts" global settings
-          -- doesn't work well in a specific filetype
-          -- per_filetype = {
-          --   ["html"] = {
-          --     enable_close = false
-          --   }
-          -- }
-        })
-      end
-    },
+    "nvim-treesitter/nvim-treesitter",
+    branch = "main",
+    lazy = false,
+    build = ":TSUpdate",
+    config = function()
+      require('nvim-treesitter').install {
+        "lua", "vim", "vimdoc", "query",
+        "python", "css", "javascript", "typescript",
+        "html", "regex", "toml", "yaml", "sql",
+        "markdown", "markdown_inline", "dockerfile", "dart",
+      }
+    end,
   },
   {
     "mfussenegger/nvim-dap",
@@ -198,6 +194,24 @@ return {
 
   -- Below are LSP Stuff
   {
+    "ldelossa/litee.nvim",
+    event = "VeryLazy",
+    opts = {},
+    config = function(_, opts) require("litee.lib").setup(opts) end,
+  },
+  {
+    "ldelossa/litee-calltree.nvim",
+    dependencies = "ldelossa/litee.nvim",
+    event = "VeryLazy",
+    opts = { on_open = "panel", map_resize_keys = false, resolve_symbols = false },
+    config = function(_, opts)
+      local lsp_with = vim.lsp.with
+      vim.lsp.with = function(handler) return handler end
+      require("litee.calltree").setup(opts)
+      vim.lsp.with = lsp_with
+    end,
+  },
+  {
     "mason-org/mason.nvim",
     config = function()
       require("mason").setup()
@@ -235,6 +249,17 @@ return {
           filetypes = { "c", "cpp" },
         },
         bashls = {},
+        dartls = {
+          cmd = function(dispatchers, config)
+            local root = vim.fs.root(config.root_dir, ".fvm")
+            local dart = root and root .. "/.fvm/flutter_sdk/bin/dart" or "dart"
+
+            return vim.lsp.rpc.start(
+              { dart, "language-server", "--protocol=lsp" },
+              dispatchers
+            )
+          end,
+        },
         tailwindcss = {},
         lua_ls = {},
         ty = {},
@@ -277,10 +302,12 @@ return {
           { buffer = bufnr, desc = "Format buffer" })
         vim.keymap.set("n", "<leader>gd", builtin.lsp_definitions, { buffer = bufnr })
         vim.keymap.set("n", "<leader>gk", vim.lsp.buf.hover, { buffer = bufnr })
-        vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation, { buffer = bufnr })
+        vim.keymap.set("n", "<leader>gI", vim.lsp.buf.implementation, { buffer = bufnr, desc = "implementation" })
         vim.keymap.set("n", "<leader>gn", vim.lsp.buf.rename, { buffer = bufnr })
         vim.keymap.set("n", "<leader>gK", vim.lsp.buf.signature_help, { buffer = bufnr })
         vim.keymap.set("n", "<leader>gr", builtin.lsp_references, { buffer = bufnr })
+        vim.keymap.set("n", "<leader>gi", vim.lsp.buf.incoming_calls, { buffer = bufnr, desc = "Incoming call tree" })
+        vim.keymap.set("n", "<leader>go", vim.lsp.buf.outgoing_calls, { buffer = bufnr, desc = "Outgoing call tree" })
         vim.keymap.set({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, { buffer = bufnr })
         vim.keymap.set("n", "<space>ge", function()
           vim.diagnostic.open_float(0, { scope = "line" })
@@ -289,6 +316,7 @@ return {
       for server, config in pairs(opts.servers) do
         config.on_attach = on_attach
         vim.lsp.config(server, config)
+        vim.lsp.enable(server)
       end
     end,
   },
