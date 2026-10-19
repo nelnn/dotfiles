@@ -5,6 +5,10 @@ map("n", "<c-n>", vim.cmd.bnext)
 map("n", "<c-p>", vim.cmd.bprevious)
 map("n", "<leader>R", "<cmd>restart<cr>", { desc = "Restart Neovim" })
 
+-- misc
+map("n", "<leader>w", "<cmd>bdelete<cr>", { desc = "Close buffer" })
+map("n", "<leader>S", ":set spell!<cr>", { desc = "Toggle Spelling" })
+
 -- tmux
 -- -- Open lazygit in a new tmux window
 -- map("n", "<leader>gg", "<cmd>!tmux new-window -c " .. vim.fn.getcwd() .. " -- lazygit <CR><CR>",
@@ -22,13 +26,15 @@ map("n", "<leader>R", "<cmd>restart<cr>", { desc = "Restart Neovim" })
 local function herdr_tab(command)
   local herdr = vim.env.HERDR_BIN_PATH ~= "" and vim.env.HERDR_BIN_PATH or "herdr"
   local return_tab = vim.env.HERDR_TAB_ID or ""
-  local tab = vim.fn.system({ herdr, "tab", "create", "--cwd", vim.fn.getcwd(), "--env", "ZDOTDIR=/nonexistent", "--focus" })
+  local tab = vim.fn.system({ herdr, "tab", "create", "--cwd", vim.fn.getcwd(), "--env", "ZDOTDIR=/nonexistent",
+    "--focus" })
   if vim.v.shell_error ~= 0 then
     vim.notify(tab, vim.log.levels.ERROR)
     return
   end
   local pane_id = vim.json.decode(tab).result.root_pane.pane_id
-  local cleanup = return_tab ~= "" and "; " .. vim.fn.shellescape(herdr) .. " tab focus " .. vim.fn.shellescape(return_tab) or ""
+  local cleanup = return_tab ~= "" and
+  "; " .. vim.fn.shellescape(herdr) .. " tab focus " .. vim.fn.shellescape(return_tab) or ""
   vim.fn.jobstart({ herdr, "pane", "run", pane_id, command .. cleanup .. "; exit" })
 end
 

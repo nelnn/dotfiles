@@ -53,6 +53,7 @@ export PATH="$HOME/build/fvm/bin:$PATH"
 export BIFROST_REPO="$HOME/work/bifrost"
 export PATH="$HOME/.pulumi/bin:$PATH"
 export BIFROST_SSO_URL="https://d-9c677f3c10.awsapps.com/start/#"
+export PATH="$PATH:/opt/mssql-tools18/bin" # MS sqlcmd
 
 # Export other program settings
 ## ls enable directory color:

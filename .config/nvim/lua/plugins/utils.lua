@@ -3,18 +3,43 @@ return {
     "nvim-mini/mini.nvim",
     version = false,
     config = function()
+      -- Appearance
+      require('mini.starter').setup()
+      require('mini.statusline').setup()
+      require('mini.tabline').setup()
+      require('mini.icons').setup()
+
+      -- Functionalities
       require("mini.ai").setup()
+      require("mini.align").setup()
       require('mini.cursorword').setup()
       require('mini.comment').setup()
-      require('mini.icons').setup()
       require('mini.bracketed').setup()
       require('mini.jump').setup()
       require('mini.splitjoin').setup()
-      require('mini.statusline').setup()
       require("mini.surround").setup()
-      require('mini.tabline').setup()
-      require('mini.trailspace').setup()
       require('mini.visits').setup()
+
+
+      require('mini.jump2d').setup({
+        mappings = {
+          start_jumping = '<CR>', -- default
+        },
+      })
+
+      require('mini.trailspace').setup()
+      vim.keymap.set("n", "<leader>xt", ":lua MiniTrailspace.trim()<CR>", { desc = "Trim trailing whitespace" })
+
+      require('mini.sessions').setup()
+      vim.keymap.set('n', '<leader>ss', function()
+        local name = vim.fn.input('Session name: ')
+        if name ~= '' then MiniSessions.write(name) end
+      end, { desc = "Save session" })
+      vim.keymap.set('n', '<leader>so', ':lua MiniSessions.select("read")<CR>', { desc = 'Select Session' })
+      vim.keymap.set('n', '<leader>sd', ':lua MiniSessions.select("delete")<CR>', { desc = 'Delete Session' })
+      vim.keymap.set('n', '<leader>s.', ':echo v:this_session<CR>', { desc = 'Show Current Session' })
+
+
 
       local mininotify = require('mini.notify')
       mininotify.setup({
@@ -32,8 +57,15 @@ return {
 
       -- local minifiles = require('mini.files')
       -- minifiles.setup()
-      vim.keymap.set("n", "<leader>xt", ":lua MiniTrailspace.trim()<CR>", { desc = "Trim trailing whitespace" })
-      vim.keymap.set("n", "<leader>v", ":lua MiniVisits.select_path()<CR>", { desc = "Select visit path" })
+      vim.keymap.set("n", "<leader>vp", ":lua MiniVisits.select_path()<CR>", { desc = "Select visit path" })
+      vim.keymap.set("n", "<leader>va", ":lua MiniVisits.add_label()<CR>", { desc = "Add visit label" })
+      vim.keymap.set("n", "<leader>vd", ":lua MiniVisits.remove_label()<CR>", { desc = "Remove visit label" })
+      vim.keymap.set("n", "<leader>vl", ":lua MiniVisits.select_label()<CR>", { desc = "Select visit label" })
+      vim.keymap.set("n", "<leader>vd", function()
+        vim.ui.select(require("mini.visits").list_labels(), { prompt = "Remove visit label:" }, function(label)
+          if label then require("mini.visits").remove_label(label) end
+        end)
+      end, { desc = "Remove visit label" })
       -- vim.keymap.set("n", "<leader>e", function()
       --   local buf_name = vim.api.nvim_buf_get_name(0)
       --   local path = vim.fn.filereadable(buf_name) == 1 and buf_name or vim.fn.getcwd()
@@ -41,15 +73,19 @@ return {
       --   minifiles.reveal_cwd()
       -- end, { desc = "Open Mini Files" })
       -- vim.keymap.set("n", "-", ":lua MiniFiles.open()<CR>", { desc = "Open file explorer" })
+      vim.api.nvim_set_hl(0, 'MiniHipatternsGreen', { fg = '#a6e3a1', bold = true })
       require('mini.hipatterns').setup({
         highlighters = {
           -- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
-          fixme     = { pattern = '%f[%w]()FIXME()%f[%W]:', group = 'MiniHipatternsFixme' },
-          bug       = { pattern = '%f[%w]()BUG()%f[%W]:', group = 'MiniHipatternsFixme' },
-          hack      = { pattern = '%f[%w]()HACK()%f[%W]:', group = 'MiniHipatternsHack' },
-          todo      = { pattern = '%f[%w]()TODO()%f[%W]:', group = 'MiniHipatternsTodo' },
-          note      = { pattern = '%f[%w]()NOTE()%f[%W]:', group = 'MiniHipatternsNote' },
-          ai        = { pattern = '%f[%w]()AI()%f[%W]:', group = 'MiniHipatternsNote' },
+          fixme       = { pattern = '%f[%w]()FIXME()%f[%W]:', group = 'MiniHipatternsFixme' },
+          bug         = { pattern = '%f[%w]()BUG()%f[%W]:', group = 'MiniHipatternsFixme' },
+          blocked     = { pattern = '%f[%w]()BLOCKED()%f[%W]:', group = 'MiniHipatternsFixme' },
+          hack        = { pattern = '%f[%w]()HACK()%f[%W]:', group = 'MiniHipatternsHack' },
+          todo        = { pattern = '%f[%w]()TODO()%f[%W]:', group = 'MiniHipatternsTodo' },
+          note        = { pattern = '%f[%w]()NOTE()%f[%W]:', group = 'MiniHipatternsNote' },
+          ai          = { pattern = '%f[%w]()AI()%f[%W]:', group = 'MiniHipatternsNote' },
+          IMPORTANT   = { pattern = '%f[%w]()IMPORTANT()%f[%W]', group = 'MiniHipatternsTodo' },
+          DONE        = { pattern = '%f[%w]()DONE()%f[%W]', group = 'MiniHipatternsGreen' },
 
           -- Highlight hex color strings (`#rrggbb`) using that color
           hex_color = require('mini.hipatterns').gen_highlighter.hex_color(),
@@ -125,71 +161,4 @@ return {
       })
     end
   },
-  {
-    "folke/snacks.nvim",
-    priority = 1000,
-    lazy = false,
-    config = function()
-      -- Configure the Snacks plugin options
-      -- Apply the configuration
-      local snacks = require('snacks')
-      snacks.setup(
-        {
-          bigfile = { enabled = true },
-          dashboard = { enabled = true },
-          notifier = { enabled = false },
-          quickfile = { enabled = true },
-          statuscolumn = { enabled = true },
-          words = { enabled = true },
-
-        }
-      )
-
-      vim.keymap.set('n', '<leader>w', function() snacks.bufdelete() end,
-        { noremap = true, silent = true, desc = "Delete buffer" })
-      -- vim.keymap.set('n', '<leader>gg', function() snacks.lazygit() end, { noremap = true, silent = true })
-      vim.keymap.set('n', '<leader>gb', function() snacks.git.blame_line() end,
-        { noremap = true, silent = true, desc = "Git blame line" })
-      vim.keymap.set('n', '<leader>gB', function() snacks.gitbrowse() end,
-        { noremap = true, silent = true, desc = "Git browse" })
-      vim.keymap.set('n', '<leader>gl', function() snacks.lazygit.log() end,
-        { noremap = true, silent = true, desc = "Git log" })
-      vim.keymap.set('n', '<leader>E', snacks.rename.rename_file, { noremap = true, silent = true, desc = "Rename file" })
-      vim.keymap.set('n', ']]', function() snacks.words.jump(vim.v.count1) end,
-        { noremap = true, silent = true, desc = "Jump to next word reference" })
-      vim.keymap.set('n', '[[]', function() snacks.words.jump(-vim.v.count1) end,
-        { noremap = true, silent = true, desc = "Jump to previous word reference" })
-      vim.keymap.set('t', ']]', function() snacks.words.jump(vim.v.count1) end,
-        { noremap = true, silent = true, desc = "Jump to next word reference" })
-      vim.keymap.set('t', '[[]', function() snacks.words.jump(-vim.v.count1) end,
-        { noremap = true, silent = true, desc = "Jump to previous word reference" })
-
-      -- Autocmd for 'VeryLazy' event
-      vim.api.nvim_create_autocmd("User", {
-        pattern = "VeryLazy",
-        callback = function()
-          -- Setup some globals for debugging (lazy-loaded)
-          _G.dd = function(...)
-            snacks.debug.inspect(...)
-          end
-          _G.bt = function()
-            snacks.debug.backtrace()
-          end
-          vim.print = _G.dd -- Override print to use snacks for `:=` command
-
-          -- Create some toggle mappings
-          snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>S")
-          snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
-          snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>uL")
-          snacks.toggle.diagnostics():map("<leader>ud")
-          snacks.toggle.line_number():map("<leader>ul")
-          snacks.toggle.option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 }):map(
-            "<leader>uc")
-          snacks.toggle.treesitter():map("<leader>uT")
-          snacks.toggle.option("background", { off = "light", on = "dark", name = "Dark Background" }):map("<leader>ub")
-          snacks.toggle.inlay_hints():map("<leader>uh")
-        end,
-      })
-    end
-  }
 }

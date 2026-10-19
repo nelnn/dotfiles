@@ -55,7 +55,7 @@ return {
         "lua", "vim", "vimdoc", "query",
         "python", "css", "javascript", "typescript",
         "html", "regex", "toml", "yaml", "sql", "typst",
-        "markdown", "markdown_inline", "dockerfile",
+        "markdown", "markdown_inline", "dockerfile", "c_sharp",
       }
     end,
   },
