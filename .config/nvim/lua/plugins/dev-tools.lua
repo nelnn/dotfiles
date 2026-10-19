@@ -3,10 +3,10 @@ return {
     "joryeugene/dadbod-grip.nvim",
     opts = {
       connections_path = vim.fn.expand("~/.config/grip/connections.json"),
-      keymaps = { qpad_execute = "<leader>df", grid_export_file = "<C-s>" },
+      keymaps = { qpad_execute = "<C-CR>", grid_export_file = "<C-s>" },
     },
     keys = {
-      { "<leader>db", "<cmd>GripConnect<cr>", desc = "Database connections" },
+      { "<leader>DB", "<cmd>GripToggle<cr>", desc = "Toggle Grip workspace" }
     },
   },
   {
@@ -107,7 +107,7 @@ return {
         "lua", "vim", "vimdoc", "query",
         "python", "css", "javascript", "typescript",
         "html", "regex", "toml", "yaml", "sql",
-        "markdown", "markdown_inline", "dockerfile", "dart",
+        "markdown", "markdown_inline", "dockerfile", "dart", "c_sharp",
       }
     end,
   },
@@ -223,6 +223,7 @@ return {
       require("mason-lspconfig").setup({
         ensure_installed = {
           "clangd",
+          "omnisharp",
           "bashls",
           "tailwindcss",
           "lua_ls",
@@ -249,6 +250,7 @@ return {
           filetypes = { "c", "cpp" },
         },
         bashls = {},
+        omnisharp = {},
         dartls = {
           cmd = function(dispatchers, config)
             local root = vim.fs.root(config.root_dir, ".fvm")
