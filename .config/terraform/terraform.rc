@@ -1,0 +1,3 @@
+# Terraform CLI configuration.
+# Checkpoint storage: ~/.terraform.d -> ~/.cache/terraform.
+disable_checkpoint = false

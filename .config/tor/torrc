@@ -1,0 +1,3 @@
+# Tor does not expand XDG environment variables in these paths.
+DataDirectory /Users/nsc/.local/share/tor
+CacheDirectory /Users/nsc/.cache/tor

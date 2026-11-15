@@ -1,0 +1,4 @@
+" Store persistent history, marks, and registers outside the home directory.
+let s:state_home = empty($XDG_STATE_HOME) ? expand('~/.local/state') : $XDG_STATE_HOME
+call mkdir(s:state_home . '/vim', 'p', 0700)
+let &viminfofile = s:state_home . '/vim/viminfo'

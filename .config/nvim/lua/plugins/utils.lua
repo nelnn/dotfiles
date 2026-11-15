@@ -4,6 +4,7 @@ return {
     version = false,
     config = function()
       require("mini.ai").setup()
+      require("mini.align").setup()
       require('mini.cursorword').setup()
       require('mini.comment').setup()
       require('mini.icons').setup()
@@ -15,6 +16,8 @@ return {
       require('mini.tabline').setup()
       require('mini.trailspace').setup()
       require('mini.visits').setup()
+      require('mini.sessions').setup()
+
 
       local mininotify = require('mini.notify')
       mininotify.setup()

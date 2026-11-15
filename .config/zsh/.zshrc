@@ -31,10 +31,11 @@ PROMPT=$'%B%{$fg[red]%}[%{$fg[blue]%}%(6~|.../%1~|%~)%{$fg[red]%}]%{$fg[green]%}
 # Show Datetime on the right side.
 RPROMPT='%{$fg[cyan]%}[%D{%f/%m/%y} | %D{%L:%M:%S}]'
 
-# History in cache directory:
+# Persistent history in the XDG state directory:
 HISTSIZE=100000
 SAVEHIST=100000
-HISTFILE=${XDG_CACHE_HOME:-$HOME/.cache}/.zsh_history
+HISTFILE=${XDG_STATE_HOME:-$HOME/.local/state}/zsh/history
+[[ -d ${HISTFILE:h} ]] || mkdir -p -m 700 -- "${HISTFILE:h}"
 setopt appendhistory
 
 # Basic auto/tab complete:

@@ -12,6 +12,9 @@ apt install -y curl wget git rsync sudo tmux
 # docker
 curl -fsSL https://get.docker.com | sh
 
+# lazydocker
+curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
+
 # tailscale
 # https://tailscale.com/docs/features/containers/lxc/lxc-unprivileged
 # Put /dev/net/tun in Resources -> Add -> Device Passthrough
