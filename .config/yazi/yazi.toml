@@ -52,7 +52,7 @@ play = [
 	{ run = '''mediainfo "$1"; echo "Press enter to exit"; read _''', block = true, desc = "Show media info", for = "unix" },
 ]
 view = [
-    { run = 'zathura "$@"', orphan = true, for = "unix" },
+    { run = 'zathura %s', desc = "Zathura", orphan = true, for = "unix" },
 ]
 excel = [
     { run = 'open -a "Microsoft Excel" "$@"', orphan = true, for = "unix" },
@@ -60,6 +60,7 @@ excel = [
 
 [open]
 prepend_rules = [
+  { mime = "application/pdf", use = ["view", "open", "reveal"] },
   { url = "*.pdf", use = ["view", "open", "reveal"] },
   { mime = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", use = "excel" },
 ]
