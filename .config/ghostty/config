@@ -1,0 +1,33 @@
+# Reload Config: cmd + shift + ,
+macos-titlebar-style = transparent
+background = #000000
+background-opacity = 0.7
+confirm-close-surface = false
+macos-option-as-alt = true
+# theme = xcodedarkhc
+font-family = "JetBrains Mono"
+font-style = italic
+# window-decoration = false
+
+# Keybindings
+## Tmux Switching Windows (Cmd+number; Alt+number is reserved for Rift)
+## Note: \x02 = Ctrl+B
+# Override both physical keys and Ghostty's logical digit tab shortcuts.
+keybind = cmd+one=unbind
+keybind = cmd+two=unbind
+keybind = cmd+three=unbind
+keybind = cmd+four=unbind
+keybind = cmd+five=unbind
+keybind = cmd+six=unbind
+keybind = cmd+seven=unbind
+keybind = cmd+eight=unbind
+keybind = cmd+nine=unbind
+keybind = cmd+digit_1=text:\x021
+keybind = cmd+digit_2=text:\x022
+keybind = cmd+digit_3=text:\x023
+keybind = cmd+digit_4=text:\x024
+keybind = cmd+digit_5=text:\x025
+keybind = cmd+digit_6=text:\x026
+keybind = cmd+digit_7=text:\x027
+keybind = cmd+digit_8=text:\x028
+keybind = cmd+digit_9=text:\x029

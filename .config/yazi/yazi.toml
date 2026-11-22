@@ -1,0 +1,21 @@
+#:schema https://yazi-rs.github.io/schemas/yazi.json
+
+# Keep only overrides so built-in defaults stay current with Yazi upgrades.
+[mgr]
+show_hidden  = true
+mouse_events = [ "click", "scroll" ]
+
+[opener]
+play = [
+	{ run = "mpv --force-window %s", orphan = true, desc = "Play with mpv", for = "unix" },
+	{ run = "open %s", desc = "Play with default app", for = "macos" },
+]
+excel = [
+	{ run = 'open -a "Microsoft Excel" %s', orphan = true, desc = "Microsoft Excel", for = "macos" },
+]
+
+[open]
+prepend_rules = [
+	{ url = "*.pdf", use = [ "open", "reveal" ] },
+	{ mime = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", use = "excel" },
+]
