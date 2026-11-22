@@ -1,0 +1,15 @@
+# Start zsh as a login shell so ~/.zprofile is loaded.
+command = /usr/bin/zsh -l
+
+
+# Reload Config Keybind: Ctrl + Shift + ,
+# disable fullscreen
+keybind = ctrl+enter=unbind
+
+window-decoration = none
+confirm-close-surface = false
+background-opacity = 0.9
+
+
+font-family = "JetBrains Mono"
+font-style = italic

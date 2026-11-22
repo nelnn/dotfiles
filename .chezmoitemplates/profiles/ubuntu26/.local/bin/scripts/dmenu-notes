@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+folder="$HOME/work/notes"
+
+# wofi works on GNOME Wayland in its normal-window fallback mode.  Keep dmenu
+# as a fallback so this script remains usable in an X11 session.
+menu() {
+  local prompt=$1
+  if command -v wofi >/dev/null 2>&1; then
+    wofi --normal-window --location center --show dmenu --prompt "$prompt" --lines 5 --insensitive
+  else
+    dmenu -l 5 -i -p "$prompt"
+  fi
+}
+
+newnote() {
+  dir="$(printf '%s\n' "$folder" "$folder"/*/ | sort -r | menu 'Choose directory:')" || exit 0
+  : "${dir:=$folder}"
+  name="$(printf '\n' | menu 'Enter a name:')" || exit 0
+  : "${name:=$(date +%F-w%V)}"
+  setsid -f "$TERMINAL" -e nvim "$dir/$name.md" >/dev/null 2>&1
+}
+
+selected() {
+  choice=$(
+    {
+      printf 'New\n'
+      find "$folder" -type f -printf '%T@ %P\n' | sort -nr | cut -d' ' -f2-
+    } | menu 'Choose note or create new:'
+  ) || exit 0
+
+  case $choice in
+    New) newnote ;;
+    *.md) setsid -f "$TERMINAL" -e nvim "$folder/$choice" >/dev/null 2>&1 ;;
+    *) exit 0 ;;
+  esac
+}
+
+selected

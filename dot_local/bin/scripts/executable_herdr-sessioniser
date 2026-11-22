@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+search_dirs=(
+    "$HOME/.dotfiles"
+    "$HOME/work/build"
+    "$HOME/projects"
+    "$HOME/work"
+    "$HOME/personal"
+)
+
+ignore_patterns=(
+    '.*'
+)
+
+if [[ $# -eq 1 ]]; then
+    selected=$1
+else
+    find_args=()
+    for dir in "${search_dirs[@]}"; do
+        [[ -d $dir ]] && find_args+=("$dir")
+    done
+
+    ((${#find_args[@]})) || exit 0
+
+    prune_args=()
+    for pattern in "${ignore_patterns[@]}"; do
+        prune_args+=(-name "$pattern" -prune -o)
+    done
+
+    selected=$(find "${find_args[@]}" -mindepth 1 -maxdepth 1 \
+        \( "${prune_args[@]}" -type d -print \) | fzf)
+fi
+
+[[ -n $selected ]] || exit 0
+[[ -d $selected ]] || {
+    printf 'Not a directory: %s\n' "$selected" >&2
+    exit 1
+}
+
+# Create and focus a workspace in the currently running Herdr session.
+workspace_label=$(basename "$selected" | tr . _)
+exec herdr workspace create --cwd "$selected" --label "$workspace_label" --focus

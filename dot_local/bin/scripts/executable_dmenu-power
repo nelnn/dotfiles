@@ -1,0 +1,16 @@
+#!/bin/sh
+
+options=$(printf "Sleep\nShutdown\nReboot\nLock\nSuspend\nLogout" | dmenu -l 6 -i -p "Power Option:")
+[ -z "$options" ] && exit 0
+
+
+case $options in
+  Lock) slock ;;
+  Hybrid) systemctl hybrid-sleep ;;
+  Sleep) systemctl sleep ;;
+  Suspend) systemctl suspend ;;
+  Shutdown) systemctl poweroff ;;
+  Reboot) systemctl reboot ;;
+esac
+
+

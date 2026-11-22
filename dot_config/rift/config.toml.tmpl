@@ -1,0 +1,1 @@
+{{ if (and (eq .chezmoi.os "darwin") (eq .profile "mac")) }}{{ include ".chezmoitemplates/profiles/mac/.config/rift/config.toml" | replace "/Users/nsc" .chezmoi.homeDir | replace "/home/nsc" .chezmoi.homeDir | replace "/home/n" .chezmoi.homeDir }}{{ end }}

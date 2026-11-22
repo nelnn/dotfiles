@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+SESSION="wasserman"
+DIR="$HOME/books/wasserman"
+tmux_running=$(pgrep tmux)
+
+# If the session doesn't exist yet, create and set it up
+if ! tmux has-session -t="$SESSION" 2>/dev/null; then
+    # Create detached session
+    tmux new-session -ds "$SESSION" -c "$DIR"
+
+    # --- Window 1 ---
+    tmux send-keys -t "$SESSION":1 'zathura wasserman.pdf' C-m
+    tmux split-window -h -t "$SESSION":1 -c "$DIR"
+    # Run typst watch in background, then open zathura
+    tmux send-keys -t "$SESSION":1.2 'typst watch wasserman-notes.typ &' C-m
+    tmux send-keys -t "$SESSION":1.2 'sleep 1 && zathura wasserman-notes.pdf' C-m
+
+    # --- Window 2 ---
+    tmux new-window -t "$SESSION":2 -c "$DIR" -n "notes"
+    tmux send-keys -t "$SESSION":2 'nvim wasserman-notes.typ' C-m
+fi
+
+# Attach or switch depending on context
+if [[ -z $TMUX ]]; then
+    tmux attach -t "$SESSION"
+else
+    tmux switch-client -t "$SESSION"
+fi

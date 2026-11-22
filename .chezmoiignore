@@ -1,32 +1,236 @@
-# Repository documentation is not installed into $HOME.
+# Repository-only legacy layout; managed source uses dot_config / dot_local.
 README.md
 docs
-
-# Generated files and backups should never be deployed.
+borders
+rift
+sketchybar
+vicinae
+chezmoi
+config.sh
+install.sh
+local.sh
 **/.DS_Store
 **/*.bak
 **/*.bak-*
 **/automatic_backups
 **/.zcompdump*
 
-# macOS-only applications.
-{{ if ne .chezmoi.os "darwin" }}
-.config/aerospace
-.config/karabiner
-.config/skhd
-.config/yabai
+{{ if not (or (and (eq .chezmoi.os "darwin") (eq .profile "mac")) (and (eq .chezmoi.os "linux") (or (eq .profile "ubuntu26") (eq .profile "x220")))) }}
+.config
+.config/python
+.config/shell
+.config/sioyek
+.config/tmux
+.config/wget
+.config/yazi
+.config/zathura
+.config/zsh
+.local
+.local/bin
 {{ end }}
 
-# X220 desktop configuration: enable only on its machine profile.
-{{ if ne .profile "x220" }}
+{{ if not (and (eq .chezmoi.os "linux") (or (eq .profile "ubuntu26"))) }}
+.config/boomer
+.config/direnv
+.config/herdr
+.config/o-tiling
+.config/systemd
+.config/systemd/user
+.config/wofi
+.config/boomer/config
+.config/direnv/direnv.toml
+.config/herdr/config.toml
+.config/o-tiling/config.json
+.config/systemd/user/laptop-camera.service
+.config/wofi/style.css
+.local/bin/scripts/dmenu-file
+.local/bin/scripts/herdr-sessioniser
+.local/bin/scripts/login-workspaces
+{{ end }}
+
+{{ if not (and (eq .chezmoi.os "darwin") (eq .profile "mac")) }}
+.config/borders
+.config/cheat
+.config/jj
+.config/karabiner
+.config/karabiner/assets
+.config/karabiner/assets/complex_modifications
+.config/mpv
+.config/npm
+.config/rift
+.config/sketchybar
+.config/sketchybar/plugins
+.config/terraform
+.config/tor
+.config/vim
+.local/bin/proxmox
+.config/borders/bordersrc
+.config/cheat/conf.yml
+.config/git/ignore
+.config/jj/config.toml
+.config/karabiner/assets/complex_modifications/1708031411.json
+.config/karabiner/assets/complex_modifications/1708889409.json
+.config/karabiner/assets/complex_modifications/1712484110.json
+.config/karabiner/karabiner.json
+.config/mpv/input.conf
+.config/mpv/mpv.conf
+.config/npm/npmrc
+.config/rift/config.toml
+.config/sketchybar/plugins/battery.sh
+.config/sketchybar/plugins/clock.sh
+.config/sketchybar/plugins/cpu.sh
+.config/sketchybar/plugins/front_app.sh
+.config/sketchybar/plugins/rift_workspaces.sh
+.config/sketchybar/plugins/space.sh
+.config/sketchybar/plugins/volume.sh
+.config/sketchybar/sketchybarrc
+.config/terraform/terraform.rc
+.config/tor/torrc
+.config/vim/vimrc
+.local/bin/ffmepg-meta
+.local/bin/musicsort
+.local/bin/musictag
+.local/bin/photosort
+.local/bin/proxmox/ct-init
+.local/bin/tmux-sessioniser
+.local/bin/ytm
+{{ end }}
+
+{{ if not (or (and (eq .chezmoi.os "darwin") (eq .profile "mac")) (and (eq .chezmoi.os "linux") (or (eq .profile "ubuntu26")))) }}
+.config/btop
+.config/cliamp
+.config/ghostty
+.config/git
+.config/lazydocker
+.config/lazygit
+.config/vicinae
+.config/btop/btop.conf
+.config/cliamp/config.toml
+.config/ghostty/config
+.config/git/config
+.config/lazydocker/config.yml
+.config/lazygit/config.yml
+.config/vicinae/settings.json
+{{ end }}
+
+{{ if not (and (eq .chezmoi.os "linux") (or (eq .profile "x220"))) }}
 .config/dunst
+.config/newsboat
 .config/picom
 .config/x11
+.local/bin/scripts/statusbar
+.local/bin/scripts/tmp
+.config/dunst/dunstrc
+.config/newsboat/config
+.config/newsboat/urls
+.config/picom/picom.conf
+.config/x11/.Xresources
+.config/x11/xinitrc
+.config/x11/xprofile
+.local/bin/scripts/statusbar/sb-battery
+.local/bin/scripts/statusbar/sb-brightness
+.local/bin/scripts/statusbar/sb-clock
+.local/bin/scripts/statusbar/sb-cpu
+.local/bin/scripts/statusbar/sb-cpubars
+.local/bin/scripts/statusbar/sb-disk
+.local/bin/scripts/statusbar/sb-doppler
+.local/bin/scripts/statusbar/sb-forecast
+.local/bin/scripts/statusbar/sb-help-icon
+.local/bin/scripts/statusbar/sb-internet
+.local/bin/scripts/statusbar/sb-iplocate
+.local/bin/scripts/statusbar/sb-kbselect
+.local/bin/scripts/statusbar/sb-mailbox
+.local/bin/scripts/statusbar/sb-memory
+.local/bin/scripts/statusbar/sb-moonphase
+.local/bin/scripts/statusbar/sb-mpdup
+.local/bin/scripts/statusbar/sb-music
+.local/bin/scripts/statusbar/sb-nettraf
+.local/bin/scripts/statusbar/sb-news
+.local/bin/scripts/statusbar/sb-pacpackages
+.local/bin/scripts/statusbar/sb-popupgrade
+.local/bin/scripts/statusbar/sb-price
+.local/bin/scripts/statusbar/sb-tasks
+.local/bin/scripts/statusbar/sb-ticker
+.local/bin/scripts/statusbar/sb-torrent
+.local/bin/scripts/statusbar/sb-volume
+.local/bin/scripts/statusbar/sb-vpn
+.local/bin/scripts/tmp/screens
+.local/bin/scripts/tmp/wman
 .xprofile
 {{ end }}
 
-# Linux-only configuration.
-{{ if ne .chezmoi.os "linux" }}
+{{ if not (and (eq .chezmoi.os "linux") (or (eq .profile "ubuntu26") (eq .profile "x220"))) }}
 .config/keyd
-.config/systemd
+.local/bin/scripts
+.config/keyd/default.conf
+.local/bin/scripts/define_word
+.local/bin/scripts/dmenu-cliphist
+.local/bin/scripts/dmenu-imageviewer
+.local/bin/scripts/dmenu-notes
+.local/bin/scripts/dmenu-power
+.local/bin/scripts/dmenu-sys
+.local/bin/scripts/pywal16
+.local/bin/scripts/screenshot
+.local/bin/scripts/tmux-sessioniser
+.local/bin/scripts/wallpapermenu
+{{ end }}
+
+{{ if not (or (and (eq .chezmoi.os "darwin") (eq .profile "mac")) (and (eq .chezmoi.os "linux") (or (eq .profile "x220")))) }}
+{{ end }}
+
+{{ if not (or (and (eq .chezmoi.os "darwin") (eq .profile "mac")) (and (eq .chezmoi.os "linux") (eq .profile "ubuntu26"))) }}
+.config/nvim/after/ftplugin/csv.lua
+.config/nvim/after/ftplugin/markdown.lua
+.config/nvim/lua/plugins/custom
+.config/nvim/lua/plugins/custom/fn-history.lua
+.config/nvim/lua/plugins/custom/init.lua
+.config/nvim/lua/plugins/dev-tools.lua
+.config/nvim/lua/plugins/previews.lua
+.config/nvim/lua/plugins/utils.lua
+.config/nvim/package-lock.json
+.config/nvim/snippets/python.json
+{{ end }}
+
+{{ if not (or (and (eq .chezmoi.os "darwin") (eq .profile "mac")) (and (eq .chezmoi.os "linux") (eq .profile "ubuntu26")) (and (eq .chezmoi.os "linux") (eq .profile "x220"))) }}
+.config/nvim
+.config/nvim/.luarc.json
+.config/nvim/after
+.config/nvim/after/ftplugin
+.config/nvim/after/ftplugin/typst.lua
+.config/nvim/init.lua
+.config/nvim/lua
+.config/nvim/lua/config
+.config/nvim/lua/config/autocmds.lua
+.config/nvim/lua/config/keymaps.lua
+.config/nvim/lua/config/options.lua
+.config/nvim/lua/plugins
+.config/nvim/lua/plugins/init.lua
+.config/nvim/snippets
+.config/nvim/snippets/lua.json
+.config/nvim/snippets/package.json
+{{ end }}
+
+{{ if not (or (and (eq .chezmoi.os "linux") (eq .profile "ubuntu26"))) }}
+.config/nvim/lua/plugins/custom/clickhouse.lua
+.config/nvim/tests
+.config/nvim/tests/clickhouse_query.lua
+.config/nvim/tests/clickhouse_schema.lua
+.config/nvim/tests/clickhouse_visidata.lua
+{{ end }}
+
+{{ if not (or (and (eq .chezmoi.os "linux") (eq .profile "x220"))) }}
+.config/nvim/lua/plugins/compile-mode.lua
+.config/nvim/lua/plugins/completions.lua
+.config/nvim/lua/plugins/debugging.lua
+.config/nvim/lua/plugins/file-managers.lua
+.config/nvim/lua/plugins/fn-history.lua
+.config/nvim/lua/plugins/fzf-lua.lua
+.config/nvim/lua/plugins/gitconfig.lua
+.config/nvim/lua/plugins/lsp-config.lua
+.config/nvim/lua/plugins/markdown.lua
+.config/nvim/lua/plugins/mini-nvim.lua
+.config/nvim/lua/plugins/pretty-formatting.lua
+.config/nvim/lua/plugins/snacks.lua
+.config/nvim/lua/plugins/treesitter.lua
+.config/nvim/lua/plugins/tyspt_preview.lua
 {{ end }}

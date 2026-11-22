@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Launch the configured apps, move them to their workspaces, and maximize them.
+set -euo pipefail
+
+gdbus call --session \
+  --dest io.github.nsc.LoginWorkspaces \
+  --object-path /io/github/nsc/LoginWorkspaces \
+  --method io.github.nsc.LoginWorkspaces.Run

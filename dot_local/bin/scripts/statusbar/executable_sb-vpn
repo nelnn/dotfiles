@@ -1,0 +1,14 @@
+#!/bin/sh
+
+case $BLOCK_BUTTON in
+	1) setsid -f mullvad-vpn > /dev/null ; pkill -RTMIN+11 "${STATUSBAR:-dwmblocks}" ;;
+    3) notify-send "🔐 Mullvad VPN" "$(mullvad status)" ;;
+    6) setsid -f "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac
+
+# Status output
+if mullvad status | grep -q "Connected"; then
+    printf "VPN ✅"
+else
+    printf "VPN ❌"
+fi

@@ -1,96 +1,76 @@
-# Migration checklist
+# Branch consolidation
 
-## Safety boundaries
+## Inputs
 
-- Keep `~/.dotfiles` and its existing branches unchanged during migration.
-- Import selected files, never all of `$HOME`, `~/.config`, or `~/.local/bin`.
-- Leave self-managed directories such as `~/.config/pi` outside this repository.
-- Do not import `.ssh`, `.gnupg`, credentials, tokens, application auth files,
-  sessions, caches, logs, dependency directories, or downloaded binaries.
-- `.chezmoiignore` controls deployment, not secrecy: ignored content can still
-  be present in source state/Git. Inspect imports before publishing.
-- Keep the new remote private initially. Review URLs, usernames, hostnames, and
-  commands as well as obvious secret fields.
-- Do not run `chezmoi apply` during preparation. It can replace existing symlinks
-  with regular files. Back up those links before the actual cutover.
+Compared fetched `origin/main`, `origin/ubuntu26`, and `origin/x220` without
+switching the active `~/.dotfiles` checkout. Exact commit IDs and target membership
+are recorded in `profile-manifest.json`. Previously imported live Mac Borders,
+Rift, SketchyBar, and Vicinae files take precedence over branch snapshots.
 
-## 1. Import a small active configuration
+## Decisions
 
-The Mac's active configuration is the baseline. `--follow` imports a symlink's
-contents rather than preserving a link into the old repository.
+- Preserve branch behavior and presence/absence rather than overwrite every
+  machine with the Mac version. Identical files/bodies are shared. Larger
+  differences select raw profile bodies, especially shell, tmux and Yazi.
+- Mac Neovim now follows Ubuntu's newer configuration, excluding ClickHouse code
+  and tests. X220 and Ubuntu output remain unchanged. Shared Ubuntu/Mac bodies
+  are stored once; Mac-specific bodies adapt terminal integration and paths.
+  Mac uses native vim-tmux-navigator Ctrl-h/j/k/l instead of an external Herdr
+  script. Space-gg/y/jj launch lazygit/yazi/lazyjj in tmux windows, or Neovim
+  terminal tabs outside tmux. Arguments use argv lists, not shell concatenation.
+  Lazy bootstrap uses `<stdpath(data)>/lazy/lazy.nvim`; debugpy uses
+  `<stdpath(data)>/mason/packages/debugpy/venv/bin/python`. Python provider prefers
+  the existing data-home venv, falling back to python3 on PATH.
+  Space-cv toggles CSV view without overriding Space-gf formatting; Space-dd uses
+  DAP continue (run/select a config), not the argument-requiring `dap.run`.
+  Removed the duplicate visit-label deletion mapping. Mac retains the Ubuntu
+  completion, picker, CSV, snippets and preview behavior otherwise.
+  `python3 docs/test-mac-nvim.py` checks Lua compilation and exercises these paths
+  and bindings in isolated headless Neovim with plugin services mocked; it does
+  not install plugins or claim full third-party plugin runtime coverage.
+- macOS: Karabiner, Borders, Rift, SketchyBar and Homebrew/OrbStack integration
+  stay in the Mac profile. Vicinae has separate Mac and Ubuntu configurations.
+- Ubuntu: preserve Herdr, o-tiling, Wofi, direnv and desktop helpers, along with
+  newer Neovim custom ClickHouse plugins/tests. Do not deploy these to X220.
+- X220: preserve X11 startup, Dunst/Picom, Newsboat, xclip tmux behavior and
+  statusbar scripts (some are Arch-specific). Do not deploy these to Ubuntu.
+- Helpers are executable even where the old Git mode omitted the executable bit.
+- Do not import runtime state, Karabiner backups, downloaded binaries, `.gitignore`
+  files, or local chezmoi config/database files.
+- Correct stale tmux reload and shell alias paths to use `~/.config`, and Herdr's
+  helper path to use `~/.local/bin`, without relying on the old checkout.
+- Render absolute `/Users/nsc`, `/home/nsc`, and `/home/n` prefixes using the
+  destination home, including Sioyek database and wget history paths.
+- Fix Linux Yazi's Excel opener to use `xdg-open` instead of macOS `open -a`.
+- Correct PYTHONSTARTUP to the imported `.config/python/.pythonstartup` file.
+- Keep missing optional Linux `~/.local/bin/env` from breaking zsh startup.
+- Add minimal shell bootstrap shims: zsh must discover ZDOTDIR before it can read
+  `~/.config/zsh`; X220's old root `.xprofile`/`.zprofile` were literal stale paths,
+  not usable shell sources.
 
-```sh
-chezmoi add --follow ~/.config/ghostty/config
-chezmoi managed
-chezmoi status
-chezmoi diff
-chezmoi apply --dry-run --verbose
-```
+## Deliberately not automated
 
-Then import other selected files incrementally. Inspect directories before
-importing them recursively: zsh contains generated completion data; tmux can
-contain plugins; Karabiner contains automatic backups. Import only source config.
-Do not import unused configurations just because they exist in the old repo.
+- `~/.config/keyd/default.conf` is a reference config only. keyd normally reads
+  `/etc/keyd/default.conf`; review and install it there manually with privileges.
+- Ubuntu's user camera service references `~/.local/bin/laptop-camera-bridge`,
+  which is not tracked in any input branch. The unit is preserved but not enabled
+  or started. Install its helper before enabling it.
+- Package managers, TPM and Neovim plugin installation are not run. Existing
+  branch configs still assume their programs/fonts/plugins are installed.
+- The X220 profile preserves its existing startx-on-tty1 behavior and `.env`
+  loading. Review these before applying on a different Linux machine.
+- Optional work aliases/secrets remain local. No credentials or home directories
+  were recursively imported. Tracked personal/work URLs are still present; review
+  before publishing to a public remote.
 
-## 2. Compare the machine branches without switching the live checkout
+## Cutover
 
-The remote currently has only `main` and `x220`. The `arch` branch was deleted
-remotely; local `arch` and `origin/arch` refs may still exist but are historical,
-not migration targets. No `ubuntu26` branch is currently published. Confirm refs
-are current before migration with `git -C ~/.dotfiles ls-remote --heads origin`.
+Nothing has been applied to the live Mac. Back up selected symlinks first, then
+apply a non-shell config and check the app before migrating shell startup.
+`chezmoi apply` will replace managed directory symlinks with real directories;
+`~/.dotfiles` is retained. An ignored file is unmanaged, not automatically removed:
+when changing profiles on an existing machine, review any obsolete files manually.
 
-```sh
-git -C ~/.dotfiles diff main origin/x220 -- .config/shell .config/zsh .config/tmux
-git -C ~/.dotfiles show origin/x220:.config/x11/xinitrc
-```
-
-Do not check out another branch inside `~/.dotfiles`: the live symlinks point
-there. Use `git show` or a separate worktree to inspect another branch.
-
-Known differences to review:
-
-| Area | Migration strategy |
-| --- | --- |
-| Shell, zsh, tmux, yazi, terminals | Shared baseline with small OS/profile templates |
-| Neovim | Substantial structural divergence; choose/consolidate deliberately |
-| Aerospace, Karabiner | macOS only |
-| Dunst, Picom, X11 | `x220` profile |
-| keyd, systemd | Linux only; review system-level destinations separately |
-| Scripts in `.local/bin` | Import reviewed source scripts, not downloaded executables |
-
-The historical Arch branch contains `uv`/`uvx` binaries: do not import these if
-consulting it for reference. Reinstall tools with a package manager. `keyd` normally needs
-system configuration under `/etc`; chezmoi's default home destination does not
-install system files automatically.
-
-## 3. Introduce templates only for real differences
-
-```sh
-chezmoi chattr +template ~/.config/ghostty/config
-chezmoi edit ~/.config/ghostty/config
-```
-
-Keep ordinary shared files untemplated. Use `.chezmoi.os` and `.profile` in
-`.tmpl` files. For completely different implementations, keep separate bodies
-under `.chezmoitemplates` and select the appropriate one from a target template.
-Do not try to force the divergent Neovim trees into a single giant conditional.
-
-## 4. Validate profiles without changing this machine
-
-```sh
-chezmoi --override-data '{"profile":"mac"}' managed
-chezmoi --override-data '{"profile":"x220"}' managed
-```
-
-These commands test profile selection on the current OS, not another OS.
-Validate Linux-specific output on Linux or in an isolated Linux environment.
-Run `chezmoi diff` and `chezmoi apply --dry-run --verbose` before each cutover.
-
-## 5. Cut over deliberately
-
-1. Back up each selected live config/symlink and preserve the old Git worktree.
-2. Apply only reviewed targets, starting with a non-shell config.
-3. Check that the application still works before migrating shell startup files.
-4. Review source state for secrets, then commit and push to the new remote.
-5. Migrate the other machines and review their profile-specific diffs.
-6. Remove old symlink-management scripts/repository only after every machine works.
+Run `python3 docs/test-profiles.py` from the source repository to validate rendered
+profiles. OS data overrides exercise Linux selection/rendering on this Mac; they
+are not a substitute for application tests on the Linux machines.

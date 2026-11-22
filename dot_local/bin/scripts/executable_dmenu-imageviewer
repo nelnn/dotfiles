@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Opens an image viewer (nsxiv) in a selected folder.
+
+FOLDER="${1:-${HOME}/pics/}"
+
+nsxiv -r "$(
+echo -e "$FOLDER\n$(command ls -td "$FOLDER"*/)"|
+dmenu -l 5 -i -p 'Select folder:'
+)"

@@ -1,0 +1,51 @@
+#!/bin/sh
+# Fuzzy-search files below $HOME, omitting caches, VCS metadata, dependency,
+# and virtual-environment trees plus lock files that would make the menu noisy.
+
+selected=$(
+  rg --files --hidden --no-ignore \
+    -g '!**/.local/share/Trash/**' -g '!**/.local/share/uv/**' \
+    -g '!**/.venv/**' -g '!**/venv/**' -g '!**/.virtualenvs/**' \
+    -g '!**/.tox/**' -g '!**/.pyenv/**' -g '!**/.idea/**' \
+    -g '!**/node_modules/**' -g '!**/.git/**' -g '!**/.cache/**' \
+    -g '!**/.npm/**' -g '!**/.nvm/**' -g '!**/.pnpm-store/**' \
+    -g '!**/.yarn/**' -g '!**/.bun/**' -g '!**/.deno/**' \
+    -g '!**/.cargo/**' -g '!**/.rustup/**' -g '!**/.gradle/**' \
+    -g '!**/.m2/**' -g '!**/.ivy2/**' -g '!**/.nuget/**' \
+    -g '!**/.composer/**' -g '!**/.gem/**' -g '!**/.go/**' \
+    -g '!**/.conda/**' -g '!**/.miniconda3/**' -g '!**/anaconda3/**' \
+    -g '!**/.pytest_cache/**' -g '!**/.mypy_cache/**' -g '!**/.ruff_cache/**' \
+    -g '!**/*.lock' -g '!**/package-lock.json' \
+    -g '!**/npm-shrinkwrap.json' -g '!**/pnpm-lock.yaml' -g '!**/yarn.lock' \
+    "$HOME" 2>/dev/null |
+    wofi --normal-window --location center --show dmenu \
+      --matching fuzzy --insensitive \
+      --define key_custom_0=Shift-Return \
+      --prompt 'Open file (Shift+Enter: Files)'
+)
+wofi_status=$?
+
+[ -n "$selected" ] || exit 0
+
+# Wofi exits with status 10 for key_custom_0.  Use that binding to reveal the
+# selected file in Nautilus instead of opening it in its usual application.
+if [ "$wofi_status" -eq 10 ]; then
+  nautilus --select "$selected" >/dev/null 2>&1 &
+  exit 0
+fi
+
+# Keep spreadsheet data in its registered application; edit text/source files in
+# Neovim and delegate images, PDFs, archives, and other binary formats to XDG.
+case "$selected" in
+  *.csv|*.tsv) xdg-open "$selected" >/dev/null 2>&1 & ;;
+  *.py|*.pyi|*.js|*.jsx|*.ts|*.tsx|*.html|*.css|*.scss|*.sh|*.bash|*.zsh|*.fish)
+    setsid -f "$TERMINAL" -e nvim "$selected" >/dev/null 2>&1 ;;
+  *)
+    mime=$(file --brief --mime-type -- "$selected" 2>/dev/null)
+    case "$mime" in
+      text/*|application/json|application/javascript|application/xml|application/x-shellscript)
+        setsid -f "$TERMINAL" -e nvim "$selected" >/dev/null 2>&1 ;;
+      *) xdg-open "$selected" >/dev/null 2>&1 & ;;
+    esac
+    ;;
+esac

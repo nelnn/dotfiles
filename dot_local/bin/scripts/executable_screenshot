@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+# Screenshot script using scrot + optional dmenu
+# Usage:
+#   ./screenshot.sh [ext] [mode]
+# ext: png|jpg|jpeg   (default: png, dmenu if not given)
+# mode: F|f|s|S       (F=fullscreen, f=focused, s=select, S=select+ignorekeyboard)
+#                     (default: ask via dmenu if not given)
+
+set -euo pipefail
+export DISPLAY="${DISPLAY:-:0}"
+
+OUTDIR="${HOME}/pics/screenshots"
+mkdir -p "$OUTDIR"
+
+# --- Extension ---
+if [[ $# -ge 1 ]]; then
+  case "$1" in
+    png|jpg|jpeg) ext="$1" ;;
+    *) ext="png" ;;
+  esac
+else
+  # ask with dmenu if available, otherwise default to png
+  if command -v dmenu >/dev/null 2>&1; then
+    ext=$(printf "png\njpg\njpeg" | dmenu -p "Screenshot format:")
+  else
+    ext="png"
+  fi
+fi
+
+# --- Mode ---
+if [[ $# -ge 2 ]]; then
+  mode="$2"
+else
+  if command -v dmenu >/dev/null 2>&1; then
+    mode=$(printf "F Fullscreen\nf Focused\ns Select\nS Select+IgnoreKB" \
+      | dmenu -p "Screenshot mode:" | awk '{print $1}')
+  else
+    mode="F"
+  fi
+fi
+
+# --- Filename ---
+current="$(date +%Y%m%d_%H%M%S).${ext}"
+filepath="${OUTDIR}/${current}"
+
+# --- Take screenshot ---
+case "$mode" in
+  F) scrot "$filepath" -z ;;
+  f) scrot --focused "$filepath" -z ;;
+  s) scrot --select "$filepath" -z ;;
+  S) scrot --select -ignorekeyboard "$filepath" -z ;;
+  *) echo "Invalid mode: $mode" >&2; exit 1;;
+esac
+
+notify-send "Screenshot saved" "$filepath" || echo "Saved: $filepath"

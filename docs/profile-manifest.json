@@ -1,0 +1,514 @@
+{
+  "commits": {
+    "mac": "47e851ab5ae12ac2e402eea1a461daf2d2439b60",
+    "ubuntu26": "da8c73b1381e1ce8a29ae4d9c47a52be405295d4",
+    "x220": "e889faa118632510d5ea4413f6150ab22d7b5b68"
+  },
+  "files": {
+    ".config/boomer/config": [
+      "ubuntu26"
+    ],
+    ".config/borders/bordersrc": [
+      "mac"
+    ],
+    ".config/btop/btop.conf": [
+      "mac",
+      "ubuntu26"
+    ],
+    ".config/cheat/conf.yml": [
+      "mac"
+    ],
+    ".config/cliamp/config.toml": [
+      "mac",
+      "ubuntu26"
+    ],
+    ".config/direnv/direnv.toml": [
+      "ubuntu26"
+    ],
+    ".config/dunst/dunstrc": [
+      "x220"
+    ],
+    ".config/ghostty/config": [
+      "mac",
+      "ubuntu26"
+    ],
+    ".config/git/config": [
+      "mac",
+      "ubuntu26"
+    ],
+    ".config/git/ignore": [
+      "mac"
+    ],
+    ".config/herdr/config.toml": [
+      "ubuntu26"
+    ],
+    ".config/jj/config.toml": [
+      "mac"
+    ],
+    ".config/karabiner/assets/complex_modifications/1708031411.json": [
+      "mac"
+    ],
+    ".config/karabiner/assets/complex_modifications/1708889409.json": [
+      "mac"
+    ],
+    ".config/karabiner/assets/complex_modifications/1712484110.json": [
+      "mac"
+    ],
+    ".config/karabiner/karabiner.json": [
+      "mac"
+    ],
+    ".config/keyd/default.conf": [
+      "ubuntu26",
+      "x220"
+    ],
+    ".config/lazydocker/config.yml": [
+      "mac",
+      "ubuntu26"
+    ],
+    ".config/lazygit/config.yml": [
+      "mac",
+      "ubuntu26"
+    ],
+    ".config/mpv/input.conf": [
+      "mac"
+    ],
+    ".config/mpv/mpv.conf": [
+      "mac"
+    ],
+    ".config/newsboat/config": [
+      "x220"
+    ],
+    ".config/newsboat/urls": [
+      "x220"
+    ],
+    ".config/npm/npmrc": [
+      "mac"
+    ],
+    ".config/nvim/.luarc.json": [
+      "mac",
+      "ubuntu26",
+      "x220"
+    ],
+    ".config/nvim/after/ftplugin/csv.lua": [
+      "mac",
+      "ubuntu26"
+    ],
+    ".config/nvim/after/ftplugin/markdown.lua": [
+      "mac",
+      "ubuntu26"
+    ],
+    ".config/nvim/after/ftplugin/typst.lua": [
+      "mac",
+      "ubuntu26",
+      "x220"
+    ],
+    ".config/nvim/init.lua": [
+      "mac",
+      "ubuntu26",
+      "x220"
+    ],
+    ".config/nvim/lua/config/autocmds.lua": [
+      "mac",
+      "ubuntu26",
+      "x220"
+    ],
+    ".config/nvim/lua/config/keymaps.lua": [
+      "mac",
+      "ubuntu26",
+      "x220"
+    ],
+    ".config/nvim/lua/config/options.lua": [
+      "mac",
+      "ubuntu26",
+      "x220"
+    ],
+    ".config/nvim/lua/plugins/compile-mode.lua": [
+      "x220"
+    ],
+    ".config/nvim/lua/plugins/completions.lua": [
+      "x220"
+    ],
+    ".config/nvim/lua/plugins/custom/clickhouse.lua": [
+      "ubuntu26"
+    ],
+    ".config/nvim/lua/plugins/custom/fn-history.lua": [
+      "mac",
+      "ubuntu26"
+    ],
+    ".config/nvim/lua/plugins/custom/init.lua": [
+      "mac",
+      "ubuntu26"
+    ],
+    ".config/nvim/lua/plugins/debugging.lua": [
+      "x220"
+    ],
+    ".config/nvim/lua/plugins/dev-tools.lua": [
+      "mac",
+      "ubuntu26"
+    ],
+    ".config/nvim/lua/plugins/file-managers.lua": [
+      "x220"
+    ],
+    ".config/nvim/lua/plugins/fn-history.lua": [
+      "x220"
+    ],
+    ".config/nvim/lua/plugins/fzf-lua.lua": [
+      "x220"
+    ],
+    ".config/nvim/lua/plugins/gitconfig.lua": [
+      "x220"
+    ],
+    ".config/nvim/lua/plugins/init.lua": [
+      "mac",
+      "ubuntu26",
+      "x220"
+    ],
+    ".config/nvim/lua/plugins/lsp-config.lua": [
+      "x220"
+    ],
+    ".config/nvim/lua/plugins/markdown.lua": [
+      "x220"
+    ],
+    ".config/nvim/lua/plugins/mini-nvim.lua": [
+      "x220"
+    ],
+    ".config/nvim/lua/plugins/pretty-formatting.lua": [
+      "x220"
+    ],
+    ".config/nvim/lua/plugins/previews.lua": [
+      "mac",
+      "ubuntu26"
+    ],
+    ".config/nvim/lua/plugins/snacks.lua": [
+      "x220"
+    ],
+    ".config/nvim/lua/plugins/treesitter.lua": [
+      "x220"
+    ],
+    ".config/nvim/lua/plugins/tyspt_preview.lua": [
+      "x220"
+    ],
+    ".config/nvim/lua/plugins/utils.lua": [
+      "mac",
+      "ubuntu26"
+    ],
+    ".config/nvim/package-lock.json": [
+      "mac",
+      "ubuntu26"
+    ],
+    ".config/nvim/snippets/lua.json": [
+      "mac",
+      "ubuntu26",
+      "x220"
+    ],
+    ".config/nvim/snippets/package.json": [
+      "mac",
+      "ubuntu26",
+      "x220"
+    ],
+    ".config/nvim/snippets/python.json": [
+      "mac",
+      "ubuntu26"
+    ],
+    ".config/nvim/tests/clickhouse_query.lua": [
+      "ubuntu26"
+    ],
+    ".config/nvim/tests/clickhouse_schema.lua": [
+      "ubuntu26"
+    ],
+    ".config/nvim/tests/clickhouse_visidata.lua": [
+      "ubuntu26"
+    ],
+    ".config/o-tiling/config.json": [
+      "ubuntu26"
+    ],
+    ".config/picom/picom.conf": [
+      "x220"
+    ],
+    ".config/python/.pythonstartup": [
+      "mac",
+      "ubuntu26",
+      "x220"
+    ],
+    ".config/rift/config.toml": [
+      "mac"
+    ],
+    ".config/shell/aliasrc": [
+      "mac",
+      "ubuntu26",
+      "x220"
+    ],
+    ".config/shell/profile": [
+      "mac",
+      "ubuntu26",
+      "x220"
+    ],
+    ".config/shell/shortcutrc": [
+      "mac",
+      "ubuntu26",
+      "x220"
+    ],
+    ".config/sioyek/keys_user.config": [
+      "mac",
+      "ubuntu26",
+      "x220"
+    ],
+    ".config/sioyek/prefs_user.config": [
+      "mac",
+      "ubuntu26",
+      "x220"
+    ],
+    ".config/sketchybar/plugins/battery.sh": [
+      "mac"
+    ],
+    ".config/sketchybar/plugins/clock.sh": [
+      "mac"
+    ],
+    ".config/sketchybar/plugins/cpu.sh": [
+      "mac"
+    ],
+    ".config/sketchybar/plugins/front_app.sh": [
+      "mac"
+    ],
+    ".config/sketchybar/plugins/rift_workspaces.sh": [
+      "mac"
+    ],
+    ".config/sketchybar/plugins/space.sh": [
+      "mac"
+    ],
+    ".config/sketchybar/plugins/volume.sh": [
+      "mac"
+    ],
+    ".config/sketchybar/sketchybarrc": [
+      "mac"
+    ],
+    ".config/systemd/user/laptop-camera.service": [
+      "ubuntu26"
+    ],
+    ".config/terraform/terraform.rc": [
+      "mac"
+    ],
+    ".config/tmux/tmux.conf": [
+      "mac",
+      "ubuntu26",
+      "x220"
+    ],
+    ".config/tor/torrc": [
+      "mac"
+    ],
+    ".config/vicinae/settings.json": [
+      "mac",
+      "ubuntu26"
+    ],
+    ".config/vim/vimrc": [
+      "mac"
+    ],
+    ".config/wget/wgetrc": [
+      "mac",
+      "ubuntu26",
+      "x220"
+    ],
+    ".config/wofi/style.css": [
+      "ubuntu26"
+    ],
+    ".config/x11/.Xresources": [
+      "x220"
+    ],
+    ".config/x11/xinitrc": [
+      "x220"
+    ],
+    ".config/x11/xprofile": [
+      "x220"
+    ],
+    ".config/yazi/yazi.toml": [
+      "mac",
+      "ubuntu26",
+      "x220"
+    ],
+    ".config/zathura/zathurarc": [
+      "mac",
+      "ubuntu26",
+      "x220"
+    ],
+    ".config/zsh/.zprofile": [
+      "mac",
+      "ubuntu26",
+      "x220"
+    ],
+    ".config/zsh/.zshrc": [
+      "mac",
+      "ubuntu26",
+      "x220"
+    ],
+    ".local/bin/ffmepg-meta": [
+      "mac"
+    ],
+    ".local/bin/musicsort": [
+      "mac"
+    ],
+    ".local/bin/musictag": [
+      "mac"
+    ],
+    ".local/bin/photosort": [
+      "mac"
+    ],
+    ".local/bin/proxmox/ct-init": [
+      "mac"
+    ],
+    ".local/bin/scripts/define_word": [
+      "ubuntu26",
+      "x220"
+    ],
+    ".local/bin/scripts/dmenu-cliphist": [
+      "ubuntu26",
+      "x220"
+    ],
+    ".local/bin/scripts/dmenu-file": [
+      "ubuntu26"
+    ],
+    ".local/bin/scripts/dmenu-imageviewer": [
+      "ubuntu26",
+      "x220"
+    ],
+    ".local/bin/scripts/dmenu-notes": [
+      "ubuntu26",
+      "x220"
+    ],
+    ".local/bin/scripts/dmenu-power": [
+      "ubuntu26",
+      "x220"
+    ],
+    ".local/bin/scripts/dmenu-sys": [
+      "ubuntu26",
+      "x220"
+    ],
+    ".local/bin/scripts/herdr-sessioniser": [
+      "ubuntu26"
+    ],
+    ".local/bin/scripts/login-workspaces": [
+      "ubuntu26"
+    ],
+    ".local/bin/scripts/pywal16": [
+      "ubuntu26",
+      "x220"
+    ],
+    ".local/bin/scripts/screenshot": [
+      "ubuntu26",
+      "x220"
+    ],
+    ".local/bin/scripts/statusbar/sb-battery": [
+      "x220"
+    ],
+    ".local/bin/scripts/statusbar/sb-brightness": [
+      "x220"
+    ],
+    ".local/bin/scripts/statusbar/sb-clock": [
+      "x220"
+    ],
+    ".local/bin/scripts/statusbar/sb-cpu": [
+      "x220"
+    ],
+    ".local/bin/scripts/statusbar/sb-cpubars": [
+      "x220"
+    ],
+    ".local/bin/scripts/statusbar/sb-disk": [
+      "x220"
+    ],
+    ".local/bin/scripts/statusbar/sb-doppler": [
+      "x220"
+    ],
+    ".local/bin/scripts/statusbar/sb-forecast": [
+      "x220"
+    ],
+    ".local/bin/scripts/statusbar/sb-help-icon": [
+      "x220"
+    ],
+    ".local/bin/scripts/statusbar/sb-internet": [
+      "x220"
+    ],
+    ".local/bin/scripts/statusbar/sb-iplocate": [
+      "x220"
+    ],
+    ".local/bin/scripts/statusbar/sb-kbselect": [
+      "x220"
+    ],
+    ".local/bin/scripts/statusbar/sb-mailbox": [
+      "x220"
+    ],
+    ".local/bin/scripts/statusbar/sb-memory": [
+      "x220"
+    ],
+    ".local/bin/scripts/statusbar/sb-moonphase": [
+      "x220"
+    ],
+    ".local/bin/scripts/statusbar/sb-mpdup": [
+      "x220"
+    ],
+    ".local/bin/scripts/statusbar/sb-music": [
+      "x220"
+    ],
+    ".local/bin/scripts/statusbar/sb-nettraf": [
+      "x220"
+    ],
+    ".local/bin/scripts/statusbar/sb-news": [
+      "x220"
+    ],
+    ".local/bin/scripts/statusbar/sb-pacpackages": [
+      "x220"
+    ],
+    ".local/bin/scripts/statusbar/sb-popupgrade": [
+      "x220"
+    ],
+    ".local/bin/scripts/statusbar/sb-price": [
+      "x220"
+    ],
+    ".local/bin/scripts/statusbar/sb-tasks": [
+      "x220"
+    ],
+    ".local/bin/scripts/statusbar/sb-ticker": [
+      "x220"
+    ],
+    ".local/bin/scripts/statusbar/sb-torrent": [
+      "x220"
+    ],
+    ".local/bin/scripts/statusbar/sb-volume": [
+      "x220"
+    ],
+    ".local/bin/scripts/statusbar/sb-vpn": [
+      "x220"
+    ],
+    ".local/bin/scripts/tmp/screens": [
+      "x220"
+    ],
+    ".local/bin/scripts/tmp/wman": [
+      "x220"
+    ],
+    ".local/bin/scripts/tmux-sessioniser": [
+      "ubuntu26",
+      "x220"
+    ],
+    ".local/bin/scripts/wallpapermenu": [
+      "ubuntu26",
+      "x220"
+    ],
+    ".local/bin/tmux-sessioniser": [
+      "mac"
+    ],
+    ".local/bin/ytm": [
+      "mac"
+    ],
+    ".xprofile": [
+      "x220"
+    ],
+    ".zprofile": [
+      "mac",
+      "ubuntu26",
+      "x220"
+    ],
+    ".zshenv": [
+      "mac",
+      "ubuntu26",
+      "x220"
+    ]
+  }
+}
