@@ -2,14 +2,10 @@
 # shellcheck disable=SC2155
 export PATH="$PATH:$(find ~/.local/bin -type d | paste -sd ':' -)"
 
-# if [ -f "$HOME/.env" ]; then
-#   export $(grep -v '^#' "$HOME/.env" | xargs)
-# fi
-
 # Default Programs:
 export EDITOR="nvim"
-export TERMINAL="org.alacritty"
-# export BROWSER="librewolf.desktop"
+export TERMINAL="com.mitchellh.ghostty"
+export BROWSER="org.chromium.Chromium"
 
 # ~/ Clean-up:
 export XDG_CONFIG_HOME="$HOME/.config"

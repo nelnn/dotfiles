@@ -10,14 +10,24 @@ font-style = italic
 # window-decoration = false
 
 # Keybindings
-## Tmux Switching Panes
+## Tmux Switching Windows (Cmd+number; Alt+number is reserved for Rift)
 ## Note: \x02 = Ctrl+B
-keybind = alt+one=text:\x021
-keybind = alt+two=text:\x022
-keybind = alt+three=text:\x023
-keybind = alt+four=text:\x024
-keybind = alt+five=text:\x025
-keybind = alt+six=text:\x026
-keybind = alt+seven=text:\x027
-keybind = alt+eight=text:\x028
-keybind = alt+nine=text:\x029
+# Override both physical keys and Ghostty's logical digit tab shortcuts.
+keybind = cmd+one=unbind
+keybind = cmd+two=unbind
+keybind = cmd+three=unbind
+keybind = cmd+four=unbind
+keybind = cmd+five=unbind
+keybind = cmd+six=unbind
+keybind = cmd+seven=unbind
+keybind = cmd+eight=unbind
+keybind = cmd+nine=unbind
+keybind = cmd+digit_1=text:\x021
+keybind = cmd+digit_2=text:\x022
+keybind = cmd+digit_3=text:\x023
+keybind = cmd+digit_4=text:\x024
+keybind = cmd+digit_5=text:\x025
+keybind = cmd+digit_6=text:\x026
+keybind = cmd+digit_7=text:\x027
+keybind = cmd+digit_8=text:\x028
+keybind = cmd+digit_9=text:\x029

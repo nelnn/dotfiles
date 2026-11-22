@@ -27,8 +27,7 @@
                                 "from": {
                                     "key_code": "quote",
                                     "modifiers": {
-                                        "mandatory": ["left_shift"],
-                                        "optional": ["any"]
+                                        "mandatory": ["left_shift"]
                                     }
                                 },
                                 "to": [
@@ -43,8 +42,7 @@
                                 "from": {
                                     "key_code": "quote",
                                     "modifiers": {
-                                        "mandatory": ["right_shift"],
-                                        "optional": ["any"]
+                                        "mandatory": ["right_shift"]
                                     }
                                 },
                                 "to": [
@@ -59,8 +57,7 @@
                                 "from": {
                                     "key_code": "2",
                                     "modifiers": {
-                                        "mandatory": ["left_shift"],
-                                        "optional": ["any"]
+                                        "mandatory": ["left_shift"]
                                     }
                                 },
                                 "to": [
@@ -75,8 +72,7 @@
                                 "from": {
                                     "key_code": "2",
                                     "modifiers": {
-                                        "mandatory": ["right_shift"],
-                                        "optional": ["any"]
+                                        "mandatory": ["right_shift"]
                                     }
                                 },
                                 "to": [
