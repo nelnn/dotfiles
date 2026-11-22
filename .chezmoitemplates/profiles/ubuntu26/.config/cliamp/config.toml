@@ -1,6 +1,0 @@
-eq_preset = "Custom"
-
-eq = [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-theme = ""
-speed = 1.00
-visualizer = "BarsOutline"

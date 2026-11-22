@@ -29,6 +29,10 @@ local.sh
 .local/bin
 {{ end }}
 
+{{ if not (or (and (eq .chezmoi.os "darwin") (eq .profile "mac")) (and (eq .chezmoi.os "linux") (eq .profile "x220"))) }}
+.config/sioyek
+{{ end }}
+
 {{ if not (and (eq .chezmoi.os "linux") (or (eq .profile "ubuntu26"))) }}
 .config/boomer
 .config/direnv
@@ -43,7 +47,6 @@ local.sh
 .config/o-tiling/config.json
 .config/systemd/user/laptop-camera.service
 .config/wofi/style.css
-.local/bin/scripts/dmenu-file
 .local/bin/scripts/herdr-sessioniser
 .local/bin/scripts/login-workspaces
 {{ end }}
@@ -118,6 +121,11 @@ local.sh
 .config/newsboat
 .config/picom
 .config/x11
+.local/bin/scripts/dmenu-cliphist
+.local/bin/scripts/dmenu-file
+.local/bin/scripts/dmenu-imageviewer
+.local/bin/scripts/dmenu-power
+.local/bin/scripts/dmenu-sys
 .local/bin/scripts/statusbar
 .local/bin/scripts/tmp
 .config/dunst/dunstrc
@@ -164,11 +172,7 @@ local.sh
 .local/bin/scripts
 .config/keyd/default.conf
 .local/bin/scripts/define_word
-.local/bin/scripts/dmenu-cliphist
-.local/bin/scripts/dmenu-imageviewer
 .local/bin/scripts/dmenu-notes
-.local/bin/scripts/dmenu-power
-.local/bin/scripts/dmenu-sys
 .local/bin/scripts/pywal16
 .local/bin/scripts/screenshot
 .local/bin/scripts/tmux-sessioniser

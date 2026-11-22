@@ -250,12 +250,10 @@
     ],
     ".config/sioyek/keys_user.config": [
       "mac",
-      "ubuntu26",
       "x220"
     ],
     ".config/sioyek/prefs_user.config": [
       "mac",
-      "ubuntu26",
       "x220"
     ],
     ".config/sketchybar/plugins/battery.sh": [
@@ -360,14 +358,12 @@
       "x220"
     ],
     ".local/bin/scripts/dmenu-cliphist": [
-      "ubuntu26",
       "x220"
     ],
     ".local/bin/scripts/dmenu-file": [
-      "ubuntu26"
+      "x220"
     ],
     ".local/bin/scripts/dmenu-imageviewer": [
-      "ubuntu26",
       "x220"
     ],
     ".local/bin/scripts/dmenu-notes": [
@@ -375,11 +371,9 @@
       "x220"
     ],
     ".local/bin/scripts/dmenu-power": [
-      "ubuntu26",
       "x220"
     ],
     ".local/bin/scripts/dmenu-sys": [
-      "ubuntu26",
       "x220"
     ],
     ".local/bin/scripts/herdr-sessioniser": [

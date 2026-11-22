@@ -107,8 +107,8 @@ return {
         "lua", "vim", "vimdoc", "query",
         "python", "css", "javascript", "typescript",
         "html", "regex", "toml", "yaml", "sql",
-        "markdown", "markdown_inline", "dockerfile", "dart", "c_sharp",
-      }
+        "markdown", "markdown_inline", "dockerfile",
+    }
     end,
   },
   {
@@ -223,7 +223,6 @@ return {
       require("mason-lspconfig").setup({
         ensure_installed = {
           "clangd",
-          "omnisharp",
           "bashls",
           "tailwindcss",
           "lua_ls",
@@ -250,18 +249,6 @@ return {
           filetypes = { "c", "cpp" },
         },
         bashls = {},
-        omnisharp = {},
-        dartls = {
-          cmd = function(dispatchers, config)
-            local root = vim.fs.root(config.root_dir, ".fvm")
-            local dart = root and root .. "/.fvm/flutter_sdk/bin/dart" or "dart"
-
-            return vim.lsp.rpc.start(
-              { dart, "language-server", "--protocol=lsp" },
-              dispatchers
-            )
-          end,
-        },
         tailwindcss = {},
         lua_ls = {},
         ty = {},

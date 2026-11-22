@@ -11,7 +11,10 @@ Active source: `~/.local/share/chezmoi`. No branch switching is required.
 Profiles preserve the original branch's file set. A config absent from that branch
 is not silently inherited from another machine. Identical content is stored once;
 files that differ use small `.tmpl` selectors and raw bodies in
-`.chezmoitemplates/profiles/`. Mac Neovim follows Ubuntu (without ClickHouse),
+`.chezmoitemplates/profiles/`. Shared Mac/Ubuntu bodies live in `profiles/core/`
+(previously `mac-ubuntu26/`); btop, cliamp, Neovim bootstrap and visit helpers use
+shared `.tmpl` bodies with small profile-specific sections. These are evaluated
+with `includeTemplate`; other bodies remain literal includes. Mac Neovim follows Ubuntu (without ClickHouse),
 with Mac-specific tmux bindings and corrected paths; X220's tree remains separate.
 `.chezmoiignore` gates both OS and profile, including files unique to one Neovim tree.
 
@@ -44,7 +47,7 @@ chezmoi diff
 
 For a profile selector, edit the corresponding raw body under
 `.chezmoitemplates/profiles/`, not the selector. Bodies are included literally (not
-re-evaluated as Go templates); old absolute home prefixes are replaced at render
+re-evaluated as Go templates, except shared `.tmpl` bodies in `core/`); old absolute home prefixes are replaced at render
 time with the destination user's home. Run `chezmoi re-add` cautiously: it can
 replace a profile selector with this machine's contents.
 
