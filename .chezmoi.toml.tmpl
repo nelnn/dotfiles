@@ -1,0 +1,7 @@
+{{- $defaultProfile := .chezmoi.hostname -}}
+{{- if eq .chezmoi.os "darwin" -}}
+{{- $defaultProfile = "mac" -}}
+{{- end -}}
+{{- $profile := promptStringOnce . "profile" "Machine profile (mac, x220, ubuntu26, or another name)" $defaultProfile -}}
+[data]
+    profile = {{ $profile | quote }}

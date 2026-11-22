@@ -1,0 +1,32 @@
+# Repository documentation is not installed into $HOME.
+README.md
+docs
+
+# Generated files and backups should never be deployed.
+**/.DS_Store
+**/*.bak
+**/*.bak-*
+**/automatic_backups
+**/.zcompdump*
+
+# macOS-only applications.
+{{ if ne .chezmoi.os "darwin" }}
+.config/aerospace
+.config/karabiner
+.config/skhd
+.config/yabai
+{{ end }}
+
+# X220 desktop configuration: enable only on its machine profile.
+{{ if ne .profile "x220" }}
+.config/dunst
+.config/picom
+.config/x11
+.xprofile
+{{ end }}
+
+# Linux-only configuration.
+{{ if ne .chezmoi.os "linux" }}
+.config/keyd
+.config/systemd
+{{ end }}
