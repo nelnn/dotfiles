@@ -1,0 +1,12 @@
+[global]
+load_dotenv = true
+log_filter = "^$"
+hide_env_diff = true
+
+
+[whitelist]
+prefix = [
+  "~/work/dev-local/",
+  "~/work/databricks-core/",
+  "~/work/sensorium/",
+]

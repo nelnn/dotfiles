@@ -1,0 +1,11 @@
+[Unit]
+Description=Laptop camera virtual webcam bridge
+
+[Service]
+ExecStart=%h/.local/bin/laptop-camera-bridge
+Restart=on-failure
+RestartSec=3
+KillMode=control-group
+
+[Install]
+WantedBy=default.target
