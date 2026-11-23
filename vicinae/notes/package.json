@@ -1,0 +1,15 @@
+{
+  "$schema": "https://vicinae.com/schemas/extension.json",
+  "name": "local-notes",
+  "title": "Local Notes",
+  "description": "Browse and create Markdown notes in Neovim and Ghostty.",
+  "icon": "icon.png",
+  "author": "nsc",
+  "license": "MIT",
+  "categories": ["Productivity"],
+  "commands": [{ "name": "notes", "title": "Notes", "description": "Find or create a Markdown note", "mode": "view" }],
+  "preferences": [{ "name": "notesDirectory", "title": "Notes Directory", "description": "Folder containing Markdown notes. Supports ~. Created when saving your first note.", "type": "textfield", "required": true, "default": "~/personal/notes" }],
+  "scripts": { "build": "vici build", "dev": "vici develop", "typecheck": "tsc --noEmit", "test": "node --experimental-strip-types --test src/notes-store.test.ts", "test:bundle": "node check-bundle.cjs" },
+  "dependencies": { "@vicinae/api": "0.30.1" },
+  "devDependencies": { "@types/node": "^22.0.0", "@types/react": "^19.0.0", "typescript": "^5.9.0" }
+}

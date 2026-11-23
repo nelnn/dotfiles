@@ -45,6 +45,13 @@
             }
          }
       },
+      "clipboard": {
+         "entrypoints": {
+            "history": {
+               "shortcut": "alt+V"
+            }
+         }
+      },
       "scripts": {
          "preferences": {
             "customDirs": []

@@ -184,7 +184,7 @@ default_orientation = "perpendicular"
 [settings.layout.gaps.outer]
 top = 0
 left = 6
-bottom = 26
+bottom = 20
 right = 6
 
 [settings.layout.gaps.inner]
