@@ -5,6 +5,9 @@
     "x220": "e889faa118632510d5ea4413f6150ab22d7b5b68"
   },
   "files": {
+    ".local/bin/install-mac": [
+      "mac"
+    ],
     ".config/boomer/config": [
       "ubuntu26"
     ],

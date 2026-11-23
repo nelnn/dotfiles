@@ -37,6 +37,12 @@ All application configs target `~/.config`. Executable helper scripts target
 startup shims and the X220 `.xprofile` shim: shells/session managers look for these
 at fixed home paths. Their actual configuration remains under `~/.config`.
 
+## macOS package setup
+
+The `mac` profile installs `~/.local/bin/install-mac` (formerly the repository's
+`install.sh`). Run `install-mac` manually to install Homebrew packages and apps;
+chezmoi does not execute it automatically. It refuses to run outside macOS.
+
 ## Editing
 
 ```sh

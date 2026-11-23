@@ -7,7 +7,6 @@ sketchybar
 vicinae
 chezmoi
 config.sh
-install.sh
 local.sh
 **/.DS_Store
 **/*.bak
@@ -90,6 +89,7 @@ local.sh
 .config/terraform/terraform.rc
 .config/tor/torrc
 .config/vim/vimrc
+.local/bin/install-mac
 .local/bin/ffmepg-meta
 .local/bin/musicsort
 .local/bin/musictag

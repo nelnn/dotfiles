@@ -1,5 +1,10 @@
 #!/usr/bin/env zsh
 
+if [[ "$(uname -s)" != "Darwin" ]]; then
+    echo "install-mac is only supported on macOS." >&2
+    exit 1
+fi
+
 # ── Homebrew ──────────────────────────────────────────────────────────────────
 if ! command -v brew &>/dev/null; then
     echo "Homebrew not installed. Installing Homebrew."
