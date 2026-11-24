@@ -512,10 +512,10 @@ comb1 = "Alt + Shift"
 "Ctrl + Alt + Meta + J" = { exec = ["/usr/local/bin/python3", "/Users/nsc/.local/bin/rift-resize-vertical.py", "j"] }
 "Ctrl + Alt + Meta + K" = { exec = ["/usr/local/bin/python3", "/Users/nsc/.local/bin/rift-resize-vertical.py", "k"] }
 
-"Alt + H" = { move_focus = "left" }
+# "Alt + H" = { move_focus = "left" }
 "Alt + J" = "next_window"
 "Alt + K" = "prev_window"
-"Alt + L" = { move_focus = "right" }
+# "Alt + L" = { move_focus = "right" }
 
 "comb1 + H" = { move_node = "left" }
 "comb1 + J" = { move_node = "down" }

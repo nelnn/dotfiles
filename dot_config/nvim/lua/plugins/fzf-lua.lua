@@ -34,6 +34,7 @@ return {
       end
 
       require("fzf-lua").setup({
+        files = { cmd = "rg --files --hidden --color=never -g '!.git' -g '!.jj'" },
         colorschemes = { actions = { ["default"] = save_colorscheme } },
         awesome_colorschemes = { actions = { ["default"] = save_colorscheme } },
         -- fzf_colors = {

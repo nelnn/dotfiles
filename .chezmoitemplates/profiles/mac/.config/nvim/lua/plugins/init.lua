@@ -217,8 +217,7 @@ return {
 
       -- .env files are usually gitignored; fd/rg have no "force include" flag and
       -- --ignore-file loses to .gitignore, so add them back as a second source.
-      local fd = vim.fn.executable("fdfind") == 1 and "fdfind" or "fd"
-      local fd_env = fd .. " --color=never --hidden --no-ignore --type f --exclude .git --glob '.env*'"
+      local rg_env = "rg --files --color=never --hidden --no-ignore -g '!.git' -g '.env*'"
           .. " | git check-ignore --stdin 2>/dev/null"
 
       require("fzf-lua").setup({
@@ -234,13 +233,12 @@ return {
           formatter = "path.filename_first",
         },
         files = {
-          cmd = ("%s --color=never --hidden --type f --type l --exclude .git; %s")
-              :format(fd, fd_env),
+          cmd = "rg --files --color=never --hidden -g '!.git'; " .. rg_env,
         },
         grep = {
           hidden = true,
           -- appended as rg's search paths: explicit paths bypass .gitignore
-          filespec = ". $(" .. fd_env .. ")",
+          filespec = ". $(" .. rg_env .. ")",
         },
         --   -- MISC GLOBAL SETUP OPTIONS, SEE BELOW
         --   -- fzf_bin = ...,

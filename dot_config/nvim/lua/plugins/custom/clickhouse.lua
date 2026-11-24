@@ -83,6 +83,30 @@ end
 
 query_command("ClickHouse", show_in_buffer)
 
+---Export the current query's result as CSV, preserving ClickHouse's raw output.
+query_command("ClickHouseSaveCSV", function(query)
+  vim.ui.input({ prompt = "Save CSV to: ", default = vim.fn.getcwd() .. "/query.csv", completion = "file" }, function(path)
+    if not path or path == "" then return end
+    path = vim.fn.fnamemodify(vim.fn.expand(path), ":p")
+    if vim.uv.fs_stat(path) and vim.fn.confirm("Overwrite " .. path .. "?", "&Yes\n&No", 2) ~= 1 then
+      return
+    end
+    vim.system(curl_args("default_format=CSVWithNames"), { stdin = query }, vim.schedule_wrap(function(result)
+      if result.code ~= 0 then
+        return vim.notify(result.stdout ~= "" and result.stdout or result.stderr, vim.log.levels.ERROR)
+      end
+      local file, err = io.open(path, "wb")
+      if not file then return vim.notify(err, vim.log.levels.ERROR) end
+      local written, write_err = file:write(result.stdout)
+      local closed, close_err = file:close()
+      if not written or not closed then
+        return vim.notify(write_err or close_err, vim.log.levels.ERROR)
+      end
+      vim.notify("Saved CSV to " .. path)
+    end))
+  end)
+end)
+
 ---A `$'...'` shell literal, safe for newlines and quotes.
 ---@param value string
 ---@return string
@@ -230,7 +254,7 @@ local function expand(node)
   end
 end
 
----`<CR>`: fold a database or table, or put a column name in the window you came from.
+---Fold a database or table, or put a column name in the window you came from.
 local function toggle()
   local node = sidebar.lines[vim.api.nvim_win_get_cursor(0)[1]]
   if not node then return end
@@ -243,17 +267,16 @@ local function toggle()
   render()
 end
 
----`p`: show the SELECT that would preview a table's rows, and run it if confirmed.
+---Preview a table's rows immediately.
 local function preview()
   local node = sidebar.lines[vim.api.nvim_win_get_cursor(0)[1]]
   if not node or node.kind ~= "table" then return end
   local query = ("SELECT * FROM `%s`.`%s` LIMIT %d"):format(node.db, node.label, PREVIEW_ROWS)
-  if vim.fn.confirm(query, "&Run\n&Cancel", 2) ~= 1 then return end
   vim.cmd.wincmd("p") -- the result splits the editing window, not the narrow sidebar
   show_in_buffer(query)
 end
 
--- Databases -> tables -> columns, in a tree buffer on the left. `p` previews a table.
+-- Enter previews tables; Tab folds nodes. `p` also previews a table.
 -- Closing it (`q`) drops the cached tree, so reopening refreshes.
 vim.api.nvim_create_user_command("ClickHouseSchema", function()
   local win = sidebar.buf and vim.fn.bufwinid(sidebar.buf) or -1
@@ -264,7 +287,12 @@ vim.api.nvim_create_user_command("ClickHouseSchema", function()
     sidebar.buf = vim.api.nvim_get_current_buf()
     vim.bo.buftype, vim.bo.bufhidden, vim.bo.swapfile = "nofile", "wipe", false
     vim.wo.number, vim.wo.relativenumber, vim.wo.winfixwidth = false, false, true
-    vim.keymap.set("n", "<cr>", toggle, { buffer = sidebar.buf })
+    vim.keymap.set("n", "<cr>", function()
+      local node = sidebar.lines[vim.api.nvim_win_get_cursor(0)[1]]
+      if node and node.kind == "table" then return preview() end
+      toggle()
+    end, { buffer = sidebar.buf })
+    vim.keymap.set("n", "<tab>", toggle, { buffer = sidebar.buf })
     vim.keymap.set("n", "q", "<cmd>bd<cr>", { buffer = sidebar.buf })
     vim.keymap.set("n", "p", preview, { buffer = sidebar.buf })
     sidebar.root = vim.tbl_map(function(name)
@@ -274,9 +302,10 @@ vim.api.nvim_create_user_command("ClickHouseSchema", function()
   end)
 end, {})
 
-vim.keymap.set("n", "<leader>ch", "<cmd>ClickHouseVisiDataPane<cr>", { desc = "ClickHouse in pane" })
-vim.keymap.set("n", "<leader>Ch", "<cmd>ClickHouseVisiDataTab<cr>", { desc = "ClickHouse in tab" })
-vim.keymap.set("n", "<leader>bch", "<cmd>ClickHouse<cr>", { desc = "ClickHouse in buffer" })
+vim.keymap.set("n", "<leader>chv", "<cmd>ClickHouseVisiDataPane<cr>", { desc = "ClickHouse in pane" })
+vim.keymap.set("n", "<leader>cht", "<cmd>ClickHouseVisiDataTab<cr>", { desc = "ClickHouse in tab" })
+vim.keymap.set("n", "<leader>ch", "<cmd>ClickHouse<cr>", { desc = "ClickHouse in buffer" })
+vim.keymap.set("n", "<leader>chs", "<cmd>ClickHouseSaveCSV<cr>", { desc = "ClickHouse save CSV" })
 vim.keymap.set("n", "<leader>cs", "<cmd>ClickHouseSchema<cr>", { desc = "ClickHouse schema browser" })
 
 return {}

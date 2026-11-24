@@ -29,6 +29,16 @@
       "system_info": false
    },
    "providers": {
+      "@nsc/local-notes": {
+         "preferences": {
+            "notesDirectory": "~/personal/notes"
+         },
+         "entrypoints": {
+            "notes": {
+               "shortcut": "super+control+alt+N"
+            }
+         }
+      },
       "applications": {
          "entrypoints": {
             "com.apple.TV": {
@@ -49,6 +59,13 @@
          "entrypoints": {
             "history": {
                "shortcut": "alt+V"
+            }
+         }
+      },
+      "macos-settings": {
+         "entrypoints": {
+            "com.apple.Spotlight-Settings.extension": {
+               "enabled": false
             }
          }
       },

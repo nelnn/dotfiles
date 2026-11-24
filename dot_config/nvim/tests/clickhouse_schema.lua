@@ -37,7 +37,8 @@ assert(vim.deep_equal(lines(), { "> default", "> logs" }), vim.inspect(lines()))
 press_enter_on(2)
 assert(vim.deep_equal(lines(), { "> default", "v logs", "  > events" }), vim.inspect(lines()))
 
-press_enter_on(3)
+vim.api.nvim_win_set_cursor(0, { 3, 0 })
+vim.api.nvim_feedkeys(vim.keycode("<tab>"), "x", false)
 assert(vim.deep_equal(lines(), { "> default", "v logs", "  v events",
   "      id                             UInt64", "      name                           String" }), vim.inspect(lines()))
 
@@ -48,27 +49,25 @@ assert(#lines() == 5, vim.inspect(lines()))
 
 assert(vim.deep_equal(sent, { "SHOW DATABASES", "SHOW TABLES FROM `logs`", "DESCRIBE `logs`.`events`" }),
   vim.inspect(sent))
--- `p` on a table node asks before running, and only offers it for tables.
+-- Enter previews tables immediately; neither preview key may prompt.
 local preview_sql = "SELECT * FROM `logs`.`events` LIMIT 100"
 responses[preview_sql] = "value\n1\n"
-local prompted, answer = nil, 2
-vim.fn.confirm = function(message) prompted = message return answer end
+vim.fn.confirm = function() error("Preview must not ask for confirmation") end
+local sidebar_win = vim.api.nvim_get_current_win()
 
-local function press_p_on(row)
-  prompted = nil
-  vim.api.nvim_win_set_cursor(0, { row, 0 })
-  vim.api.nvim_feedkeys("p", "x", false)
-end
+vim.api.nvim_win_set_cursor(0, { 4, 0 })
+vim.api.nvim_feedkeys("p", "x", false) -- columns must not run queries
+assert(#sent == 3, vim.inspect(sent))
 
-press_p_on(4) -- a column, not a table: no prompt, no query
-assert(prompted == nil, tostring(prompted))
-
-press_p_on(3)
-assert(prompted == preview_sql, tostring(prompted))
-assert(#sent == 3, "Cancelling must not run the query: " .. vim.inspect(sent))
-
-answer = 1
-press_p_on(3)
+press_enter_on(3)
+lines() -- wait for the preview buffer
 assert(sent[4] == preview_sql, vim.inspect(sent))
+assert(vim.deep_equal(vim.api.nvim_buf_get_lines(0, 0, -1, false), { "value", "1", "" }))
+
+vim.api.nvim_set_current_win(sidebar_win)
+vim.api.nvim_win_set_cursor(0, { 3, 0 })
+vim.api.nvim_feedkeys("p", "x", false)
+lines()
+assert(sent[5] == preview_sql, vim.inspect(sent))
 
 print("ClickHouse schema tree checks passed")
