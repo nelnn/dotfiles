@@ -1,0 +1,14 @@
+{{ include ".chezmoitemplates/profiles/core/.config/yazi/init.lua" }}
+local home = os.getenv("HOME")
+
+require("yamb"):setup({
+	bookmarks = {
+		{ tag = "Home", path = home .. "/", key = "h" },
+		{ tag = "Downloads", path = home .. "/Downloads/", key = "d" },
+		{ tag = "Config", path = home .. "/.config/", key = "c" },
+		{ tag = "Dotfiles", path = home .. "/.local/share/chezmoi/", key = "." },
+	},
+	-- Runtime data stays local, separate from chezmoi-managed configuration.
+	path = home .. "/.config/yazi/bookmark",
+	jump_notify = false,
+})

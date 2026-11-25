@@ -1,5 +1,5 @@
 bindkey '^@' autosuggest-accept # Ctrl + Space to accept autosuggest
-bindkey -s '^o' 'yazi\n' # Ctrl + o open yazi
+bindkey -s '^o' 'y\n' # Ctrl + o open yazi; keep its directory on quit
 
 # Change working directory upon quitting yazi
 function y() {

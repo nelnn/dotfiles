@@ -1,0 +1,5 @@
+# Shared Yazi navigation bindings.
+[[mgr.prepend_keymap]]
+on = "f"
+run = "plugin jump-to-char"
+desc = "Jump to file by first character"

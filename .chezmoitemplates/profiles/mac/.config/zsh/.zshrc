@@ -11,25 +11,27 @@ setopt auto_cd
 # Enable colors and change prompt:
 autoload -U colors && colors
 
-# Git Status Prompt
-# Using single quotes around the PROMPT is very important, otherwise
-# the git branch will always be empty. Using single quotes delays the
-# evaluation of the prompt. Also PROMPT is an alias to PS1.
-git_prompt() {
-    local branch="$(git symbolic-ref HEAD 2> /dev/null | cut -d'/' -f3-)"
-    local branch_truncated="${branch##*[/|--]}"
-    if (( ${#branch} > 20 )); then
-        branch="...${branch_truncated}"
+# Use two lines in Git repositories, one line elsewhere.
+autoload -Uz add-zsh-hook
+update_prompt_layout() {
+    local branch
+    typeset -g prompt_git_text='' prompt_newline='' prompt_right_up='' prompt_right_down=''
+    if branch=$(git symbolic-ref --quiet --short HEAD 2>/dev/null) ||
+       branch=$(git rev-parse --short HEAD 2>/dev/null); then
+        # Escape percent signs so branch names aren't interpreted as prompt codes.
+        prompt_git_text=" (${branch//\%/%%})"
+        prompt_newline=$'\n'
+        prompt_right_up=$'\e[1A'
+        prompt_right_down=$'\e[1B'
     fi
-
-    [ -n "${branch}" ] && echo " (${branch})"
 }
+add-zsh-hook precmd update_prompt_layout
 
-# Prompt Config
+# Keep substitutions deferred until the prompt is rendered.
 setopt PROMPT_SUBST
-PROMPT=$'%B%{$fg[red]%}[%{$fg[blue]%}%(6~|.../%1~|%~)%{$fg[red]%}]%{$fg[green]%}$(git_prompt)%{$reset_color%}%{$fg[yellow]%}%{$fg[magenta]%}%(?.$.)%b '
-# Show Datetime on the right side.
-RPROMPT='%{$fg[cyan]%}[%D{%f/%m/%y} | %D{%L:%M:%S}]'
+PROMPT='%B%{$fg[red]%}[%{$fg[blue]%}%(6~|.../%1~|%~)%{$fg[red]%}]%{$fg[green]%}${prompt_git_text}%{$reset_color%}${prompt_newline}%{$fg[yellow]%}%{$fg[magenta]%}%(?.$.)%b '
+# Keep the date on the first line; cursor movements are zero-width to ZLE.
+RPROMPT='%{${prompt_right_up}%}%{$fg[cyan]%}[%D{%a}·%D{%f%b}·%D{%L:%M}]%{$reset_color%}%{${prompt_right_down}%}'
 
 # Persistent history in the XDG state directory:
 HISTSIZE=100000
@@ -101,6 +103,8 @@ bindkey '^@' autosuggest-accept # Ctrl + Space to accept
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 
+# Keep dependency and internal directories out of zoxide (including Yazi's picker).
+export _ZO_EXCLUDE_DIRS="$HOME:*/.venv:*/.venv/*:*/venv:*/venv/*:*/node_modules:*/node_modules/*:*/.git:*/.git/*:*/.jj:*/.jj/*:*/__pycache__:*/__pycache__/*"
 eval "$(zoxide init zsh)" # Load zoxide (cd replacement)
 eval "$(fnm env --use-on-cd --shell zsh)" # fnm for node.js version manager
 # Load nvm (Node Version Manager)
