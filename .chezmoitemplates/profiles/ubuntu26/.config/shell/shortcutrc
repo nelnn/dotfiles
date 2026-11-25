@@ -22,11 +22,13 @@ bindkey -s '^f' '^ucd "$(dirname "$(fzf --height=40 --preview "bat --color=alway
 
 # Fuzzy find and open files with preview using fzf and bat
 rfv() (
+  export RFV_CWD="$PWD"
   RELOAD='reload:rg --column --color=always --smart-case {q} || :'
-  OPENER='if [[ $FZF_SELECT_COUNT -eq 0 ]]; then
-            nvim {1} +{2}     # No selection. Open the current line in Vim.
+  OPENER='cd -- "$RFV_CWD" || exit
+          if [[ $FZF_SELECT_COUNT -eq 0 ]]; then
+            "${EDITOR:-nvim}" +{2} {1}
           else
-            nvim +cw -q {+f}  # Build quickfix list for the selected items.
+            "${EDITOR:-nvim}" +cw -q {+f}
           fi'
   fzf --disabled --ansi --multi \
       --bind "start:$RELOAD" --bind "change:$RELOAD" \

@@ -1,4 +1,13 @@
 return {
+  -- JW's theme
+  {
+    "dgrco/deepwater.nvim",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      vim.cmd.colorscheme("deepwater")
+    end,
+  },
   "xiyaowong/transparent.nvim",
   {
     "christoomey/vim-tmux-navigator",

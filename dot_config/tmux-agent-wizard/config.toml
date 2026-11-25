@@ -1,0 +1,11 @@
+# Minimal Agent Wizard: inherit terminal colours, show only essentials.
+[theme]
+name = "terminal"
+
+[ui]
+layout = "flat"
+status_indicators = "dots"
+preview = true
+labels = true
+titles = true
+show_git = true
